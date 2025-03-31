@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+.title {
+  color: rgba(114, 114, 114, 1);
+  font-weight: 700;
+  font-size: 22px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.option {
+  color: rgba(114, 114, 114, 1);
+  font-weight: 400;
+  font-size: 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}

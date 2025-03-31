@@ -1,0 +1,146 @@
+:root {
+    --primary-color: #5a9e8c;
+}
+
+p {
+    color: var(--primary-color) !important;
+}
+
+.cardText {
+    transition: all 0.3s ease-in-out;
+    color: var(--primary-color) !important;
+}
+
+.textGreen {
+    color: var(--primary-color) !important;
+}
+
+.card {
+    border: 1px solid var(--primary-color) !important;
+    overflow: hidden !important;
+    border-radius: 24px !important;
+    max-width: 25rem;
+    height: 12rem;
+}
+
+.cardContent {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.detailscontainer {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out !important;
+}
+
+.detailscontainer.expanded {
+    max-height: 5000px !important;  
+    opacity: 1 !important;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out !important;
+}
+
+.cardDescription {
+    max-height: 0px !important; 
+    opacity: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out !important;
+}
+
+.cardDescription.expanded {
+    max-height: 5000px !important;
+    opacity: 1 !important;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out !important;
+}
+
+.card-content {
+    padding: 10px !important;
+}
+
+.card-description-button {
+    cursor: pointer !important;
+    color: #007bff !important;
+    background: none !important;
+    border: none !important;
+    text-decoration: underline !important;
+    font-size: 14px !important;
+}
+
+.containerBtn button {
+    width: 11rem !important;
+    flex-shrink: 0;
+}
+
+.containerBtn .btnPrimary,
+.containerBtn .btnSecundary {
+    text-align: center; 
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    border-radius: 30px !important;
+    height: 5vh !important;
+    border: 1px solid var(--primary-color) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 12rem !important;
+    height: 3.375rem !important;
+    border-radius: 2.3125rem !important;
+    /* padding: 0.75rem !important; */
+    gap: 0.625rem !important;
+}
+
+.btnPrimary {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.btnSecundary {
+    background-color: white !important;
+    color: var(--primary-color) !important;
+}
+
+.btn:hover {
+    cursor: pointer !important;
+    filter: brightness(0.85) !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+button .material-icons {
+    vertical-align: middle !important;
+    font-size: 30px !important;
+    margin-left: 10px !important;
+}
+
+.itemLi {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.iconLi {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    color: #5a9e8c !important;
+}
+
+.iconButton {
+    width: 1rem !important;
+    height: 1rem !important;
+}
+
+.icon {
+    transition: all 0.5s ease-in-out !important; 
+    opacity: 1 !important;
+}
+
+.icon.visible {
+    opacity: 0 !important;
+}

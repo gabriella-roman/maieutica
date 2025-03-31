@@ -1,0 +1,21 @@
+.jobBoard {
+    padding: 20px;
+    justify-content: right;
+}
+
+.jobCardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.jobCardsContainer > div {
+    flex: 1 1 calc(50% - 20px);
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .jobCardsContainer > div {
+        flex: 1 1 100%;
+    }
+}
