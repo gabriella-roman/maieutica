@@ -9,10 +9,8 @@ export function Header() {
   return (
     <div className={`${styles.header} navbar navbar-expand-lg navbar-light bg-light`}>
       <div className="container-fluid">
-        {/* Logo */}
         <img src={logo} alt="Logo-Maieutica" className="navbar-brand" />
 
-        {/* Toggle Button para Mobile */}
         <button
           className="navbar-toggler"
           type="button"
@@ -25,7 +23,6 @@ export function Header() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Links de Navegação */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <div className={`${styles.links} navbar-nav ms-auto`}>
             <a className={`${styles.text} nav-link`} onClick={() => navigate('/')}>
@@ -40,7 +37,6 @@ export function Header() {
             <a className={`${styles.text} nav-link`} onClick={() => navigate('/contact-us')}>
               FALE CONOSCO
             </a>
-
 
             <button
               className={`${styles.button} btn`}

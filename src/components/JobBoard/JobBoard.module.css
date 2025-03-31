@@ -1,0 +1,25 @@
+/* Estilos para o container de cards */
+.jobBoard {
+    padding: 20px;
+    justify-content: right;
+}
+
+/* Definindo o layout com Flexbox para exibir em duplas */
+.jobCardsContainer {
+    display: flex;
+    flex-wrap: wrap;  /* Permite que os itens se movam para a próxima linha */
+    gap: 20px;  /* Espaçamento entre os cards */
+}
+
+/* Estilo para cada card para garantir que cada um ocupe metade da linha */
+.jobCardsContainer > div {
+    flex: 1 1 calc(50% - 20px);  /* Ocupa 50% da linha, subtraindo o espaçamento */
+    box-sizing: border-box;
+}
+
+/* Garantir que os cards não sejam muito grandes em telas maiores */
+@media (max-width: 768px) {
+    .jobCardsContainer > div {
+        flex: 1 1 100%;  /* Faz os cards ocuparem toda a largura da tela */
+    }
+}
