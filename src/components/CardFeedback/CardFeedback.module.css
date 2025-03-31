@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+.button {
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  color: white;
+  padding: 8px;
+  border: none;
+  height: 60px;
+  width: 60px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.699);
+}
+
+.container {
+  background-color: rgba(206, 108, 57, 1);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 740px;
+  padding: 64px;
+  height: 650px;
+  width: 750px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.text {
+  color: white;
+  font-size: 30px;
+  font-weight: 400;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: 0;
+}
+
+.author {
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: 0;
+}
+
+.professionalization {
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: 0;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.authorContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.image {
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  object-fit: cover;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  gap: 16px;
+}
+
+.line {
+  background-color: white;
+  flex-grow: 1;
+  height: 1px;
+}
