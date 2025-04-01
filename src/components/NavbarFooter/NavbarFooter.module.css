@@ -13,3 +13,25 @@
   font-size: 16px;
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
+
+/* smartphone */
+@media screen and (max-width: 767px) {
+  .title {
+    font-size: 16px;
+  }
+
+  .option {
+    font-size: 14px;
+  }
+}
+
+/* tablet */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .option {
+    font-size: 16px;
+  }
+}
