@@ -1,53 +1,77 @@
+import { useState, useEffect, useRef } from 'react'
 import styles from './Header.module.css'
 import logo from '../../assets/images/logo-maieutica.svg'
 import arrow from '../../assets/icons/arrow.svg'
+import menu from '../../assets/icons/menu.svg'
+import close from '../../assets/icons/close.svg'
 import { useNavigate } from 'react-router-dom'
 
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navigate = useNavigate()
+  const menuRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  const handleClickOutside = (event: { target: any }) => {
+    if (menuRef.current && !menuRef.current.contains(event.target) && headerRef.current && !headerRef.current.contains(event.target)) {
+      setIsMenuOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
 
   return (
-    <div className={`${styles.header} navbar navbar-expand-lg navbar-light bg-light`}>
-      <div className="container-fluid">
-        <img src={logo} alt="Logo-Maieutica" className="navbar-brand" />
+    <div className={styles.header} ref={headerRef}>
+      <img src={logo} alt="Logo-Maieutica" />
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
+      <div
+        className={`${styles.links} ${isMenuOpen ? styles.open : ''}`}
+        ref={menuRef}
+      >
+        <img
+          className={styles.closeIcon}
+          style={{ cursor: 'pointer', alignSelf: 'flex-end' }}
+          onClick={toggleMenu}
+          src={close}
+          alt="Close"
+        />
+
+        <a href="/" className={styles.text} onClick={() => navigate('/')}>
+          HOME
+        </a>
+        <a href="/about-us" className={styles.text} onClick={() => navigate('/about-us')}>
+          SOBRE NÓS
+        </a>
+        <a href="/our-services" className={styles.text} onClick={() => navigate('/our-services')}>
+          NOSSOS SERVIÇOS
+        </a>
+        <a href="/contact-us" className={styles.text} onClick={() => navigate('/contact-us')}>
+          FALE CONOSCO
+        </a>
+
+        <button className={styles.button} onClick={() => navigate('/job-board')}>
+          VER VAGAS
+          <img src={arrow} alt="Arrow" />
         </button>
-
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <div className={`${styles.links} navbar-nav ms-auto`}>
-            <a className={`${styles.text} nav-link`} onClick={() => navigate('/')}>
-              HOME
-            </a>
-            <a className={`${styles.text} nav-link`} onClick={() => navigate('/about-us')}>
-              SOBRE NÓS
-            </a>
-            <a className={`${styles.text} nav-link`} onClick={() => navigate('/our-services')}>
-              NOSSOS SERVIÇOS
-            </a>
-            <a className={`${styles.text} nav-link`} onClick={() => navigate('/contact-us')}>
-              FALE CONOSCO
-            </a>
-
-            <button
-              className={`${styles.button} btn`}
-              onClick={() => navigate('/job-board')}
-            >
-              VER VAGAS
-              <img src={arrow} alt="Arrow" />
-            </button>
-          </div>
-        </div>
       </div>
+
+      <img
+        style={{ cursor: 'pointer' }}
+        className={styles.menuIcon}
+        onClick={toggleMenu}
+        src={menu}
+        alt="Menu"
+      />
     </div>
   )
 }
