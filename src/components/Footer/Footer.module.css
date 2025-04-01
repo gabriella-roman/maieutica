@@ -3,12 +3,18 @@
 .footer {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .container {
+  display: flex;
   flex-direction: row;
-  justify-content: space-between !important;
-  padding: 32px 72px !important;
+  justify-content: space-between;
+  padding: 32px 72px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .bottom {
@@ -17,13 +23,15 @@
   align-items: center;
   background: rgba(221, 221, 221, 1);
   padding: 16px 72px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .bottom p {
   font-size: 12px;
   font-weight: 700;
   color: rgba(114, 114, 114, 1);
-  text-decoration: none;
   font-family: 'Plus Jakarta Sans', sans-serif;
   cursor: pointer;
   margin: 0;
@@ -41,4 +49,65 @@
   font-weight: 700;
   font-size: 16px;
   font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.title {
+  color: rgba(114, 114, 114, 1);
+  font-weight: 700;
+  font-size: 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.icons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* smartphone */
+@media screen and (max-width: 767px) {
+  .container {
+    flex-direction: column;
+    padding: 24px 32px;
+  }
+
+  .bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .h1 {
+    font-size: 14px;
+  }
+
+  .p {
+    font-size: 14px;
+  }
+
+  .bottom p {
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+}
+
+/* tablet */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    padding: 24px 32px;
+  }
+
+  .box {
+    max-width: 200px;
+  }
+
+  .h1,
+  .p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
 }
