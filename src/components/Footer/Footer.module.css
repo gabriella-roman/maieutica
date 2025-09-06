@@ -1,44 +1,122 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+:root {
+  --container-max: 1120px;
+  --muted: #727272;
+  --bg-light: #f3f4f6;
+  --bottom: #dddddd;
+  --pill: #5C5E5F;
+}
 
 .footer {
   display: flex;
   flex-direction: column;
+  background: var(--bg-light);
 }
 
 .container {
-  flex-direction: row;
-  justify-content: space-between !important;
-  padding: 32px 72px !important;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 28px 20px 0;
 }
 
-.bottom {
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.colLogo {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: rgba(221, 221, 221, 1);
-  padding: 16px 72px;
 }
 
-.bottom p {
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(114, 114, 114, 1);
-  text-decoration: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  cursor: pointer;
-  margin: 0;
+.col,
+.colRight {
+  display: grid;
+  gap: 12px;
+}
+
+.infoGroup {
+  display: grid;
+  gap: 4px;
 }
 
 .h1 {
-  color: rgba(114, 114, 114, 1);
+  color: var(--muted);
   font-weight: 400;
   font-size: 16px;
+  margin: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .p {
-  color: rgba(114, 114, 114, 1);
+  color: var(--muted);
   font-weight: 700;
   font-size: 16px;
+  margin: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.socials a {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--pill);
+  border-radius: 8px;
+  font-size: 18px;
+  transition: opacity .15s ease, transform .1s ease;
+}
+
+.socials a:hover {
+  opacity: .9;
+}
+
+.socials a:active {
+  transform: scale(.98);
+}
+
+.bottom {
+  background: var(--bottom);
+  margin-top: 24px;
+  width: 100%;
+}
+
+.bottomInner {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bottomInner p {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.brandRight {
+  text-align: right;
+}
+
+@media (min-width: 992px) {
+  .row {
+    grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    column-gap: 48px;
+  }
 }

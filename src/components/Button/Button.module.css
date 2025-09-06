@@ -1,0 +1,57 @@
+:root {
+  --accent: #C25450; 
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 60px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  text-decoration: none;
+  transition: background .2s ease, transform .06s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.full { width: 100%; }
+
+.label { white-space: nowrap; }
+
+.divider {
+  width: 1px;
+  height: 22px;
+  background: currentColor;
+  opacity: .35;
+}
+
+.icon {
+  font-size: 18px;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.button:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.button:hover .icon { transform: translateX(2px); }
+
+.button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.button:active { transform: translateY(1px); }
+
+.button:disabled {
+  opacity: .55;
+  filter: grayscale(.1);
+  pointer-events: none;
+}

@@ -1,0 +1,73 @@
+import React from "react";
+import styles from "./ContactInfo.module.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import ImgMessage from "../../assets/icons/messageIcon.svg";
+
+import { faEnvelope, faLocationDot, faFolder } from "@fortawesome/free-solid-svg-icons";
+import { faInstagram, faFacebookF, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+
+export function ContactInfo() {
+  return (
+    <section className={styles.card}>
+      <div className={styles.inner}>
+        {/* Coluna esquerda */}
+        <div className={styles.left}>
+          <span className={styles.smallTitle}>
+            MENSAGEM PARA NÓS
+            <img src={ImgMessage} alt="Imagem de uma rubrica" />
+          </span>
+
+          <h2 className={styles.title}>Fale Conosco</h2>
+
+          <p className={styles.text}>
+            Entre em contato para tirar dúvidas, solicitar informações ou conversar
+            com nossa equipe. Estamos prontos para ajudar!
+          </p>
+
+          <p className={styles.socialTitle}>NOS ENCONTRE NAS REDES SOCIAIS</p>
+
+          <div className={styles.socials}>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <FontAwesomeIcon icon={faInstagram} />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
+              <FontAwesomeIcon icon={faFacebookF} />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <FontAwesomeIcon icon={faLinkedinIn} />
+            </a>
+          </div>
+        </div>
+
+        {/* Coluna direita */}
+        <div className={styles.right}>
+          <div className={styles.infoBlock}>
+            <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />
+            <div>
+              <span className={styles.label}>E-mail</span>
+              <p className={styles.valueEmail}>contato@maieuticarh.com.br</p>
+            </div>
+          </div>
+
+          <div className={styles.infoBlock}>
+            <FontAwesomeIcon icon={faLocationDot} className={styles.icon} />
+            <div>
+              <span className={styles.label}>Localização</span>
+              <p className={styles.valueStrong}>São Paulo – SP</p>
+            </div>
+          </div>
+
+          <div className={styles.infoBlock}>
+            <FontAwesomeIcon icon={faFolder} className={styles.icon} />
+            <div>
+              <span className={styles.label}>CNPJ</span>
+              <p className={styles.valueStrong}>32.175.487/0001-30</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

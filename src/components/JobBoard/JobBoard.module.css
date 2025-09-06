@@ -19,3 +19,29 @@
         flex: 1 1 100%;
     }
 }
+
+.jobBoard {
+    padding: 2rem;
+}
+
+.filterContainer {
+    margin-bottom: 1.5rem;
+}
+
+.filterLabel {
+    margin-right: 0.5rem;
+    font-weight: 500;
+}
+
+.select {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    align-items: start; /* ✅ faz cada card ter altura independente */
+}

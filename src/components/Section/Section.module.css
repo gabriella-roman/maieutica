@@ -1,24 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
-.title {
-  font-size: 50px;
-  font-weight: 700;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  margin: 0;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  padding: 20px 24px;
+  background: var(--section-bg, #d99639);
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .category {
+  color: var(--category-color, #ffffff);
   font-size: 14px;
-  font-weight: 600;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  margin: 0;
-  padding: 0;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0.95;
+}
+
+.title {
+  margin: 2px 0 0;
+  color: var(--title-color, #ffffff);
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
 }
 
 .description {
+  margin: 8px 0 0;
+  color: var(--desc-color, #ffffff);
   font-size: 16px;
-  font-weight: 400;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  line-height: 30px;
-  margin: 0;
+  line-height: 1.55;
+  opacity: 0.98;
+}
+
+/* leve responsividade */
+@media (max-width: 420px) {
+  .container {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
 }

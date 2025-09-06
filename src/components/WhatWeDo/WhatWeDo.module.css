@@ -1,0 +1,83 @@
+:root{
+  --card-bg:#fff;
+  --stroke:#e6e7eb;
+  --shadow:0 6px 18px rgba(0,0,0,0.9);
+  --radius-lg:24px;
+  --text:#5C5E5F;
+  --accent:#CE6C39;
+  --badge-bg:#D7EFE7;
+  --badge-fg:#2E7B6A;
+}
+
+.card{
+  background:var(--card-bg);
+  border:1px solid var(--stroke);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);
+  padding:16px;
+  display:grid;
+  gap:12px;
+  color:var(--text);
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  background:var(--badge-bg);
+  color:var(--badge-fg);
+  border-radius:999px;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.02em;
+  width:max-content;
+}
+.badgeIcon{ font-size:14px; line-height:1; }
+
+.title{
+  margin:0;
+  font-weight:800;
+  font-size:26px;
+  line-height:1.2;
+  color:var(--text);
+}
+
+.text{
+  margin:0;
+  font-size:14px;
+  line-height:1.6;
+  color:var(--text);
+}
+
+/* botão outline usando a cor de accent */
+.ctaOutline{
+  margin-top:4px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 20px;
+  border-radius:999px;
+  border:2px solid var(--accent);
+  color:var(--accent);
+  background:#fff;
+  font-weight:800;
+  text-decoration:none;
+  width:max-content;
+}
+.ctaButton{
+  border:2px solid var(--accent);
+  background:#fff;
+  color:var(--accent);
+  cursor:pointer;
+}
+.arrow{ font-size:18px; line-height:1; }
+
+/* desktop */
+@media (min-width: 992px){
+  .card{ padding:20px; gap:14px; border-radius:28px; }
+  .badge{ font-size:13px; }
+  .title{ font-size:28px; }
+  .text{ font-size:15px; }
+  .ctaOutline{ padding:14px 24px; }
+}

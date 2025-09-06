@@ -1,0 +1,152 @@
+:root {
+  --container-max: 1120px;
+  --green: #2e7b6a;
+  --greenDark: #246a5b;
+  --textOn: #ffffff;
+  --mutedOn: rgba(255, 255, 255, .92);
+  --accent: #d88348;
+  --photoPh: #e6e7e8;
+  --brandDark: #5C5E5F;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.banner {
+  background: linear-gradient(180deg, #2e7b6a 0%, #246a5b 100%);
+  color: #fff;
+  padding: 18px 16px 16px;
+  overflow: hidden;
+}
+
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.left {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .2);
+  font-size: 14px;
+  width: max-content;
+}
+
+.badgeIcon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.title {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.15;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--mutedOn);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ctaRow {
+  margin-top: 6px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: var(--brandDark);
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+}
+
+.ctaIcon {
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.photoArea {
+  display: grid;
+  gap: 0;
+}
+
+.panel {
+  height: 110px;
+  background: var(--accent);
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+}
+
+.heroImage {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  background: var(--img-ph);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .08);
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .banner {
+    border-radius: 28px;
+    padding: 28px 32px;
+  }
+
+  .container {
+    grid-template-columns: minmax(0, 52%) minmax(360px, 1fr);
+    align-items: center;
+    column-gap: 32px;
+  }
+
+  .title {
+    font-size: 40px;
+    line-height: 1.15;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .panel {
+    height: 160px;
+    border-top-left-radius: 36px;
+    border-top-right-radius: 36px;
+  }
+
+  .heroImage {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    aspect-ratio: var(--portrait);
+    border-radius: 24px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .1);
+  }
+}

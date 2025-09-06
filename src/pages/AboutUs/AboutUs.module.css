@@ -1,0 +1,131 @@
+:root {
+    --container-max: 1120px;
+    --img-ph: #e6e7e8;
+    --text: #5C5E5F;
+    --accent: #C25450;
+    --bg: #f3f4f6;
+    --portrait: 3 / 4;
+}
+
+.page {
+    margin: 0;
+    padding: 0;
+    color: var(--text);
+    line-height: 1.7;
+}
+
+.contentPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg);
+}
+
+/* mobile-first*/
+.layout {
+    width: 100%;
+    max-width: var(--container-max);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.lead {
+    display: grid;
+    gap: 14px;
+    align-content: start;
+}
+
+.text {
+    margin: 0;
+    text-align: justify;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.ctaWrap {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heroImage {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    background: var(--img-ph);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .08);
+}
+
+.mission {
+    display: grid;
+    gap: 10px;
+}
+
+.ourMissionTitle {
+    color: var(--accent);
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.ourMissionText {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.footer {
+    width: 100%;
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 1024px) {
+    .layout {
+        grid-template-columns: minmax(0, 1fr) minmax(420px, 40%);
+        column-gap: 40px;
+        align-items: start;
+    }
+
+    .lead {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .mission {
+        grid-column: 1;
+        grid-row: 2;
+        margin-top: 6px;
+    }
+
+    .heroImage {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        aspect-ratio: var(--portrait);
+        border-radius: 24px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, .1);
+    }
+
+    .text {
+        font-size: 15px;
+        text-align: left;
+        max-width: 640px;
+    }
+
+    .ourMissionTitle {
+        font-size: 32px;
+    }
+
+    .ourMissionText {
+        font-size: 15px;
+        text-align: left;
+    }
+}
