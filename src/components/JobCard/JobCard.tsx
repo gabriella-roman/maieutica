@@ -10,7 +10,7 @@ import ContractingIcon from '@mui/icons-material/HowToReg';
 
 export interface JobCardProps {
   title: string;
-  description: string; // texto puro (sem HTML)
+  description: string;
   location: string;
   area: string;
   salary: number | string;
@@ -40,7 +40,7 @@ export function JobCard(props: JobCardProps) {
     return salary === 'to_match' ? 'A combinar' : salary;
   };
 
-  const formattedRegime = (regime: string) => { 
+  const formattedRegime = (regime: string) => {
     return regime === 'to_match' ? 'A combinar' : regime.toLocaleUpperCase();
   };
 
@@ -53,11 +53,9 @@ export function JobCard(props: JobCardProps) {
           <div
             className={`${styles.cardDescription} ${
               !isExpanded ? styles.clamped : styles.expanded
-            }`}
+            } ${isExpanded ? styles.mobileShowWhenExpanded : ''}`}
           >
-            <p className={styles.cardText}>
-              {description}
-            </p>
+            <p className={styles.cardText}>{description}</p>
           </div>
 
           <div

@@ -43,5 +43,9 @@
     display: grid;
     gap: 1.5rem;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    align-items: start; /* ✅ faz cada card ter altura independente */
+    align-items: start; 
+}
+
+.section{
+    padding: 0 !important;
 }

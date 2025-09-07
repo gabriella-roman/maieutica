@@ -4,7 +4,7 @@
 
 /* --- Textos --- */
 p {
-    color:#5C5E5F;
+    color: #5C5E5F;
 }
 
 .cardText {
@@ -30,9 +30,10 @@ p {
     height: auto;
     padding: 16px;
     transition: all 0.3s ease-in-out;
+    margin-top: 16px;
 }
 
-.cardBody{
+.cardBody {
     margin: 0;
 }
 
@@ -41,7 +42,6 @@ p {
     flex-direction: column;
 }
 
-/* --- Detalhes --- */
 .detailscontainer {
     max-height: 0;
     opacity: 0;
@@ -54,7 +54,6 @@ p {
     opacity: 1;
 }
 
-/* --- Descrição com clamp --- */
 .cardDescription {
     transition: all 0.3s ease-in-out;
     color: #5C5E5F;
@@ -78,7 +77,6 @@ p {
     text-overflow: unset;
 }
 
-/* --- Botões --- */
 .card-content {
     padding: 10px;
 }
@@ -92,7 +90,7 @@ p {
     font-size: 14px;
 }
 
-.containerBtn{
+.containerBtn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -146,7 +144,6 @@ button .material-icons {
     margin-left: 10px;
 }
 
-/* --- Lista de detalhes --- */
 .itemLi {
     display: flex;
     align-items: center;
@@ -175,7 +172,17 @@ button .material-icons {
     opacity: 0;
 }
 
-.detailsList{
+.detailsList {
     margin: 0;
     padding: 0;
+}
+
+@media (max-width: 768px) {
+    .cardDescription {
+        display: none;
+    }
+
+    .mobileShowWhenExpanded {
+        display: block;
+    }
 }

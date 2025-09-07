@@ -3,7 +3,7 @@ import React from 'react'
 import Home  from '../pages/Home/Home'
 import AboutUs from '../pages/AboutUs/AboutUs'
 import { ContactUs } from '../pages/ContactUs/ContactUs'
-import JobBoard  from '../pages/JobBoard/JobBoard'
+import JobBoard from '../pages/JobBoard/JobBoard'
 import OurServices  from '../pages/OurServices/OurServices'
 
 export function AppRoutes() {

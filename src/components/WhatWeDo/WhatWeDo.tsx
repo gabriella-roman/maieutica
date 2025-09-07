@@ -4,7 +4,7 @@ import styles from "./WhatWeDo.module.css";
 type Colors = {
   cardBg?: string;
   text?: string;
-  accent?: string;    // cor do botão outline e destaque
+  accent?: string; 
   badgeBg?: string;
   badgeFg?: string;
 };
@@ -14,10 +14,10 @@ type WhatWeDoProps = {
   text1?: string;
   text2?: string;
   badgeText: string;
-  badgeIcon?: React.ReactNode; // emoji, SVG, FontAwesome, etc.
+  badgeIcon?: React.ReactNode; 
   showButton?: boolean;
   buttonLabel?: string;
-  buttonHref?: string;         // se omitir, vira <button/>
+  buttonHref?: string; 
   onButtonClick?: () => void;
   colors?: Colors;
 };
