@@ -16,10 +16,7 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
 
-  // rota atual
   const isHome = location.pathname === "/";
-
-  // cores do header (fusão com o banner na home)
   const headerBg = isHome ? "#2E7B6A" : "#ffffff";
   const headerFg = isHome ? "#ffffff" : "#1f2937";
 
@@ -48,10 +45,10 @@ export function Header() {
   const toggleMenu = () => setIsMenuOpen(v => !v);
 
   const navItems = [
-    { label: "HOME", path: "/" },
-    { label: "SOBRE NÓS", path: "/about-us" },
-    { label: "NOSSO SERVIÇOS", path: "/our-services" },
-    { label: "FALE CONOSCO", path: "/contact-us" },
+    { label: "Home", path: "/" },
+    { label: "Sobre Nós", path: "/about-us" },
+    { label: "Nossos serviços", path: "/our-services" },
+    { label: "Fale Conosco", path: "/contact-us" },
   ];
 
   const handleNav = (path: string) => {
@@ -66,7 +63,6 @@ export function Header() {
       role="banner"
       style={
         {
-          // expõe como CSS variables para o módulo
           ["--header-bg" as any]: headerBg,
           ["--header-fg" as any]: headerFg,
         } as React.CSSProperties
@@ -81,15 +77,13 @@ export function Header() {
           <img src={logo} alt="Maiêutica RH Educacional" />
         </button>
 
-        {/* navegação desktop */}
         <nav className={styles.nav} aria-label="principal">
           <ul className={styles.navList}>
             {navItems.map(({ label, path }) => (
               <li key={path}>
                 <button
-                  className={`${styles.link} ${
-                    location.pathname === path ? styles.active : ""
-                  }`}
+                  className={`${styles.link} ${location.pathname === path ? styles.active : ""
+                    }`}
                   onClick={() => handleNav(path)}
                 >
                   {label}
@@ -104,7 +98,6 @@ export function Header() {
           </button>
         </nav>
 
-        {/* botão do menu (mobile) */}
         <button
           ref={menuBtnRef}
           className={styles.menuBtn}
@@ -117,12 +110,10 @@ export function Header() {
         </button>
       </div>
 
-      {/* overlay */}
       {isMenuOpen && (
         <div className={styles.backdrop} onClick={() => setIsMenuOpen(false)} />
       )}
 
-      {/* painel mobile */}
       <div
         id="mobileNav"
         ref={menuRef}
@@ -139,9 +130,8 @@ export function Header() {
           {navItems.map(({ label, path }) => (
             <button
               key={path}
-              className={`${styles.mobileLink} ${
-                location.pathname === path ? styles.active : ""
-              }`}
+              className={`${styles.mobileLink} ${location.pathname === path ? styles.active : ""
+                }`}
               onClick={() => handleNav(path)}
             >
               {label}

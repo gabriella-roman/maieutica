@@ -1,0 +1,402 @@
+:root {
+  --container-max: 1120px;
+  --bg: #f3f4f6;
+
+  --dark: #8a4743;
+  --light: #c25f59;
+
+  --radius: 18px;
+  --shadow: 0 10px 24px rgba(0, 0, 0, .08);
+  --gap: 18px;
+  --tile: 240px;
+}
+
+.section {
+  background: var(--bg);
+  padding: 16px 20px 8px;
+  color: #5C5E5F;
+}
+
+.aboutWrap {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  text-align: center;
+  max-width: var(--container-max);
+  margin: 0 auto 8px;
+}
+
+.aboutBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #fff;
+  color: #DFA242;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .06);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.aboutBadgeIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.aboutTitle {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #5C5E5F;
+}
+
+.aboutText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 760px;
+  color: #5C5E5F;
+  opacity: .95;
+}
+
+.aboutCta {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 2px solid #C25450;
+  color: #C25450;
+  background: #fff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.track {
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 10px 2px 10px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  min-width: 78vw;
+  height: 260px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  scroll-snap-align: start;
+
+  display: grid;
+  align-content: space-between;
+  padding: 14px;
+  color: #fff;
+}
+
+.dark {
+  background: var(--dark);
+}
+
+.light {
+  background: var(--light);
+}
+
+.brandMark {
+  width: 76px;
+  height: auto;
+  color: #000;
+  mix-blend-mode: multiply;
+  opacity: .9;
+}
+
+.bottom {
+  display: grid;
+  gap: 8px;
+}
+
+.value {
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.captions {
+  display: grid;
+  gap: 2px;
+}
+
+.captions p {
+  margin: 0;
+  font-size: 14px;
+  color: #fff;
+  opacity: .95;
+}
+
+.pager {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 12px auto 0;
+  max-width: var(--container-max);
+}
+
+.navBtn {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  border: none;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  line-height: 0;
+  font-size: 0;
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, .14);
+  cursor: pointer;
+  transition: transform .1s ease, opacity .15s ease, background .15s ease;
+}
+
+.prev {
+  background: #e1b6b2;
+}
+
+.prev:not(:disabled) {
+  background: #c25f59;
+}
+
+.next {
+  background: #c25f59;
+}
+
+.navBtn:active {
+  transform: translateY(1px);
+}
+
+.navBtn:disabled {
+  opacity: .55;
+  cursor: default;
+}
+
+.chevronPrev,
+.chevronNext {
+  display: block;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.chevronPrev {
+  transform: translateX(-1px);
+}
+
+.chevronNext {
+  transform: translateX(1px);
+}
+
+.desktopGrid {
+  display: none;
+}
+
+.aboutGrid {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+
+  :root {
+    --tile: 260px;
+  }
+
+  .section {
+    padding: 28px 20px 32px;
+  }
+
+  .aboutWrap {
+    display: none;
+  }
+
+  .track,
+  .pager {
+    display: none;
+  }
+
+  .desktopGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: var(--tile) var(--tile);
+    grid-template-areas:
+      "about about k1 k2"
+      "k3    k4    img img";
+    gap: 26px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+
+
+  .areaAbout {
+    grid-area: about;
+  }
+
+  .areaK1 {
+    grid-area: k1;
+  }
+
+  .areaK2 {
+    grid-area: k2;
+  }
+
+  .areaK3 {
+    grid-area: k3;
+  }
+
+  .areaK4 {
+    grid-area: k4;
+  }
+
+  .areaImg {
+    grid-area: img;
+  }
+
+  .aboutGrid {
+    height: var(--tile);
+    padding: 14px 16px 20px;
+    border-radius: var(--radius, 18px);
+    background: #fff;
+    box-shadow: var(--shadow, 0 10px 24px rgba(0, 0, 0, .08));
+    color: #5C5E5F;
+
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    row-gap: 8px;
+    overflow: hidden;
+  }
+
+  .aboutGrid>* {
+    min-height: 0;
+  }
+
+  .aboutBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+    font-weight: 800;
+    color: #DFA242;
+    width: max-content;
+    transform: scale(.92);
+    transform-origin: left top;
+  }
+
+  .aboutBadgeIcon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .aboutTitle {
+    margin: 0;
+    font-weight: 800;
+    color: #2f3134;
+    line-height: 1.2;
+    font-size: clamp(22px, 2.2vw, 26px);
+  }
+
+  .aboutText {
+    margin: 0;
+    color: #5C5E5F;
+    line-height: 1.5;
+    font-size: clamp(13px, 1.0vw, 14px);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .aboutCta {
+    align-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 2px solid #CE6C39;
+    background: #fff;
+    color: #CE6C39;
+    font-weight: 800;
+    text-decoration: none;
+    width: max-content;
+    margin-top: 6px;
+    white-space: nowrap;
+  }
+
+  .aboutCta:hover {
+    filter: brightness(.97);
+  }
+
+  .card,
+  .imageCard {
+    height: var(--tile);
+    min-width: 0;
+    border-radius: 18px;
+    box-shadow: var(--shadow, 0 10px 24px rgba(0, 0, 0, .08));
+    padding: 16px;
+  }
+
+  .card {
+    display: grid;
+    align-content: space-between;
+    color: #fff;
+  }
+
+  .card.dark {
+    background: #7f4541;
+  }
+
+  .card.light {
+    background: #bf605b;
+  }
+
+  .brandMark {
+    width: 84px;
+    height: auto;
+    color: #000;
+    mix-blend-mode: multiply;
+    opacity: .9;
+  }
+
+  .value {
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1.1;
+    color: #fff;
+  }
+
+  .captions {
+    display: grid;
+    gap: 2px;
+  }
+
+  .captions p {
+    margin: 0;
+    font-size: 15px;
+    color: #fff;
+    opacity: .95;
+  }
+
+  .imageCard {
+    background: #2b2d31;
+    display: block;
+  }
+}

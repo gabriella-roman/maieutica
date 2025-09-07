@@ -1,48 +1,39 @@
-:root {
-  --card-bg: #fff;
-  --stroke: #E6E7EB;
-  --shadow: 0 6px 18px rgba(0, 0, 0, .06);
-  --radius: 18px;
-
-  --accent: #5A9E8C;
-  --icon-bg: #D7EFE7;
-  --icon-fg: #2E7B6A;
-  --text: #5C5E5F;
-
-  --service-card-min-h: 278px;
-}
-
 .card {
-  background: var(--card-bg);
-  border: 1px solid var(--stroke);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 16px;
+  --svc-card-bg: var(--card-bg, #fff);
+  --svc-stroke: var(--stroke, #E6E7EB);
+  --svc-shadow: var(--shadow, 0 6px 18px rgba(0, 0, 0, .06));
+  --svc-radius: var(--radius, 18px);
+  --svc-accent: var(--svc-accent, var(--accent, #5A9E8C));
+  --svc-icon-bg: var(--svc-icon-bg, var(--icon-bg, #D7EFE7));
+  --svc-icon-fg: var(--svc-icon-fg, var(--icon-fg, #2E7B6A));
+  --svc-card-h: var(--svc-card-h, var(--service-card-min-h, 278px));
 
-  min-height: var(--service-card-min-h);
+  background: var(--svc-card-bg);
+  border: 1px solid var(--svc-stroke);
+  border-radius: var(--svc-radius);
+  box-shadow: var(--svc-shadow);
+  padding: 16px;
+  min-height: var(--svc-card-h);
   height: 100%;
+
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   gap: 12px;
+  align-content: start;
 
-  color: var(--text);
+  color: var(--svc-text, #5C5E5F);
 }
 
 .iconWrap {
   width: 44px;
   height: 44px;
   border-radius: 999px;
-  background: var(--icon-bg);
+  background: var(--svc-icon-bg);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-
-.icon {
-  color: var(--icon-fg);
-  line-height: 0;
-}
-
+.icon { color: var(--svc-icon-fg); line-height: 0; }
 
 .title {
   margin: 4px 0 0;
@@ -51,15 +42,14 @@
   line-height: 1.25;
   letter-spacing: .02em;
   text-transform: uppercase;
-  color: var(--text);
+  color: var(--svc-text, #5C5E5F);
 }
-
 
 .description {
   margin: 0;
   font-size: 14px;
   line-height: 1.7;
-  color: var(--text);
+  color: var(--svc-text, #5C5E5F);
   opacity: .95;
 }
 
@@ -69,42 +59,22 @@
   gap: 10px;
   padding: 12px 18px;
   border-radius: 999px;
-  background: var(--accent);
+  background: var(--svc-accent);
   color: #fff;
   text-decoration: none;
   font-weight: 800;
   width: max-content;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, .08);
+  box-shadow: 0 10px 22px rgba(0,0,0,.08);
   margin-top: 8px;
 }
+.ctaBtn { cursor: pointer; border: 0; }
+.arrow { font-size: 18px; line-height: 1; }
 
-.ctaBtn {
-  cursor: pointer;
-  border: 0;
-}
-
-.arrow {
-  font-size: 18px;
-  line-height: 1;
-}
-
-/* Desktop */
 @media (min-width: 992px) {
-  .card {
-    padding: 18px;
-    gap: 14px;
-    border-radius: 20px;
-  }
+  .card { padding: 18px; gap: 14px; border-radius: 20px; }
+  .title { font-size: 20px; }
+  .description { font-size: 15px; }
+  .cta { padding: 14px 22px; }
 
-  .title {
-    font-size: 20px;
-  }
-
-  .description {
-    font-size: 15px;
-  }
-
-  .cta {
-    padding: 14px 22px;
-  }
+  .card { --svc-card-h: 300px; }
 }

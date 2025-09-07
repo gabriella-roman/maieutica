@@ -1,29 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
 
-:root{
+:root {
   --header-height: 88px;
   --container-max: 1120px;
   --amber: #d99639;
 }
 
-*{ font-family: 'Plus Jakarta Sans', sans-serif; }
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
 
-.header{
+.header {
   position: sticky;
   top: 0;
   z-index: 40;
   width: 100%;
   background: var(--header-bg, #fff);
   color: var(--header-fg, #1f2937);
-  box-shadow: 0 1px 0 rgba(0,0,0,.05);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .05);
 }
 
-.merge{
+.merge {
   /* quando “fundido” ao banner, tiramos a sombra */
   box-shadow: none;
 }
 
-.inner{
+.inner {
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
@@ -36,7 +38,7 @@
   color: inherit;
 }
 
-.brand{
+.brand {
   border: 0;
   padding: 0;
   background: transparent;
@@ -44,36 +46,48 @@
   display: inline-flex;
   align-items: center;
 }
-.brand img{ height: 72px; width: auto; }
 
-.nav{
+.brand img {
+  height: 72px;
+  width: auto;
+}
+
+.nav {
   display: none;
   align-items: center;
   gap: 28px;
   margin-left: auto;
 }
-.navList{
+
+.navList {
   list-style: none;
   display: flex;
   gap: 28px;
   padding: 0;
   margin: 0;
 }
-.link{
+
+.link {
   border: 0;
   background: transparent;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: .02em;
-  color: inherit;                 /* usa a cor do header (branco na home) */
+  color: inherit;
   padding: 10px 4px;
   transition: opacity .15s ease, color .15s ease;
 }
-.link:hover{ opacity: .85; }
-.active{ color: var(--amber); }
 
-.cta{
+.link:hover {
+  opacity: .85;
+}
+
+.active {
+  color: var(--amber);
+}
+
+.cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -88,9 +102,13 @@
   box-shadow: 0 6px 16px rgba(216, 92, 43, .18);
   white-space: nowrap;
 }
-.cta img{ width: 14px; height: 14px; }
 
-.menuBtn{
+.cta img {
+  width: 14px;
+  height: 14px;
+}
+
+.menuBtn {
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -99,16 +117,20 @@
   justify-self: end;
   color: inherit;
 }
-.menuBtn img{ width: 28px; height: 28px; }
 
-.backdrop{
+.menuBtn img {
+  width: 28px;
+  height: 28px;
+}
+
+.backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.12);
+  background: rgba(0, 0, 0, .12);
   z-index: 39;
 }
 
-.mobilePanel{
+.mobilePanel {
   position: fixed;
   left: 0;
   right: 0;
@@ -117,43 +139,56 @@
   background: #fff;
   z-index: 41;
   border-radius: 0 0 16px 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
   max-height: min(70vh, 520px);
   overflow: auto;
   transform: translateY(-115%);
   opacity: 0;
   transition: transform .25s ease, opacity .2s ease;
 }
-.open{ transform: translateY(0); opacity: 1; }
 
-.mobileHeader{
+.open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobileHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(0,0,0,.06);
+  border-bottom: 1px solid rgba(0, 0, 0, .06);
 }
-.mobileHeader img{ height: 36px; width: auto; }
 
-.closeBtn{
+.mobileHeader img {
+  height: 36px;
+  width: auto;
+}
+
+.closeBtn {
   border: 0;
   background: transparent;
   cursor: pointer;
   display: inline-flex;
 }
-.closeBtn img{ width: 26px; height: 26px; }
 
-.mobileNav{
+.closeBtn img {
+  width: 26px;
+  height: 26px;
+}
+
+.mobileNav {
   display: grid;
   gap: 10px;
   padding: 16px;
 }
-.mobileLink{
+
+.mobileLink {
   border: 0;
   background: transparent;
   text-align: left;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: .02em;
   color: #1f2937;
   padding: 12px 6px;
@@ -161,21 +196,41 @@
   cursor: pointer;
   transition: opacity .15s ease, color .15s ease;
 }
-.mobileLink:hover{ opacity: .85; }
-.mobileLink.active{ color: var(--amber); }
-.ctaMobile{
+
+.mobileLink:hover {
+  opacity: .85;
+}
+
+.mobileLink.active {
+  color: var(--amber);
+}
+
+.ctaMobile {
   margin-top: 8px;
   justify-content: center;
   width: 100%;
 }
 
-@media (min-width: 992px){
-  .inner{
+@media (min-width: 992px) {
+  .inner {
     max-width: var(--container-max);
     grid-template-columns: auto 1fr;
+    padding: 16px 0;
   }
-  .nav{ display: flex; }
-  .menuBtn{ display: none; }
-  .mobilePanel{ display: none; }
-  .backdrop{ display: none; }
+
+  .nav {
+    display: flex;
+  }
+
+  .menuBtn {
+    display: none;
+  }
+
+  .mobilePanel {
+    display: none;
+  }
+
+  .backdrop {
+    display: none;
+  }
 }

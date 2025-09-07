@@ -15,9 +15,7 @@ export type ServiceItem = {
   };
 };
 
-type Props = {
-  items: ServiceItem[];
-};
+type Props = { items: ServiceItem[] };
 
 export function WhatWeDoSection({ items }: Props) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -30,9 +28,7 @@ export function WhatWeDoSection({ items }: Props) {
     const el = trackRef.current;
     if (!el) return 0;
     const first = el.firstElementChild as HTMLElement | null;
-    const slideW = first
-      ? first.getBoundingClientRect().width
-      : el.clientWidth;
+    const slideW = first ? first.getBoundingClientRect().width : el.clientWidth;
     const gap = parseFloat(getComputedStyle(el).columnGap || "0");
     return slideW + gap;
   };
@@ -55,7 +51,6 @@ export function WhatWeDoSection({ items }: Props) {
     const onScroll = () => updateIndexFromScroll();
     el.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", updateIndexFromScroll);
-
     return () => {
       el.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", updateIndexFromScroll);
@@ -77,73 +72,99 @@ export function WhatWeDoSection({ items }: Props) {
   return (
     <section className={styles.section} aria-labelledby="whatwedo-title">
       <div className={styles.container}>
-        <div className={styles.intro}>
-          <div className={styles.badge}>
-            <span className={styles.badgeIcon} aria-hidden>
-              👥
-            </span>
-            <span>CONECTANDO PESSOAS</span>
+        <div className={styles.mobileBlock}>
+          <div className={styles.intro}>
+            <div className={styles.badge}>
+              <span className={styles.badgeIcon} aria-hidden>👥</span>
+              <span>CONECTANDO PESSOAS</span>
+            </div>
+
+            <h2 id="whatwedo-title" className={styles.title}>
+              O que fazemos?
+            </h2>
+
+            <p className={styles.text}>
+              Entre em contato para tirar dúvidas, solicitar informações ou
+              conversar com nossa equipe.
+            </p>
+            <p className={styles.text}>Estamos prontos para ajudar!</p>
           </div>
 
-          <h2 id="whatwedo-title" className={styles.title}>
-            O que fazemos?
-          </h2>
+          <div ref={trackRef} className={styles.track} aria-label="Serviços">
+            {items.map((it, i) => (
+              <div className={styles.slide} key={`m-${i}`}>
+                <ServiceCard
+                  title={it.title}
+                  description={it.description}
+                  href={it.href}
+                  icon={it.icon}
+                  colors={it.colors}
+                />
+              </div>
+            ))}
+          </div>
 
-          <p className={styles.text}>
-            Entre em contato para tirar dúvidas, solicitar informações ou
-            conversar com nossa equipe.
-          </p>
-          <p className={styles.text}>Estamos prontos para ajudar!</p>
+          <div className={styles.pager} aria-hidden="true">
+            <button
+              className={`${styles.navBtn} ${styles.prev}`}
+              onClick={() => scrollToIndex(index - 1)}
+              disabled={!canPrev}
+              aria-label="Anterior"
+            >
+              <span className={styles.chevronPrev} aria-hidden>‹</span>
+            </button>
+            <button
+              className={`${styles.navBtn} ${styles.next}`}
+              onClick={() => scrollToIndex(index + 1)}
+              disabled={!canNext}
+              aria-label="Próximo"
+            >
+              <span className={styles.chevronNext} aria-hidden>›</span>
+            </button>
+          </div>
         </div>
 
-        {/* MOBILE: carrossel */}
-        <div ref={trackRef} className={styles.track} aria-label="Serviços">
-          {items.map((it, i) => (
-            <div className={styles.slide} key={`m-${i}`}>
-              <ServiceCard
-                title={it.title}
-                description={it.description}
-                href={it.href}
-                icon={it.icon}
-                colors={it.colors}
-              />
+        <div className={styles.desktopGrid}>
+          <div className={styles.introDesk}>
+            <div className={styles.badge}>
+              <span className={styles.badgeIcon} aria-hidden>👥</span>
+              <span>CONECTANDO PESSOAS</span>
             </div>
-          ))}
-        </div>
 
-        {/* Botões de navegação (somente mobile) */}
-        <div className={styles.pager} aria-hidden="true">
-          <button
-            className={`${styles.navBtn} ${styles.prev}`}
-            onClick={() => scrollToIndex(index - 1)}
-            disabled={!canPrev}
-            aria-label="Anterior"
-          >
-            <span className={styles.chevronPrev} aria-hidden>‹</span>
-          </button>
+            <h2 className={styles.title}>O que fazemos?</h2>
 
-          <button
-            className={`${styles.navBtn} ${styles.next}`}
-            onClick={() => scrollToIndex(index + 1)}
-            disabled={!canNext}
-            aria-label="Próximo"
-          >
-            <span className={styles.chevronNext} aria-hidden>›</span>
-          </button>
-        </div>
+            <p className={styles.text}>
+              Entre em contato para tirar dúvidas, solicitar informações ou
+              conversar com nossa equipe.
+            </p>
+            <p className={styles.text}>Estamos prontos para ajudar!</p>
+          </div>
 
-        {/* DESKTOP: grid 2×N */}
-        <div className={styles.grid} aria-label="Serviços (grid)">
-          {items.map((it, i) => (
-            <ServiceCard
-              key={`d-${i}`}
-              title={it.title}
-              description={it.description}
-              href={it.href}
-              icon={it.icon}
-              colors={it.colors}
-            />
-          ))}
+          {items[0] && (
+            <div className={styles.slot0}>
+              <ServiceCard {...items[0]} />
+            </div>
+          )}
+          {items[1] && (
+            <div className={styles.slot1}>
+              <ServiceCard {...items[1]} />
+            </div>
+          )}
+          {items[2] && (
+            <div className={styles.slot2}>
+              <ServiceCard {...items[2]} />
+            </div>
+          )}
+          {items[3] && (
+            <div className={styles.slot3}>
+              <ServiceCard {...items[3]} />
+            </div>
+          )}
+          {items[4] && (
+            <div className={styles.slot4}>
+              <ServiceCard {...items[4]} />
+            </div>
+          )}
         </div>
       </div>
     </section>

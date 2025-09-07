@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./ServiceCard.module.css";
 
 type Colors = {
-  accent?: string;   // cor do botão
-  iconBg?: string;   // fundo do ícone (bolha)
-  iconFg?: string;   // cor do ícone
-  text?: string;     // cor do texto
+  accent?: string;
+  iconBg?: string;
+  iconFg?: string;
+  text?: string;
 };
 
 type ServiceCardProps = {
@@ -13,7 +13,7 @@ type ServiceCardProps = {
   description: string;
   href?: string;
   onClick?: () => void;
-  icon?: React.ReactNode; // opcional: passe seu próprio ícone
+  icon?: React.ReactNode;
   colors?: Colors;
   ctaLabel?: string;
 };
@@ -28,16 +28,17 @@ export function ServiceCard({
   ctaLabel = "Saiba mais",
 }: ServiceCardProps) {
   const styleVars: React.CSSProperties = {
-    ["--accent" as any]: colors?.accent ?? "#5A9E8C",
-    ["--icon-bg" as any]: colors?.iconBg ?? "#D7EFE7",
-    ["--icon-fg" as any]: colors?.iconFg ?? "#2E7B6A",
-    ["--text" as any]: colors?.text ?? "#5C5E5F",
+    ["--svc-accent" as any]: colors?.accent ?? "#5A9E8C",
+    ["--svc-icon-bg" as any]: colors?.iconBg ?? "#D7EFE7",
+    ["--svc-icon-fg" as any]: colors?.iconFg ?? "#2E7B6A",
+    ["--svc-text" as any]: colors?.text ?? "#5C5E5F",
   };
+
 
   const DefaultIcon = (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <path d="M3 10l9-4 9 4-9 4-9-4z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M6 12v4c3 2 9 2 12 0v-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3 10l9-4 9 4-9 4-9-4z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6 12v4c3 2 9 2 12 0v-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 

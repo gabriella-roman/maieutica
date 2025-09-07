@@ -7,6 +7,9 @@
   --gap: 18px;
   --nav-left: #A8CFC4;
   --nav-right: #2E7B6A;
+
+  --radius-lg: 16px;
+  --shadow: 0 6px 18px rgba(0, 0, 0, .06);
 }
 
 .section {
@@ -20,17 +23,6 @@
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  display: grid;
-  gap: 16px;
-}
-
-.intro {
-  display: grid;
-  gap: 10px;
-  align-content: start;
-  padding: 16px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
 }
 
 .badge {
@@ -65,7 +57,20 @@
   line-height: 1.6;
 }
 
-/* MOBILE: carrossel */
+.mobileBlock {
+  display: grid;
+  gap: 16px;
+}
+
+.intro {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
 .track {
   display: grid;
   grid-auto-flow: column;
@@ -77,8 +82,11 @@
 }
 
 .slide {
-  scroll-snap-align: start;
   min-width: 78vw;
+}
+
+.slide>* {
+  height: 100%;
 }
 
 .pager {
@@ -107,10 +115,9 @@
 .chevronPrev,
 .chevronNext {
   display: block;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 800;
   line-height: 1;
-  font-family: inherit;
 }
 
 .chevronPrev {
@@ -143,19 +150,43 @@
   cursor: default;
 }
 
-/* DESKTOP */
-.grid {
+.desktopGrid {
   display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width:1024px) {
   .section {
     padding: 24px;
   }
 
-  .container {
-    grid-template-columns: minmax(280px, 360px) 1fr;
-    column-gap: 28px;
+  .mobileBlock {
+    display: none;
+  }
+
+  .desktopGrid {
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) 1fr 1fr;
+    grid-template-areas:
+      "introDesk slot0 slot1"
+      "slot2     slot3 slot4";
+    gap: 22px;
+    align-items: stretch;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .desktopGrid>* {
+    height: 100%;
+  }
+
+  .introDesk {
+    grid-area: introDesk;
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    background: #fff;
   }
 
   .title {
@@ -166,18 +197,23 @@
     font-size: 15px;
   }
 
-  .track {
-    display: none;
+  .slot0 {
+    grid-area: slot0;
   }
 
-  .pager {
-    display: none;
+  .slot1 {
+    grid-area: slot1;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(280px, 1fr));
-    gap: 22px;
-    align-content: start;
+  .slot2 {
+    grid-area: slot2;
+  }
+
+  .slot3 {
+    grid-area: slot3;
+  }
+
+  .slot4 {
+    grid-area: slot4;
   }
 }

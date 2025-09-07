@@ -3,10 +3,17 @@ import styles from "./Home.module.css";
 import { Header } from "../../components/Header/Header";
 import { BannerHome } from "../../components/BannerHome/BannerHome";
 import { WhatWeDo } from "../../components/WhatWeDo/WhatWeDo";
+import { Carroussel } from "../../components/Carroussel/Carroussel";
 import { ServiceItem, WhatWeDoSection } from "../../components/WhatWeDoSection/WhatWeDoSection";
+import stackBooks from "../../assets/icons/stack-of-books 1.svg";
+import StatsSection from "../../components/StatsSection/StatsSection";
+import Testimonials from "../../components/Testimonials/Testimonials";
+import { ContactInfo } from "../../components/ContactInfo/ContactInfo";
+import { ContactSection } from "../../components/ContactSection/ContactSection";
+import { Footer } from "../../components/Footer/Footer";
+import ImagemFeedback from '../../assets/images/Mask group.svg';
 
 export default function Home() {
-
   const services: ServiceItem[] = [
     {
       title: "Processos seletivos para escolas",
@@ -48,13 +55,38 @@ export default function Home() {
       icon: <span>📝</span>,
       colors: { accent: "#C26E64", iconBg: "#F1D3D0", iconFg: "#A5574F" },
     },
+  ];
+
+  const logos = [
+    { src: "https://placehold.co/220x80/transparent/666?text=XP", alt: "Logo 1" },
+    { src: "https://placehold.co/220x80/transparent/666?text=Bradesco", alt: "Logo 2" },
+    { src: "https://placehold.co/220x80/transparent/666?text=Itau", alt: "Logo 3" },
+    { src: "https://placehold.co/220x80/transparent/666?text=BBAS", alt: "Logo 4" },
+    { src: "https://placehold.co/220x80/transparent/666?text=Petrobas", alt: "Logo 5" },
+    { src: "https://placehold.co/220x80/transparent/666?text=Coca Cola", alt: "Logo 6" },
+  ];
+
+  const feedbacks = [
     {
-      title: "Outplacement",
-      description:
-        "Apoio estruturado para recolocação profissional com foco em educação.",
-      href: "/our-services#outplacement",
-      icon: <span>🎯</span>,
-      colors: { accent: "#7C8C4F", iconBg: "#E6ECCE", iconFg: "#6A7A3F" },
+      quote:
+        "Graças à Maieutica RH, consegui uma oportunidade que tem tudo a ver com meu perfil. O processo foi rápido e bem organizado. Recomendo para quem quer algo prático e eficiente!",
+      name: "João Trajano",
+      role: "Professor de Língua Portuguesa",
+      avatar: "https://i.pravatar.cc/112?img=15",
+    },
+    {
+      quote:
+        "Equipe atenciosa e comunicação muito clara. Em poucos dias eu já estava em entrevistas.",
+      name: "Marina Souza",
+      role: "Coordenadora Pedagógica",
+      avatar: "https://i.pravatar.cc/112?img=5",
+    },
+    {
+      quote:
+        "Processo seletivo objetivo e respeitoso. Me senti acompanhado o tempo todo.",
+      name: "Rafael Martins",
+      role: "Professor de Matemática",
+      avatar: "https://i.pravatar.cc/112?img=8",
     },
   ];
 
@@ -83,26 +115,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Card – O que fazemos? */}
-      <section className={styles.section}>
-        <div className={styles.narrow}>
+      <WhatWeDoSection items={services} />
+
+      <section className={styles.sectionCarroussel}>
+        <Carroussel badgeIconSrc={stackBooks} items={logos} />
+      </section>
+
+      <StatsSection />
+
+      <section className={styles.sectionFeedback} id="vagas">
+        <div className={styles.feedbackHeading}>
           <WhatWeDo
             badgeText="CONECTANDO PESSOAS"
-            badgeIcon="👥"
-            title="O que fazemos?"
-            text1="Entre em contato para tirar dúvidas, solicitar informações ou conversar com nossa equipe."
-            text2="Estamos prontos para ajudar!"
+            badgeIcon="🎓"
+            title="Feedback dos profissionais"
+            showButton={false}
+            text1=""
+            text2=""
             colors={{
               accent: "#2E7B6A",
-              badgeBg: "#D7EFE7",
+              badgeBg: "#EAF5F1",
               badgeFg: "#2E7B6A",
             }}
           />
         </div>
+
+        <div className={styles.feedbackRow}>
+          <img src={ImagemFeedback} className={styles.feedbackMedia} role="img" aria-label="Foto ilustrativa" />
+          <div className={styles.feedbackCard}>
+            <Testimonials items={feedbacks} title="" />
+          </div>
+        </div>
       </section>
 
-      {/* Grade/Carrossel de serviços */}
-        <WhatWeDoSection items={services} />
+      <section className={styles.sectionContact} aria-hidden="true">
+        <ContactInfo />
+        <ContactSection onSubmit={(data) => console.log("Contato:", data)} />
+      </section>
+
+      <section className={styles.section} aria-hidden="true">
+        <Footer />
+      </section>
     </div>
   );
 }
