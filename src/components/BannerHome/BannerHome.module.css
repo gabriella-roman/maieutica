@@ -38,6 +38,10 @@
   width: max-content;
 }
 
+.badge span {
+  color: var(--color-maieutica-verde);
+}
+
 .badgeIcon {
   font-size: 14px;
   line-height: 1;
