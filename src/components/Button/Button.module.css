@@ -1,7 +1,3 @@
-:root {
-  --accent: #C25450; 
-}
-
 .button {
   display: inline-flex;
   align-items: center;

@@ -1,11 +1,3 @@
-:root {
-  --container-max: 1120px;
-  --muted: #727272;
-  --bg-light: #f3f4f6;
-  --bottom: #dddddd;
-  --pill: #5C5E5F;
-}
-
 .footer {
   display: flex;
   flex-direction: column;
@@ -15,8 +7,8 @@
 .container {
   width: 100%;
   max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 28px 0;
+  margin: 24px;
+  padding: 24px;
 }
 
 .row {
@@ -85,29 +77,9 @@
   transform: scale(.98);
 }
 
-.bottom {
-  background: var(--bottom);
-  margin-top: 24px;
-  width: 100%;
-}
-
-.bottomInner {
-  width: 100%;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 10px 20px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.bottomInner p {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--muted);
-  margin: 0;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+.line {
+  background: var(--color-gray-300);
+  height: 12px;
 }
 
 .brandRight {

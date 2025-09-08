@@ -1,0 +1,136 @@
+/* src/styles/variables.css  — versão consolidada só com --color-maieutica-* */
+:root {
+  /* Layout */
+  --container-max: 1120px;
+  --header-height: 88px;
+  --gutter-x: 20px;
+  --grid-gap: 26px;
+
+  /* Neutros e utilidades */
+  --color-primary: #5C5E5F;      /* texto/brand principal */
+  --color-fg: #0f3d3a;
+  --color-muted: #6b7280;
+  --color-muted-on: rgba(255,255,255,.92);
+  --color-text-on: #ffffff;
+  --color-stroke: #e6e7eb;
+  --color-photo-ph: #e6e7e8;
+  --color-bottom: #dddddd;
+
+  /* Superfícies */
+  --surface-bg: #f3f4f6;
+  --surface-card: #ffffff;
+
+  /* Dimensões & radius */
+  --radius: 16px;
+  --radius-lg: 18px;
+  --radius-pill: 50px;
+
+  /* Sombras */
+  --shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-md: 0 6px 18px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 24px rgba(0,0,0,0.08);
+
+  /* Espaçamento & grid helpers */
+  --gap: 18px;
+  --tile: 240px;
+
+  /* Imagens */
+  --img-ph: #e6e7e8;
+
+  /* Cores Maieutica (oficiais) */
+  --color-maieutica-verde: #5A9E8C;
+  --color-maieutica-verde-dark: #427161;
+  --color-maieutica-verde-light: #DEECE8;
+  --color-maieutica-verde-mid-light: #9CC5BA;
+
+  --color-maieutica-laranja: #CE6C39;
+  --color-maieutica-laranja-dark: #9B512B;
+  --color-maieutica-laranja-light: #EBC4B0;
+  --color-maieutica-laranja-mid-light: #D88961;
+
+  --color-maieutica-azul: #084385;
+  --color-maieutica-azul-dark: #063264;
+  --color-maieutica-azul-light: #6B8EB6;
+  --color-maieutica-azul-mid-light: #CED9E7;
+
+  --color-maieutica-amarelo: #DFA242;
+  --color-maieutica-amarelo-dark: #A77A32;
+  --color-maieutica-amarelo-light: #E5B568;
+  --color-maieutica-amarelo-mid-light: #F2DAB3;
+
+  --color-maieutica-vermelho: #C25450;
+  --color-maieutica-vermelho-dark: #923F3C;
+  --color-maieutica-vermelho-light: #D58688;
+  --color-maieutica-vermelho-mid-light: #E7BBB9;
+
+  /* Cinzas */
+  --color-gray-000: #F9F9F9;
+  --color-gray-100: #F3F3F3;
+  --color-gray-200: #E8E8E8;
+  --color-gray-300: #898B8D;
+  --color-gray-400: #5C5E5F;
+  --color-gray-500: #2D2F31;
+  --color-gray-600: #161817;
+  --color-white: #FFFFFF;
+
+  /* Aliases semânticos (agora apontando para as novas variáveis) */
+  --color-accent: var(--color-maieutica-vermelho);
+  --color-accent-alt: var(--color-maieutica-laranja);
+  --badge-bg: var(--color-maieutica-verde-light);
+  --badge-fg: var(--color-maieutica-verde);
+  --nav-left:  var(--color-maieutica-verde-mid-light);
+  --nav-right: var(--color-maieutica-verde);
+  --about-accent: var(--color-maieutica-vermelho);
+  --about-text: var(--color-gray-400);
+
+  /* Tipografia */
+  --text-navigation-weight: 600;
+  --text-navigation-size: 15px;
+  --text-navigation-line-height: 26px;
+  --text-navigation-letter-spacing: 1.4px;
+
+  --text-button-weight: 600;
+  --text-button-size: 14px;
+  --text-button-line-height: 30px;
+  --text-button-letter-spacing: 0;
+
+  --text-h1UP-weight: 600;
+  --text-h1UP-size: 14px;
+  --text-h1UP-line-height: 14px;
+  --text-h1UP-letter-spacing: 1.4px;
+
+  --text-heading-h1-weight: 600;
+  --text-heading-h1-size: 50px;
+  --text-heading-h1-line-height: 60px;
+  --text-heading-h1-letter-spacing: 0;
+
+  --text-heading-h2-weight: 600;
+  --text-heading-h2-size: 30px;
+  --text-heading-h2-line-height: 36px;
+  --text-heading-h2-letter-spacing: 0;
+
+  --text-heading-h3-weight: 900;
+  --text-heading-h3-size: 22px;
+  --text-heading-h3-line-height: 30px;
+  --text-heading-h3-letter-spacing: 0;
+
+  --text-heading-h4-weight: 600;
+  --text-heading-h4-size: 18px;
+  --text-heading-h4-line-height: 28px;
+  --text-heading-h4-letter-spacing: 0px;
+
+  --text-body-p-weight: 600;
+  --text-body-p-size: 12px;
+  --text-body-p-line-height: 20px;
+  --text-body-p-letter-spacing: 0px;
+
+  --text-body-m-weight: 200;
+  --text-body-m-size: 16px;
+  --text-body-m-line-height: 30px;
+  --text-body-m-letter-spacing: 0px;
+
+  --text-display-d1-weight: 900;
+  --text-display-d1-size: 80px;
+  --text-display-d1-line-height: 90px;
+  --text-display-d1-letter-spacing: 0px;
+}
