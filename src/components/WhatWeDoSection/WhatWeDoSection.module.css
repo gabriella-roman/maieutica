@@ -1,21 +1,6 @@
-:root {
-  --container-max: 1120px;
-  --bg: #f3f4f6;
-  --text: #5C5E5F;
-  --badge-bg: #D7EFE7;
-  --badge-fg: #2E7B6A;
-  --gap: 18px;
-  --nav-left: #A8CFC4;
-  --nav-right: #2E7B6A;
-
-  --radius-lg: 16px;
-  --shadow: 0 6px 18px rgba(0, 0, 0, .06);
-}
-
 .section {
   width: 100%;
   padding: 16px;
-  background: var(--bg);
   color: var(--text);
 }
 
@@ -48,13 +33,14 @@
   font-weight: 800;
   font-size: 28px;
   line-height: 1.2;
-  color: var(--text);
+  color: var(--color-gray-400);
 }
 
 .text {
   margin: 0;
   font-size: 14px;
   line-height: 1.6;
+  color: var(--color-gray-400);
 }
 
 .mobileBlock {
@@ -190,11 +176,17 @@
   }
 
   .title {
-    font-size: 36px;
+    font-size: var(--text-heading-h1-size);
+    line-height: var(--text-heading-h1-line-height);
+    font-weight: var(--text-heading-h1-weight);
+    letter-spacing: var(--text-heading-h1-letter-spacing);
   }
 
   .text {
-    font-size: 15px;
+    font-size: var(--text-body-m-size);
+    line-height: var(--text-body-m-line-height);
+    font-weight: var(--text-body-m-weight);
+    letter-spacing: var(--text-body-m-letter-spacing);
   }
 
   .slot0 {
