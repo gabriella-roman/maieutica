@@ -1,14 +1,3 @@
-:root {
-  --container-max: 1120px;
-  --green: #2e7b6a;
-  --greenDark: #246a5b;
-  --textOn: #ffffff;
-  --mutedOn: rgba(255, 255, 255, .92);
-  --accent: #d88348;
-  --photoPh: #e6e7e8;
-  --brandDark: #5C5E5F;
-}
-
 * {
   box-sizing: border-box;
   font-family: 'Plus Jakarta Sans', sans-serif;

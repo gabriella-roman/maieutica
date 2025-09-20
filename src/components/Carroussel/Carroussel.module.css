@@ -1,11 +1,4 @@
-:root{
-  --card-bg: #fff;
-  --text: #5C5E5F;
-  --radius: 18px;
-  --shadow: 0 10px 24px rgba(0,0,0,.06);
-  --duration: 26s;
-  --gap: 56px;
-}
+
 
 .section{
   background: var(--card-bg);

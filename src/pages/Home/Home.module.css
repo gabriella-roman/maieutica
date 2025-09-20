@@ -1,22 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
-:root {
-  --container-max: 1120px;
-  --bg: #f3f4f6;
-  --card: #ffffff;
-  --stroke: #e6e7eb;
-  --text: #5C5E5F;
-  --accent: #CE6C39;
-  --badge-bg: #EBC4B0;
-  --badge-fg: #9B512B;
-  --radius: 16px;
-  --shadow: 0 6px 18px rgba(0, 0, 0, .06);
-  --about-accent: #C25450;
-  --about-text: #5C5E5F;
-  --gutter-x: 20px;
-  --grid-gap: 26px;
-  --left-col: 520px;
-}
+
 
 * {
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -50,9 +34,8 @@
   background: var(--bg);
   max-width: var(--container-max);
   margin: 0 auto;
-
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .sectionContact> :nth-child(1) {
@@ -65,9 +48,8 @@
 
 @media (min-width: 992px) {
   .sectionContact {
-    grid-template-columns: var(--left-col) 1fr;
-    grid-template-areas: "form info";
-    align-items: start;
+    display: flex;
+    flex-direction: row-reverse;
     gap: var(--grid-gap);
   }
 }

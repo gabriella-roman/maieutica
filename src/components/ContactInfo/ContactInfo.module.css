@@ -1,13 +1,4 @@
-:root {
-    --amber: #d99639;
-    --orange: #d85c2b;
-    --fg: #0f3d3a;
-    --muted: #6b7280;
-    --card-bg: #ffffff;
-    --radius: 14px;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    --stroke: #e6a352;
-  }
+
   
   .card {
     width: 100%;

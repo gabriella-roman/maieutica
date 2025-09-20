@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
 
-:root {
-  --header-height: 88px;
-  --container-max: 1120px;
-  --amber: #d99639;
-}
+
 
 * {
   font-family: 'Plus Jakarta Sans', sans-serif;

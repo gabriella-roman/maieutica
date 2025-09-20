@@ -1,13 +1,4 @@
-:root{
-  --card-bg:#fff;
-  --stroke:#e6e7eb;
-  --shadow:0 6px 18px rgba(0,0,0,0.9);
-  --radius-lg:24px;
-  --text:#5C5E5F;
-  --accent:#CE6C39;
-  --badge-bg:#D7EFE7;
-  --badge-fg:#2E7B6A;
-}
+
 
 .card{
   background:var(--card-bg);

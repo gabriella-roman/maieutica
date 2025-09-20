@@ -35,7 +35,6 @@ export function WhatWeDo({
   colors,
 }: WhatWeDoProps) {
   const styleVars: React.CSSProperties = {
-    // defaults
     ["--card-bg" as any]: colors?.cardBg ?? "#ffffff",
     ["--text" as any]: colors?.text ?? "#5C5E5F",
     ["--accent" as any]: colors?.accent ?? "#CE6C39",
