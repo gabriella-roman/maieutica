@@ -47,7 +47,7 @@ export function Header() {
   const navItems = [
     { label: "Home", path: "/" },
     { label: "Sobre Nós", path: "/about-us" },
-    { label: "Nossos serviços", path: "/our-services" },
+    { label: "Nossos Serviços", path: "/our-services" },
     { label: "Fale Conosco", path: "/contact-us" },
   ];
 

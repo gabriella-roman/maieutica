@@ -1,17 +1,17 @@
-import styles from "./Home.module.css";
+import styles from "./Home.module.css"
 
-import { Header } from "../../components/Header/Header";
-import { BannerHome } from "../../components/BannerHome/BannerHome";
-import { WhatWeDo } from "../../components/WhatWeDo/WhatWeDo";
-import { Carroussel } from "../../components/Carroussel/Carroussel";
-import { ServiceItem, WhatWeDoSection } from "../../components/WhatWeDoSection/WhatWeDoSection";
-import stackBooks from "../../assets/icons/stack-of-books 1.svg";
-import StatsSection from "../../components/StatsSection/StatsSection";
-import Testimonials from "../../components/Testimonials/Testimonials";
-import { ContactInfo } from "../../components/ContactInfo/ContactInfo";
-import { ContactSection } from "../../components/ContactSection/ContactSection";
-import { Footer } from "../../components/Footer/Footer";
-import ImagemFeedback from '../../assets/images/Mask group.svg';
+import { Header } from "../../components/Header/Header"
+import { BannerHome } from "../../components/BannerHome/BannerHome"
+import { WhatWeDo } from "../../components/WhatWeDo/WhatWeDo"
+import { Carroussel } from "../../components/Carroussel/Carroussel"
+import { ServiceItem, WhatWeDoSection } from "../../components/WhatWeDoSection/WhatWeDoSection"
+import stackBooks from "../../assets/icons/stack-of-books 1.svg"
+import StatsSection from "../../components/StatsSection/StatsSection"
+import Testimonials from "../../components/Testimonials/Testimonials"
+import { ContactInfo } from "../../components/ContactInfo/ContactInfo"
+import { ContactSection } from "../../components/ContactSection/ContactSection"
+import { Footer } from "../../components/Footer/Footer"
+import ImagemFeedback from '../../assets/images/Mask group.svg'
 
 export default function Home() {
   const services: ServiceItem[] = [
@@ -55,7 +55,7 @@ export default function Home() {
       icon: <span>📝</span>,
       colors: { accent: "#C26E64", iconBg: "#F1D3D0", iconFg: "#A5574F" },
     },
-  ];
+  ]
 
   const logos = [
     { src: "https://placehold.co/220x80/transparent/666?text=XP", alt: "Logo 1" },
@@ -64,7 +64,7 @@ export default function Home() {
     { src: "https://placehold.co/220x80/transparent/666?text=BBAS", alt: "Logo 4" },
     { src: "https://placehold.co/220x80/transparent/666?text=Petrobas", alt: "Logo 5" },
     { src: "https://placehold.co/220x80/transparent/666?text=Coca Cola", alt: "Logo 6" },
-  ];
+  ]
 
   const feedbacks = [
     {
@@ -88,7 +88,7 @@ export default function Home() {
       role: "Professor de Matemática",
       avatar: "https://i.pravatar.cc/112?img=8",
     },
-  ];
+  ]
 
   return (
     <div className={styles.page}>
@@ -96,30 +96,28 @@ export default function Home() {
       <BannerHome />
 
       <section className={styles.section}>
-        <div className={styles.narrow}>
-          <WhatWeDo
-            badgeText="CONECTANDO PESSOAS"
-            badgeIcon="✳"
-            title="Confira as vagas"
-            text1="Entre em contato para tirar dúvidas, solicitar informações ou conversar com nossa equipe."
-            text2="Estamos prontos para ajudar!"
-            showButton
-            buttonLabel="Ver todas as vagas"
-            buttonHref="#vagas"
-            colors={{
-              accent: "#CE6C39",
-              badgeBg: "#EBC4B0",
-              badgeFg: "#9B512B",
-            }}
-          />
-        </div>
+        <WhatWeDo
+          badgeText="CONECTANDO PESSOAS"
+          badgeIcon="✳"
+          title="Confira as vagas"
+          text1="Entre em contato para tirar dúvidas, solicitar informações ou conversar com nossa equipe."
+          text2="Estamos prontos para ajudar!"
+          showButton
+          buttonLabel="Ver todas as vagas"
+          buttonHref="#vagas"
+          colors={{
+            accent: "#CE6C39",
+            badgeBg: "#EBC4B0",
+            badgeFg: "#9B512B",
+          }}
+        />
       </section>
 
-      <WhatWeDoSection items={services} />
-
-      <section className={styles.sectionCarroussel}>
+      <div className={styles.sectionWWDS}>
+        <WhatWeDoSection items={services} />
         <Carroussel badgeIconSrc={stackBooks} items={logos} />
-      </section>
+      </div>
+
 
       <StatsSection />
 
@@ -141,7 +139,7 @@ export default function Home() {
         </div>
 
         <div className={styles.feedbackRow}>
-          <img src={ImagemFeedback} className={styles.feedbackMedia} role="img" aria-label="Foto ilustrativa" />
+          <img alt='' src={ImagemFeedback} className={styles.feedbackMedia} role="img" aria-label="Foto ilustrativa" />
           <div className={styles.feedbackCard}>
             <Testimonials items={feedbacks} title="" />
           </div>
@@ -153,9 +151,7 @@ export default function Home() {
         <ContactSection onSubmit={(data) => console.log("Contato:", data)} />
       </section>
 
-      <section className={styles.section} aria-hidden="true">
-        <Footer />
-      </section>
+      <Footer />
     </div>
-  );
+  )
 }

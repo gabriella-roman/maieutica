@@ -1,5 +1,3 @@
-
-
 /* CARD AZUL MAIOR */
 .card {
   position: relative;
@@ -29,6 +27,7 @@
   font-size: 18px;
   line-height: 1.7;
   letter-spacing: .01em;
+  color: #F9F9F9;
 }
 
 /* bloco autor */

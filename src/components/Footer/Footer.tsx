@@ -74,12 +74,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className={styles.bottom}>
-        <div className={styles.bottomInner}>
-          <p>Desenvolvido por Soav Tech © Todos os direitos reservados.</p>
-          <p className={styles.brandRight}>Soav Tech</p>
-        </div>
-      </div>
+      <div className={styles.line} />
     </footer>
   );
 }

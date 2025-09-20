@@ -8,8 +8,8 @@ export function BannerHome() {
       <div className={styles.container}>
         <div className={styles.left}>
           <div className={styles.badge}>
-            <span className={styles.badgeIcon} aria-hidden="true" style={{ color: "#CE6C39" }}>✳</span>
-            <span>Conectando pessoas</span>
+            <span className={styles.badgeIcon} aria-hidden="true">✳</span>
+            <span>CONECTANDO PESSOAS</span>
           </div>
 
           <h1 className={styles.title}>

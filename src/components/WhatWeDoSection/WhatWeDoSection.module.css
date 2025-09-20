@@ -1,8 +1,6 @@
-
 .section {
   width: 100%;
   padding: 16px;
-  background: var(--bg);
   color: var(--text);
 }
 
@@ -35,13 +33,14 @@
   font-weight: 800;
   font-size: 28px;
   line-height: 1.2;
-  color: var(--text);
+  color: var(--color-gray-400);
 }
 
 .text {
   margin: 0;
   font-size: 14px;
   line-height: 1.6;
+  color: var(--color-gray-400);
 }
 
 .mobileBlock {
@@ -177,11 +176,17 @@
   }
 
   .title {
-    font-size: 36px;
+    font-size: var(--text-heading-h1-size);
+    line-height: var(--text-heading-h1-line-height);
+    font-weight: var(--text-heading-h1-weight);
+    letter-spacing: var(--text-heading-h1-letter-spacing);
   }
 
   .text {
-    font-size: 15px;
+    font-size: var(--text-body-m-size);
+    line-height: var(--text-body-m-line-height);
+    font-weight: var(--text-body-m-weight);
+    letter-spacing: var(--text-body-m-letter-spacing);
   }
 
   .slot0 {
