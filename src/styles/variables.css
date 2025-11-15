@@ -1,4 +1,4 @@
-/* src/styles/variables.css  — versão consolidada só com --color-maieutica-* */
+
 :root {
   /* Layout */
   --container-max: 1120px;
@@ -7,7 +7,7 @@
   --grid-gap: 26px;
 
   /* Neutros e utilidades */
-  --color-primary: #5C5E5F;      /* texto/brand principal */
+  --color-primary: #5C5E5F;
   --color-fg: #0f3d3a;
   --color-muted: #6b7280;
   --color-muted-on: rgba(255,255,255,.92);
@@ -73,7 +73,7 @@
   --color-gray-600: #161817;
   --color-white: #FFFFFF;
 
-  /* Aliases semânticos (agora apontando para as novas variáveis) */
+  
   --color-accent: var(--color-maieutica-vermelho);
   --color-accent-alt: var(--color-maieutica-laranja);
   --badge-bg: var(--color-maieutica-verde-light);

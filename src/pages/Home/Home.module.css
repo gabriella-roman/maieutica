@@ -34,7 +34,8 @@
   background: var(--bg);
   max-width: var(--container-max);
   margin: 0 auto;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
   padding-bottom: 32px;
 }

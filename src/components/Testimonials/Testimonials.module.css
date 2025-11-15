@@ -1,7 +1,7 @@
 /* CARD AZUL MAIOR */
 .card {
   position: relative;
-  background: var(--t-blue);
+  background: #0c4a7b;
   color: #fff;
   border-radius: 20px;
   box-shadow: var(--t-shadow);

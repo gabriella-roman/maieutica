@@ -90,11 +90,11 @@
 }
 
 .dark {
-  background: var(--dark);
+  background: #7f4541;
 }
 
 .light {
-  background: var(--light);
+  background: #bf605b;
 }
 
 .brandMark {

@@ -44,7 +44,7 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.06em;
-  color: var(--fg);
+  color: var(--color-fg);
   opacity: 0.85;
 }
 
@@ -57,7 +57,7 @@
   margin: 0;
   font-size: 24px;
   font-weight: 700;
-  color: var(--orange);
+  color: var(--color-maieutica-laranja);
   line-height: 1.2;
 }
 
@@ -72,7 +72,7 @@
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--orange);
+  color: var(--color-maieutica-laranja);
   text-transform: uppercase;
   margin-top: 2px;
 }
@@ -89,7 +89,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--fg);
+  background: var(--color-fg);
   color: #ffffff;
   border-radius: 8px;
   font-size: 18px;
@@ -112,7 +112,7 @@
 
 .icon {
   font-size: 18px;
-  color: var(--orange);
+  color: var(--color-maieutica-laranja);
   margin-top: 2px;
   flex-shrink: 0;
 }
@@ -126,7 +126,7 @@
   margin: 0;
   font-size: 15px;
   font-weight: 700;
-  color: var(--fg);
+  color: var(--color-fg);
   word-break: break-word;
 }
 
@@ -134,7 +134,7 @@
   margin: 0;
   font-size: 16px;
   font-weight: 700;
-  color: var(--fg);
+  color: var(--color-fg);
 }
 
 @media (min-width: 768px) {
