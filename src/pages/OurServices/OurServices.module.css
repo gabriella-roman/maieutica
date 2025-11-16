@@ -1,0 +1,72 @@
+/* MOBILE FIRST */
+.page {
+  margin: 0;
+  padding: 0;
+  color: var(--text);
+  line-height: 1.7;
+  background-color: #F3F3F3;
+}
+
+.section {
+  width: 100%;
+  padding: 20px 0px 0 0px;
+  background: var(--bg);
+}
+
+.sectionIntro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 32px 24px;
+  gap: 32px;
+}
+
+.sectionIntro__title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #5C5E5F;
+}
+
+.sectionIntro__subtitle {
+  font-size: 1rem;
+  color: #5C5E5F;
+  max-width: 600px;
+}
+
+/* PC */
+@media (min-width: 768px) {
+  .sectionIntro {
+    padding: 96px 64px;
+  }
+
+  .sectionIntro__title {
+    font-size: 2.5rem;         /* título maior */
+    margin-bottom: 0;          /* remove o espaço extra */
+    flex: 1;                   /* ocupa metade do espaço */
+  }
+
+  .sectionIntro__subtitle {
+    font-size: 1.25rem;        /* subtítulo maior */
+    max-width: 700px;          /* mais largura permitida */
+    flex: 2;                   /* ocupa mais espaço que o título */
+  }
+}
+
+/* Telas bem grandes */
+@media (min-width: 1200px) {
+  .sectionIntro {
+    padding: 96px 64px;
+  }
+
+  .sectionIntro__title {
+    font-size: 3rem;
+  }
+
+  .sectionIntro__subtitle {
+    font-size: 1.5rem;
+    max-width: 800px;
+  }
+}
