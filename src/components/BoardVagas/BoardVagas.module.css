@@ -1,0 +1,40 @@
+.wrapper{
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+.grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.loading, .error{
+  padding: 12px;
+  color: var(--text);
+}
+
+@media (min-width: 768px){
+  .grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.footer{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.viewAll{
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 8px 50px;
+  border-radius: 999px;
+  border: 2px solid var(--accent, #CE6C39);
+  color: var(--accent, #CE6C39);
+  text-decoration: none;
+  font-weight: 800;
+  background: transparent;
+}
+
