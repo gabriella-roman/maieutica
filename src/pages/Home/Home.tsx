@@ -11,6 +11,8 @@ import Testimonials from "../../components/Testimonials/Testimonials"
 import { ContactInfo } from "../../components/ContactInfo/ContactInfo"
 import { ContactSection } from "../../components/ContactSection/ContactSection"
 import { Footer } from "../../components/Footer/Footer"
+import BoardVagas from '../../components/BoardVagas/BoardVagas';
+
 import ImagemFeedback from '../../assets/images/Mask group.svg'
 
 export default function Home() {
@@ -57,14 +59,15 @@ export default function Home() {
     },
   ]
 
-  const logos = [
-    { src: "https://placehold.co/220x80/transparent/666?text=XP", alt: "Logo 1" },
-    { src: "https://placehold.co/220x80/transparent/666?text=Bradesco", alt: "Logo 2" },
-    { src: "https://placehold.co/220x80/transparent/666?text=Itau", alt: "Logo 3" },
-    { src: "https://placehold.co/220x80/transparent/666?text=BBAS", alt: "Logo 4" },
-    { src: "https://placehold.co/220x80/transparent/666?text=Petrobas", alt: "Logo 5" },
-    { src: "https://placehold.co/220x80/transparent/666?text=Coca Cola", alt: "Logo 6" },
-  ]
+  const logos: { src: string; alt: string }[] = [];
+  const req = (require as any).context("../../assets/logos", false, /\.(png|jpe?g|svg)$/i);
+  const keys: string[] = req.keys();
+  keys.forEach((k, i) => {
+    const mod = req(k);
+    const src = mod && mod.default ? mod.default : mod;
+    const name = k.replace(/^\.\//, "");
+    logos.push({ src, alt: name });
+  });
 
   const feedbacks = [
     {
@@ -94,15 +97,14 @@ export default function Home() {
     <div className={styles.page}>
       <Header />
       <BannerHome />
-
       <section className={styles.section}>
-        <WhatWeDo
+        <div className={styles.whatRow}>
+          <WhatWeDo
           badgeText="CONECTANDO PESSOAS"
           badgeIcon="✳"
           title="Confira as vagas"
           text1="Entre em contato para tirar dúvidas, solicitar informações ou conversar com nossa equipe."
           text2="Estamos prontos para ajudar!"
-          showButton
           buttonLabel="Ver todas as vagas"
           buttonHref="#vagas"
           colors={{
@@ -111,6 +113,9 @@ export default function Home() {
             badgeFg: "#9B512B",
           }}
         />
+
+        <BoardVagas limit={4} />
+        </div>
       </section>
 
       <div className={styles.sectionWWDS}>

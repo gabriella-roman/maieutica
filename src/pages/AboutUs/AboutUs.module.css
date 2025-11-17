@@ -10,8 +10,12 @@
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    padding: 20px;
     background: var(--bg);
+}
+
+.topSection{
+    width: 100%;
+    background: var(--accent);
 }
 
 /* mobile-first*/
@@ -22,6 +26,7 @@
     grid-template-columns: 1fr;
     gap: 16px;
     align-items: start;
+    padding: 20px;
 }
 
 .lead {

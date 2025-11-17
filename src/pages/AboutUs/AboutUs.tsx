@@ -9,13 +9,17 @@ export default function AboutUs() {
   return (
     <div className={styles.page}>
       <div className={styles.contentPage}>
-        <Header />
+        <div className={styles.topSection}>
+          <Header
+            headerBg="#C25450"
+          />
 
-        <Banner
-          title="Sobre nós"
-          breadcrumb={["Home", "Sobre nós"]}
-          bgColor="#C25450"
-        />
+          <Banner
+            title="Sobre nós"
+            breadcrumb={["Há mais de 15 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução"]}
+            bgColor="#C25450"
+          />
+        </div>
 
         <section className={styles.layout}>
           <div className={styles.lead}>

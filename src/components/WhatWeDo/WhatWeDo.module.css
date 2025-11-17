@@ -73,7 +73,7 @@
 /* desktop */
 @media (min-width: 992px) {
   .card {
-    padding: 20px;
+    padding: 20px 0;
     gap: 14px;
     border-radius: 28px;
   }

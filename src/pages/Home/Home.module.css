@@ -7,7 +7,7 @@
 .page {
   margin: 0;
   padding: 0;
-  color: var(--text);
+  color: rgba(255, 255, 255, 0.5);
   line-height: 1.7;
   background: var(--surface-bg);
 }
@@ -17,6 +17,22 @@
   padding: 20px 0px 0 0px;
   background: var(--bg);
   padding: 32px;
+}
+
+.whatRow{
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+  align-items: center;
+}
+
+.homeWoman{
+  width: 240px;
+  max-width: 40%;
+  justify-self: center;
+  object-fit: contain;
 }
 
 .sectionWWDS {
@@ -49,6 +65,17 @@
 }
 
 @media (min-width: 992px) {
+  .whatRow{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .homeWoman{
+    width: 360px;
+    max-width: 45%;
+  }
   .sectionContact {
     display: flex;
     flex-direction: row-reverse;
