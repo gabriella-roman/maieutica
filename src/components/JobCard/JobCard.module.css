@@ -14,22 +14,50 @@ p {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
     margin: 0;
+    /* reserve space for two lines even when the title is short */
+    line-height: 1.2;
+    min-height: calc(2 * 1.2em); /* two text lines height */
+}
+
+.cardTitle {
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .card {
     border: 1px solid #5A9E8C;
     overflow: hidden;
     border-radius: 24px;
-    max-width: 25rem;
-    min-height: 5rem;
+    width: 100%;
+    max-width: none;
     height: auto;
+    display: flex;
+    flex-direction: column;
+
     padding: 16px;
+    padding-bottom: 20px;
     transition: all 0.3s ease-in-out;
     margin-top: 16px;
 }
 
+.cardCollapsed {
+    height: 220px; 
+    overflow: hidden;
+}
+
+.cardExpanded {
+    height: auto;
+    overflow: visible;
+}
+
 .cardBody {
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
 }
 
 .cardContent {
@@ -59,6 +87,7 @@ p {
 
 .cardDescription.clamped .cardText {
     display: -webkit-box;
+    line-clamp: 2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -67,6 +96,7 @@ p {
 
 .cardDescription.expanded .cardText {
     display: block;
+    line-clamp: unset;
     -webkit-line-clamp: unset;
     overflow: visible;
     text-overflow: unset;
@@ -87,15 +117,58 @@ p {
 
 .containerBtn {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    margin-top: 16px;
+    gap: 0.75rem;
+    margin-top: auto;
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
 }
 
 .containerBtn button {
-    width: 11rem;
-    flex-shrink: 0;
+    min-width: 0;
+    max-width: none;
+    width: auto;
+    flex: 0 0 auto;
+}
+
+.containerBtn > * {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.containerBtn a {
+    display: flex;
+}
+
+.containerBtn a,
+.containerBtn a:visited,
+.containerBtn a:link {
+    text-decoration: none;
+    color: white;
+}
+.containerBtn a:hover,
+.containerBtn a:active {
+    text-decoration: none;
+    color: white;
+}
+
+.containerBtn a > button {
+    text-decoration: none;
+    color: white;
+}
+
+.containerBtn a > button {
+    width: 100%;
+}
+
+.containerBtn {
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
 }
 
 .containerBtn .btnPrimary,
@@ -107,30 +180,37 @@ p {
 }
 
 .btn {
-    border-radius: 2.3125rem;
-    border: 1px solid #5A9E8C;
+    border-radius: 999px;
+    border: 1px solid transparent;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.625rem;
-    width: 12rem;
-    height: 3.375rem;
+    gap: 0.5rem;
+    height: 3rem;
+    min-height: 40px;
+    padding: 0 14px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
 }
 
 .btnPrimary {
     background-color: #5A9E8C;
     color: white;
+    border: none;
+    box-shadow: 0 6px 18px rgba(90,158,140,0.08);
 }
 
 .btnSecundary {
-    background-color: white;
-    color: #5A9E8C;
+    background-color: #ffffff;
+    color: #2f7f6f;
+    border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .btn:hover {
     cursor: pointer;
-    filter: brightness(0.85);
-    transition: all 0.3s ease-in-out;
+    transform: translateY(-2px);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 button .material-icons {
@@ -173,11 +253,108 @@ button .material-icons {
 }
 
 @media (max-width: 768px) {
+
     .cardDescription {
-        display: none;
+        display: block;
     }
 
     .mobileShowWhenExpanded {
         display: block;
+    }
+
+    .cardCollapsed {
+        height: 12rem;
+    }
+
+    .containerBtn {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .containerBtn button {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 1024px) {
+    .containerBtn {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .containerBtn > * {
+        flex: none;
+        width: 100%;
+    }
+    .containerBtn a {
+        width: 100%;
+    }
+    .containerBtn button {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 1025px) {
+    .containerBtn {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 0.75rem;
+    }
+
+    .containerBtn > * {
+        flex: none;
+        min-width: 0;
+    }
+
+    .containerBtn a {
+        display: flex;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .containerBtn a > button {
+        width: 100%;
+    }
+
+    .containerBtn .btnPrimary {
+        min-width: 9rem;
+        flex: 0 0 auto;
+    }
+
+    .containerBtn .btnSecundary {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .cardCollapsed {
+        height: 200px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .cardCollapsed {
+        height: 200px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .cardDescription {
+        display: block;
+    }
+    .cardDescription.clamped .cardText {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 }

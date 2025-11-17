@@ -5,13 +5,16 @@
   flex-direction: column;
 }
 
+/* seção geral do painel */
 .section {
   gap: 8px;
   display: flex;
   flex-direction: column;
   padding: 0 !important;
+  background-color: #f5f5f5;
 }
 
+/* conteúdo abaixo do "Confira as vagas" */
 .layout {
   display: flex;
   flex-direction: column;
@@ -27,27 +30,41 @@
   width: 100%;
 }
 
+/* grid das vagas */
 .grid {
   display: grid;
   gap: 1.5rem;
-  /* use an adaptive min column width so columns don't get too narrow */
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  /* let cards size naturally so expanded card doesn't force row height */
   align-items: start;
 }
 
+/* --- FILTROS --- */
+
+/* Mobile: só os chips aparecem */
 .filtersMobile {
-  display: block;
+  display: block !important;
 }
 
 .filtersDesktop {
-  display: none;
+  display: none !important;
 }
 
+/* estiliza o FiltersBar quando ele está na sidebar (mobile) */
 .sidebarFilters {
-  margin-top: 8px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
 }
 
-@media (min-width: 1024px) {
+.sidebarFilters button {
+  width: 100%;
+  justify-content: flex-start;
+  border-radius: 8px;
+}
+
+/* Desktop layout */
+@media (min-width: 768px) {
   .layout {
     flex-direction: row;
     align-items: flex-start;
@@ -63,12 +80,13 @@
     flex: 1 1 auto;
   }
 
+  /* Desktop: esconde chips e mostra filtros em coluna */
   .filtersMobile {
-    display: none;
+    display: none !important;
   }
 
   .filtersDesktop {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     gap: 24px;
   }

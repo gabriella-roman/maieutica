@@ -45,7 +45,7 @@ export function JobCard(props: JobCardProps) {
   };
 
   return (
-    <div className={`card shadow-sm mb-4 ${styles.card} ${styles.textGreen}`}>
+    <div className={`card shadow-sm mb-4 ${styles.card} ${isExpanded ? styles.cardExpanded : styles.cardCollapsed} ${styles.textGreen}`}>
       <div className={`${styles.cardBody}`}>
         <h5 className={`card-title ${styles.cardTitle}`}>{title}</h5>
 

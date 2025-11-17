@@ -29,12 +29,36 @@ type Job = {
   isBilingual: boolean;
 };
 
+/**
+ * Hook simples pra decidir se estamos em "desktop".
+ * Usa window.innerWidth >= breakpoint.
+ */
+function useIsDesktop(breakpoint = 1024) {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const check = () => {
+      setIsDesktop(window.innerWidth >= breakpoint);
+    };
+
+    check(); // primeira checagem
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [breakpoint]);
+
+  return isDesktop;
+}
+
 export default function JobBoardPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [filters, setFilters] = useState<FiltersState>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
+
+  const isDesktop = useIsDesktop(1024);
 
   useEffect(() => {
     fetchJobs();
@@ -110,27 +134,50 @@ export default function JobBoardPage() {
         a.localeCompare(b, "pt-BR")
       );
 
-    const cfg = [
-      { key: "area" as const,       label: "Área de atuação",  options: uniq(jobs.map(j => j.area)).map(v => ({ value: v, label: v })) },
-      { key: "segmento" as const,   label: "Segmento escolar", options: uniq(jobs.map(j => j.segmento)).map(v => ({ value: v, label: v })) },
-      { key: "disciplina" as const, label: "Disciplina",       options: uniq(jobs.map(j => j.disciplina)).map(v => ({ value: v, label: v })) },
-      { key: "localizacao" as const,label: "Localização",      options: uniq(jobs.map(j => j.location)).map(v => ({ value: v, label: v })) },
-      { key: "bilingue" as const,   label: "Bilíngue",         options: [{ value: "sim", label: "Bilíngue" }, { value: "nao", label: "Não bilíngue" }] },
-    ] as FilterConfig[];
+    // classify area from job title/description into requested buckets
+    const classifyArea = (title: string, desc: string) => {
+      const txt = `${title || ""} ${desc || ""}`.toLowerCase();
+      if (/infantil/.test(txt)) return "Educação Infantil";
+      // check Fundamental II before I
+      if (/fundamental.*(ii|2|segunda|segundo|segunda etapa)|ensino fundamental ii/.test(txt))
+        return "Ensino Fundamental II";
+      if (/fundamental.*(i\b|1|primeira|primeiro|primeira etapa)|ensino fundamental i/.test(txt))
+        return "Ensino Fundamental I";
+      if (/superior|universi|gradua|licenciatura/.test(txt)) return "Ensino Superior";
+      return "Outros";
+    };
 
-    return cfg;
+    const areas = uniq(jobs.map((j) => classifyArea(j.title, j.description)));
+    const disciplinas = uniq(jobs.map((j) => j.disciplina));
+    const locais = uniq(jobs.map((j) => j.location));
+
+    return [
+      { key: "localizacao" as const, label: "Localização", options: locais.map((v) => ({ value: v, label: v })) },
+      { key: "area" as const, label: "Área de atuação", options: areas.map((v) => ({ value: v, label: v })) },
+      { key: "disciplina" as const, label: "Disciplina", options: disciplinas.map((v) => ({ value: v, label: v })) },
+      { key: "bilingue" as const, label: "Bilíngue", options: [{ value: "sim", label: "Bilíngue" }, { value: "nao", label: "Não bilíngue" }] },
+    ] as FilterConfig[];
   }, [jobs]);
 
   const vagasFiltradas = useMemo(() => {
+    const classifyArea = (title: string, desc: string) => {
+      const txt = `${title || ""} ${desc || ""}`.toLowerCase();
+      if (/infantil/.test(txt)) return "Educação Infantil";
+      if (/fundamental.*(ii|2|segunda|segundo|segunda etapa)|ensino fundamental ii/.test(txt))
+        return "Ensino Fundamental II";
+      if (/fundamental.*(i\b|1|primeira|primeiro|primeira etapa)|ensino fundamental i/.test(txt))
+        return "Ensino Fundamental I";
+      if (/superior|universi|gradua|licenciatura/.test(txt)) return "Ensino Superior";
+      return "Outros";
+    };
+
     return jobs.filter((v) => {
-      const okArea = !filters.area || v.area === filters.area;
-      const okSeg = !filters.segmento || v.segmento === filters.segmento;
+      const classified = classifyArea(v.title, v.description);
+      const okArea = !filters.area || classified === filters.area;
       const okDisc = !filters.disciplina || v.disciplina === filters.disciplina;
       const okLoc = !filters.localizacao || v.location === filters.localizacao;
-      const okBil =
-        !filters.bilingue ||
-        (filters.bilingue === "sim" ? v.isBilingual : !v.isBilingual);
-      return okArea && okSeg && okDisc && okLoc && okBil;
+      const okBil = !filters.bilingue || (filters.bilingue === "sim" ? v.isBilingual : !v.isBilingual);
+      return okArea && okDisc && okLoc && okBil;
     });
   }, [jobs, filters]);
 
@@ -151,102 +198,189 @@ export default function JobBoardPage() {
       />
 
       <section className={styles.section}>
-        <WhatWeDo
-          badgeIcon={<FontAwesomeIcon icon={faBriefcase} />}
-          title="Confira as vagas"
-          showButton={false}
-          text1="Entre em contato para tirar dúvidas, solicitar informações ou conversar com nossa equipe."
-          text2="Estamos prontos para ajudar!"
-          colors={{
-            accent: "#5A9E8C",
-            badgeBg: "rgb(200, 255, 235)",
-            badgeFg: "#5A9E8C",
-          }}
-          badgeText={"CONECTANDO PESSOAS"}
-        />
-
-        <div className={styles.filters}>
-          <FiltersBar configs={filterConfigs} value={filters} onChange={setFilters} />
-        </div>
-
-        <div className={styles.grid}>
-          {vagasFiltradas.length > 0 ? (
-            vagasFiltradas.map((job) => {
-              const uniqueKey = `${job.slugLink}-${job.title}`;
-              return (
-                <JobCard
-                  key={uniqueKey}
-                  title={job.title}
-                  description={job.description}
-                  location={job.location}
-                  area={job.area}
-                  salary={job.salary}
-                  contractingRegime={job.contractingRegime}
-                  slugLink={`https://candidatos.abler.com.br/vagas/${job.slugLink}`}
-                  isExpanded={expandedSlug === uniqueKey}
-                  onToggle={() => handleToggleExpand(uniqueKey)}
+        {/* LAYOUT: sidebar + grid */}
+        <div className={styles.layout}>
+          <aside className={styles.sidebar}>
+            {/* Move WhatWeDo into the sidebar so its text appears above the filters */}
+            <div className={styles.whatWeDoWrapper}>
+              <WhatWeDo
+                badgeIcon={<FontAwesomeIcon icon={faBriefcase} />}
+                title="Confira as vagas"
+                showButton={false}
+                text1="Entre em contato para tirar dúvidas, solicitar informações ou conversar com nossa equipe."
+                text2="Estamos prontos para ajudar!"
+                colors={{
+                  accent: "#5A9E8C",
+                  badgeBg: "rgb(200, 255, 235)",
+                  badgeFg: "#5A9E8C",
+                }}
+                badgeText={"CONECTANDO PESSOAS"}
+              />
+            </div>
+            {isDesktop ? (
+              // DESKTOP: filtros em coluna (igual layout da imagem)
+              <div className={styles.filtersDesktop}>
+                {filterConfigs.map((cfg) => (
+                  <div key={cfg.key} className={styles.filterGroup}>
+                    <h3 className={styles.filterGroupTitle}>{cfg.label}</h3>
+                    <div className={styles.filterGroupOptions}>
+                      {cfg.options.map((opt) => {
+                        const checked = filters[cfg.key] === opt.value;
+                        return (
+                          <label
+                            key={opt.value}
+                            className={styles.filterOption}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={() => {
+                                const next: FiltersState = { ...filters };
+                                if (checked) {
+                                  delete next[cfg.key];
+                                } else {
+                                  next[cfg.key] = opt.value;
+                                }
+                                setFilters(next);
+                              }}
+                            />
+                            <span>{opt.label}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              // MOBILE: chips + modal (componente existente)
+              <div className={styles.filtersMobile}>
+                <FiltersBar
+                  configs={filterConfigs}
+                  value={filters}
+                  onChange={setFilters}
+                  className={styles.sidebarFilters}
                 />
-              );
-            })
-          ) : (
-            <p>Nenhuma vaga encontrada.</p>
-          )}
+              </div>
+            )}
+          </aside>
+
+          <main className={styles.content}>
+            <div className={styles.grid}>
+              {vagasFiltradas.length > 0 ? (
+                vagasFiltradas.map((job) => {
+                  const uniqueKey = `${job.slugLink}-${job.title}`;
+                  return (
+                    <JobCard
+                      key={uniqueKey}
+                      title={job.title}
+                      description={job.description}
+                      location={job.location}
+                      area={job.area}
+                      salary={job.salary}
+                      contractingRegime={job.contractingRegime}
+                      slugLink={`https://candidatos.abler.com.br/vagas/${job.slugLink}`}
+                      isExpanded={expandedSlug === uniqueKey}
+                      onToggle={() => handleToggleExpand(uniqueKey)}
+                    />
+                  );
+                })
+              ) : (
+                <p>Nenhuma vaga encontrada.</p>
+              )}
+            </div>
+          </main>
         </div>
       </section>
     </div>
   );
 }
 
+/* ==== HELPERS ABAIXO (sem mudanças) ==== */
+
 function buildCommaSeparated() {
   return "address,area_of_interests,vacancies_languages,languages,subjects,school_segments";
 }
 function buildRepeatParam() {
-  const inc = ["address","area_of_interests","vacancies_languages","languages","subjects","school_segments"];
-  return inc.map(v => `include[]=${encodeURIComponent(v)}`).join("&");
+  const inc = [
+    "address",
+    "area_of_interests",
+    "vacancies_languages",
+    "languages",
+    "subjects",
+    "school_segments",
+  ];
+  return inc.map((v) => `include[]=${encodeURIComponent(v)}`).join("&");
 }
 function buildJsonArray() {
-  const arr = ["address","area_of_interests","vacancies_languages","languages","subjects","school_segments"];
+  const arr = [
+    "address",
+    "area_of_interests",
+    "vacancies_languages",
+    "languages",
+    "subjects",
+    "school_segments",
+  ];
   return encodeURIComponent(JSON.stringify(arr));
 }
 function buildMultiIncludeKeys() {
-  const inc = ["address","area_of_interests","vacancies_languages","languages","subjects","school_segments"];
-  return inc.map(v => `include=${encodeURIComponent(v)}`).join("&");
+  const inc = [
+    "address",
+    "area_of_interests",
+    "vacancies_languages",
+    "languages",
+    "subjects",
+    "school_segments",
+  ];
+  return inc.map((v) => `include=${encodeURIComponent(v)}`).join("&");
 }
 
-async function tryFetchWithIncludeFormats(baseParams: Record<string,string|number>) {
+async function tryFetchWithIncludeFormats(
+  baseParams: Record<string, string | number>
+) {
   const variants = [
-    { label: "comma",        query: `include=${encodeURIComponent(buildCommaSeparated())}` },
-    { label: "repeatParam",  query: buildRepeatParam() },
-    { label: "jsonArray",    query: `include=${buildJsonArray()}` },
-    { label: "multiKeys",    query: buildMultiIncludeKeys() },
-    { label: "onlyAddress",  query: `include=address` },
-    { label: "baseline",     query: "" }, 
+    {
+      label: "comma",
+      query: `include=${encodeURIComponent(buildCommaSeparated())}`,
+    },
+    { label: "repeatParam", query: buildRepeatParam() },
+    { label: "jsonArray", query: `include=${buildJsonArray()}` },
+    { label: "multiKeys", query: buildMultiIncludeKeys() },
+    { label: "onlyAddress", query: `include=address` },
+    { label: "baseline", query: "" },
   ];
 
-  const fixed =
-    Object.entries(baseParams)
-      .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`)
-      .join("&");
+  const fixed = Object.entries(baseParams)
+    .map(
+      ([k, v]) =>
+        `${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`
+    )
+    .join("&");
 
   for (const v of variants) {
     try {
       const url = `/vacancies?${fixed}${v.query ? `&${v.query}` : ""}`;
       const resp = await api.get(url);
       const data = resp?.data ?? {};
-      const hasIncluded = Array.isArray(data.included) && data.included.length > 0;
+      const hasIncluded =
+        Array.isArray(data.included) && data.included.length > 0;
       const hasData = Array.isArray(data.data);
       if (hasIncluded || hasData) {
         return { data };
       }
-    } catch (_e) {
-    }
+    } catch (_e) {}
   }
 
-  throw new Error("Não foi possível obter as vagas (todas as variações de include falharam).");
+  throw new Error(
+    "Não foi possível obter as vagas (todas as variações de include falharam)."
+  );
 }
 
 type IncludedIndex = Record<string, Record<string, any>>;
-const normType = (s: any) => String(s || "").toLowerCase().replace(/[^a-z_]/g, "");
+const normType = (s: any) =>
+  String(s || "")
+    .toLowerCase()
+    .replace(/[^a-z_]/g, "");
 
 function buildIncludedIndex(included: any[] = []): IncludedIndex {
   const idx: IncludedIndex = {};
@@ -274,10 +408,16 @@ function safeLabel(node: any): string | undefined {
   );
 }
 
-function relData(job: any, relKey: string): { id?: string; type?: string } | undefined {
+function relData(
+  job: any,
+  relKey: string
+): { id?: string; type?: string } | undefined {
   const rel = job?.relationships?.[relKey]?.data;
   if (!rel) return undefined;
-  if (Array.isArray(rel)) return rel[0] ? { id: String(rel[0].id), type: rel[0].type } : undefined;
+  if (Array.isArray(rel))
+    return rel[0]
+      ? { id: String(rel[0].id), type: rel[0].type }
+      : undefined;
   return { id: String(rel.id), type: rel.type };
 }
 
@@ -302,7 +442,9 @@ function resolveLocation(job: any, idx: IncludedIndex): string {
   if (rd?.id) {
     const node = idx[normType(rd.type)]?.[rd.id];
     const city = node?.attributes?.city_name;
-    const uf = node?.attributes?.state_abbreviation || node?.attributes?.state_name;
+    const uf =
+      node?.attributes?.state_abbreviation ||
+      node?.attributes?.state_name;
     if (city && uf) return `${city} - ${uf}`;
     if (city) return city;
   }
@@ -325,19 +467,30 @@ function stripHtml(html: string | null | undefined): string {
   return s.trim();
 }
 
-function detectBilingual(job: any, idx: IncludedIndex, title: string, desc: string): boolean {
+function detectBilingual(
+  job: any,
+  idx: IncludedIndex,
+  title: string,
+  desc: string
+): boolean {
   const rel = job?.relationships?.vacancies_languages?.data;
   if (Array.isArray(rel) && rel.length) {
     for (const link of rel) {
-      const vacLang = idx[normType(link.type)]?.[String(link.id)];
+      const vacLang =
+        idx[normType(link.type)]?.[String(link.id)];
       const langId = vacLang?.relationships?.language?.data?.id;
-      const langType = vacLang?.relationships?.language?.data?.type || "language";
-      const langNode = langId ? idx[normType(langType)]?.[String(langId)] : undefined;
+      const langType =
+        vacLang?.relationships?.language?.data?.type || "language";
+      const langNode = langId
+        ? idx[normType(langType)]?.[String(langId)]
+        : undefined;
       const langName = safeLabel(vacLang) || safeLabel(langNode);
       const ln = (langName || "").toLowerCase();
       if (/(ingl|\benglish\b|\ben\b)/.test(ln)) return true;
     }
   }
   const text = `${title} ${desc}`.toLowerCase();
-  return /(bil[ií]ngue|bilingual|dual\s*language|internacional|ingl[eê]s)/.test(text);
+  return /(bil[ií]ngue|bilingual|dual\s*language|internacional|ingl[eê]s)/.test(
+    text
+  );
 }
