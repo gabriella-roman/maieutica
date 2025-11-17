@@ -4,10 +4,17 @@ import styles from "./Header.module.css";
 
 import logo from "../../assets/images/logo-maieutica.svg";
 import arrow from "../../assets/icons/arrow.svg";
-import menu from "../../assets/icons/menu.svg";
+import menu from "../../assets/icons/hamburguer-menu.svg";
 import close from "../../assets/icons/close.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-export function Header() {
+type HeaderProps = {
+  headerBg?: string;
+  headerFg?: string;
+};
+
+export function Header({ headerBg, headerFg }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -15,10 +22,16 @@ export function Header() {
   const menuRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
-
   const isHome = location.pathname === "/";
-  const headerBg = isHome ? "#2E7B6A" : "#ffffff";
-  const headerFg = isHome ? "#ffffff" : "#1f2937";
+  const navItems = [
+    { label: "Home", path: "/" },
+    { label: "Sobre Nós", path: "/about-us" },
+    { label: "Nossos Serviços", path: "/our-services" },
+    { label: "Fale Conosco", path: "/contact-us" },
+  ];
+
+  const headerBgColor = headerBg ?? (isHome ? "#2E7B6A" : "#ffffff");
+  const headerFgColor = headerFg ?? (isHome ? "#ffffff" : "#1f2937");
 
   useEffect(() => {
     if (!headerRef.current) return;
@@ -44,12 +57,6 @@ export function Header() {
 
   const toggleMenu = () => setIsMenuOpen(v => !v);
 
-  const navItems = [
-    { label: "Home", path: "/" },
-    { label: "Sobre Nós", path: "/about-us" },
-    { label: "Nossos Serviços", path: "/our-services" },
-    { label: "Fale Conosco", path: "/contact-us" },
-  ];
 
   const handleNav = (path: string) => {
     navigate(path);
@@ -57,17 +64,18 @@ export function Header() {
   };
 
   return (
-    <header
-      ref={headerRef}
-      className={`${styles.header} ${isHome ? styles.merge : ""}`}
-      role="banner"
-      style={
-        {
-          ["--header-bg" as any]: headerBg,
-          ["--header-fg" as any]: headerFg,
-        } as React.CSSProperties
-      }
-    >
+    <>
+      <header
+        ref={headerRef}
+        className={`${styles.header} ${isHome ? styles.merge : ""}`}
+        role="banner"
+        style={
+          {
+            ["--header-bg" as any]: headerBgColor,
+            ["--header-fg" as any]: headerFgColor,
+          } as React.CSSProperties
+        }
+      >
       <div className={styles.inner}>
         <button
           className={styles.brand}
@@ -82,8 +90,7 @@ export function Header() {
             {navItems.map(({ label, path }) => (
               <li key={path}>
                 <button
-                  className={`${styles.link} ${location.pathname === path ? styles.active : ""
-                    }`}
+                  className={`${styles.link} ${location.pathname === path ? styles.active : ""}`}
                   onClick={() => handleNav(path)}
                 >
                   {label}
@@ -91,22 +98,22 @@ export function Header() {
               </li>
             ))}
           </ul>
-
           <button className={styles.cta} onClick={() => handleNav("/job-board")}>
             VER VAGAS
-            <img src={arrow} alt="" aria-hidden />
+            <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </nav>
 
         <button
           ref={menuBtnRef}
-          className={styles.menuBtn}
+          className={`${styles.menuBtn} ${isMenuOpen ? styles.menuOpen : ""}`}
           onClick={toggleMenu}
-          aria-label="Abrir menu"
+          aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
           aria-controls="mobileNav"
           aria-expanded={isMenuOpen}
         >
-          <img src={menu} alt="" />
+          <img src={menu} alt="Abrir menu" className={styles.iconHamburger} />
+          <img src={close} alt="Fechar menu" className={styles.iconClose} />
         </button>
       </div>
 
@@ -119,13 +126,7 @@ export function Header() {
         ref={menuRef}
         className={`${styles.mobilePanel} ${isMenuOpen ? styles.open : ""}`}
       >
-        <div className={styles.mobileHeader}>
-          <img src={logo} alt="Maiêutica RH Educacional" />
-          <button className={styles.closeBtn} onClick={toggleMenu} aria-label="Fechar menu">
-            <img src={close} alt="" />
-          </button>
-        </div>
-
+          
         <nav className={styles.mobileNav} aria-label="menu mobile">
           {navItems.map(({ label, path }) => (
             <button
@@ -147,6 +148,9 @@ export function Header() {
           </button>
         </nav>
       </div>
-    </header>
+      </header>
+
+      <div aria-hidden style={{ height: "var(--header-height)", pointerEvents: "none" }} />
+    </>
   );
 }

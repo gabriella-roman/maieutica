@@ -5,12 +5,15 @@
 }
 
 .header {
-  position: sticky;
+  /* keep header always visible at top */
+  position: fixed;
   top: 0;
-  z-index: 40;
+  left: 0;
+  /* ensure header sits above panels/backdrops */
+  z-index: 60;
   width: 100%;
   background: var(--header-bg, #fff);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, .05);
+  /* box-shadow: 0 1px 0 rgba(0, 0, 0, .95); */
 }
 
 .merge {
@@ -22,12 +25,11 @@
   max-width: 100%;
   margin: 0 auto;
   min-height: var(--header-height);
-  padding: 8px 16px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 12px;
-  color: inherit;
+  padding: 20px;
 }
 
 .brand {
@@ -76,7 +78,7 @@
 }
 
 .active {
-  color: var(--color-maieutica-amarelo);
+  color: var(--color-text-on);
 }
 
 .cta {
@@ -86,8 +88,8 @@
   padding: 10px 16px;
   border-radius: 999px;
   border: 0;
-  color: #fff;
-  background: linear-gradient(135deg, #d85c2b 0%, #e5a24a 100%);
+  color: var(--color-maieutica-verde);
+  background: var(--color-text-on);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -115,11 +117,50 @@
   height: 28px;
 }
 
+/* Animated hamburger -> close icon */
+.menuBtn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  padding: 6px;
+  display: inline-block;
+  z-index: 65;
+}
+
+.menuBtn img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform .28s cubic-bezier(.2,.9,.2,1), opacity .18s ease;
+  will-change: transform, opacity;
+}
+
+.iconHamburger {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+.iconClose {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(0.85);
+}
+
+.menuOpen .iconHamburger {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg) scale(0.85);
+}
+
+.menuOpen .iconClose {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
 .backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, .12);
-  z-index: 39;
+  z-index: 30;
 }
 
 .mobilePanel {
@@ -129,7 +170,8 @@
   top: var(--header-height);
   width: 100%;
   background: #fff;
-  z-index: 41;
+  /* keep panel under the header */
+  z-index: 50;
   border-radius: 0 0 16px 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
   max-height: min(70vh, 520px);
@@ -170,9 +212,15 @@
 }
 
 .mobileNav {
-  display: grid;
+  /* keep mobile nav hidden by default; it will be shown when the panel is opened */
+  display: none;
   gap: 10px;
   padding: 16px;
+}
+
+/* show the mobile nav only when the mobile panel is open */
+.mobilePanel.open .mobileNav {
+  display: grid;
 }
 
 .mobileLink {
@@ -194,7 +242,7 @@
 }
 
 .mobileLink.active {
-  color: var(--color-maieutica-amarelo);
+  color: var(--color-text-on);
 }
 
 .ctaMobile {
