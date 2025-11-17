@@ -79,6 +79,8 @@
 
 .active {
   color: var(--color-text-on);
+  text-decoration: underline;
+  text-underline-offset: 3px;    
 }
 
 .cta {
@@ -132,7 +134,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  transition: transform .28s cubic-bezier(.2,.9,.2,1), opacity .18s ease;
+  transition: transform .28s cubic-bezier(.2, .9, .2, 1), opacity .18s ease;
   will-change: transform, opacity;
 }
 
