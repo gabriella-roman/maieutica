@@ -6,10 +6,9 @@
 .banner {
   background: linear-gradient(180deg, #2e7b6a 0%, #246a5b 100%);
   color: #fff;
-  padding: 18px 16px 16px;
+  padding: 18px 16px 0px;
   overflow: hidden;
 }
-
 
 .container {
   width: 100%;
@@ -30,11 +29,11 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 10px;
+  padding: 3px 5px;
   border-radius: 999px;
   background-color: var(--color-maieutica-verde-light);
   border: 1px solid rgba(255, 255, 255, .2);
-  font-size: 14px;
+  font-size: 10px;
   width: max-content;
 }
 
@@ -96,26 +95,36 @@
   border-top-right-radius: 28px;
 }
 
+.heroWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .heroImage {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 16px;
-  background: var(--img-ph);
-  background-position: center;
+  max-width: 260px;
+  aspect-ratio: 3 / 4;
+  background-image: url('../../assets/images/ImagemBannerMulher.svg');
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, .08);
+  box-shadow: none;
+  background-color: transparent;
 }
 
 @media (min-width: 1024px) {
   .banner {
-    padding: 28px 32px;
+    padding: 0px;
   }
 
   .container {
-    grid-template-columns: minmax(0, 52%) minmax(360px, 1fr);
-    align-items: center;
+    grid-template-columns: minmax(0, 55%) minmax(360px, 1fr);
+    align-items: flex-start;
     column-gap: 32px;
+    display: grid;
+    align-items: center;
   }
 
   .title {
@@ -133,12 +142,15 @@
     border-top-right-radius: 36px;
   }
 
-  .heroImage {
+  .heroWrapper {
     grid-column: 2;
-    grid-row: 1 / span 2;
-    aspect-ratio: var(--portrait);
-    border-radius: 24px;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, .1);
+    display: flex;
+  }
+
+  .heroImage {
+    max-width: 330px;              /* ~metade do tamanho antigo */
+    height: auto;
+    aspect-ratio: 3 / 4;
   }
 
   .badge span {

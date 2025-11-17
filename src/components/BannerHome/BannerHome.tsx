@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./BannerHome.module.css";
 import { colors } from "@mui/material";
 
+import ImagemBannerMulher from '../../assets/images/ImagemBannerMulher.svg'
+
 export function BannerHome() {
   return (
     <section className={styles.banner} aria-label="Destaque Maieútica">
@@ -33,10 +35,11 @@ export function BannerHome() {
           </div>
         </div>
 
-        {/* Área visual (painel + foto placeholder) */}
-        <div className={styles.heroImage} aria-hidden title="Área para imagem" />
+        <div className={styles.heroWrapper}>
+          <div className={styles.heroImage}></div>
+        </div>
       </div>
-    </section>
+    </section >
   );
 }
 

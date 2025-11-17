@@ -28,18 +28,20 @@ export function Banner({
 
   return (
     <section className={styles.container} style={styleVars}>
-      <h1 className={styles.title}>{title}</h1>
+      <div className={styles.innerContent}>
+        <h1 className={styles.title}>{title}</h1>
 
-      <nav className={styles.breadcrumb} aria-label="breadcrumb">
-        {breadcrumb.map((item, index) => (
-          <span key={index}>
-            {item}
-            {index < breadcrumb.length - 1 && (
-              <span className={styles.separator}>›</span>
-            )}
-          </span>
-        ))}
-      </nav>
+        <nav className={styles.breadcrumb} aria-label="breadcrumb">
+          {breadcrumb.map((item, index) => (
+            <span key={index}>
+              {item}
+              {index < breadcrumb.length - 1 && (
+                <span className={styles.separator}>›</span>
+              )}
+            </span>
+          ))}
+        </nav>
+      </div>
     </section>
   );
 }
