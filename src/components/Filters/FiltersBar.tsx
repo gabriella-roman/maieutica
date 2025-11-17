@@ -5,11 +5,9 @@ import { faChevronDown, faFilter, faXmark } from "@fortawesome/free-solid-svg-ic
 
 export type FilterKey =
   | "area"
-  | "segmento"
   | "disciplina"
-  | "localizacao"
-  | "idioma"
-  | "bilingue";
+  | "bilingue"
+  | "localizacao";
 
 export type FiltersState = Partial<Record<FilterKey, string>>;
 
@@ -23,10 +21,13 @@ export function FiltersBar({
   configs,
   value,
   onChange,
+  className,
 }: {
   configs: FilterConfig[];
   value: FiltersState;
   onChange: (next: FiltersState) => void;
+  /** optional class applied to the wrapper element (useful for layout overrides) */
+  className?: string;
 }) {
   const [openKey, setOpenKey] = useState<FilterKey | null>(null);
 
@@ -43,7 +44,7 @@ export function FiltersBar({
 
   return (
     <>
-      <div className={styles.wrapper} role="toolbar" aria-label="Filtros">
+  <div className={`${styles.wrapper} ${className ?? ""}`} role="toolbar" aria-label="Filtros">
         {configs.map((cfg) => {
           const current = value[cfg.key];
           const currentLabel =
