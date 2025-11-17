@@ -4,6 +4,8 @@
   padding: 18px 14px 22px;
   display: grid;
   gap: 12px;
+  /* default logo height for small screens */
+  --logo-height: 44px;
 }
 
 .badge{
@@ -36,25 +38,27 @@
 }
 
 .viewport{
-  overflow: hidden;
+  /* contain the visible carousel to the site container width and hide overflow
+     so the scrollLeft-driven animation moves content inside this viewport */
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 6px auto 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
   position: relative;
-  margin-top: 6px;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
           mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
 }
+.viewport::-webkit-scrollbar{ display: none; }
 
 .track{
   display: inline-flex;
   gap: var(--gap);
-  width: var(--container-max);
-  will-change: transform;
-  animation: cc-scroll var(--duration) linear infinite;
-}
-.viewport:hover .track{ animation-play-state: paused; }
-
-@keyframes cc-scroll{
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  /* let track width be determined by its content (two concatenated sequences) */
+  width: auto;
+  will-change: scroll-left;
 }
 
 .item{
@@ -64,7 +68,9 @@
   min-width: 120px;
 }
 .item img{
-  height: 44px;
+  /* restore original logo sizing via CSS variable so it's easy to tweak */
+  height: var(--logo-height, 44px);
+  max-height: var(--logo-height, 44px);
   width: auto;
   object-fit: contain;
   filter: grayscale(100%) contrast(92%);
@@ -79,5 +85,6 @@
 @media (min-width: 768px){
   .section{ padding: 22px 20px 26px; gap: 14px; }
   .title{ font-size: 36px; }
-  .item img{ height: 52px; }
+  /* desktop default logo height */
+  .section{ --logo-height: 52px; }
 }
