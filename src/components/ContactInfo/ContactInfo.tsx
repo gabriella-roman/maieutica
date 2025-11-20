@@ -29,13 +29,13 @@ export function ContactInfo() {
           <p className={styles.socialTitle}>NOS ENCONTRE NAS REDES SOCIAIS</p>
 
           <div className={styles.socials}>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <a href="https://www.instagram.com/maieutica.rh.educacional" target="_blank" rel="noreferrer" aria-label="Instagram">
               <FontAwesomeIcon icon={faInstagram} />
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
+            <a href="https://www.facebook.com/maieuticarh" target="_blank" rel="noreferrer" aria-label="Facebook">
               <FontAwesomeIcon icon={faFacebookF} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/maieuticarheducacional/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
               <FontAwesomeIcon icon={faLinkedinIn} />
             </a>
           </div>

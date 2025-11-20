@@ -6,11 +6,10 @@
   border: 1px solid #e5e7eb;
   border-radius: calc(var(--radius) + 6px);
   box-shadow: var(--shadow);
-  padding: 8px;
 }
 
 .inner {
-  border: 2px solid var(--stroke);
+  border: 2px solid var(--color-maieutica-amarelo);
   border-radius: calc(var(--radius) + 2px);
   padding: 16px;
   display: grid;
@@ -64,7 +63,7 @@
 .text {
   font-size: 14px;
   line-height: 1.6;
-  color: var(--muted);
+  color: #727272;
   margin: 0;
 }
 
@@ -106,7 +105,7 @@
 
 .infoBlock {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
 }
 
@@ -119,7 +118,7 @@
 
 .label {
   font-size: 13px;
-  color: var(--muted);
+  color: #727272;
 }
 
 .valueEmail {
@@ -148,7 +147,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 992px) {
   .card {
     border-radius: 28px;
   }
@@ -158,6 +157,8 @@
     gap: 18px;
     grid-template-columns: 1.05fr 1fr;
     column-gap: 48px;
+    height: 430px;
+    align-items: center;
   }
 
   .title {

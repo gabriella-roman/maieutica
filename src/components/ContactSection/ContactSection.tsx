@@ -1,7 +1,7 @@
 // ContactSection.tsx
-// [SEM ALTERAÇÃO] — este componente só renderiza o formulário
+// Envia formulário de contato para Formspree
 
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ContactSection.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,6 +10,9 @@ import {
   faPhone,
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
+
+// Endpoint Formspree configurado
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xovrbajr";
 
 export type ContactSectionProps = {
   title?: string;
@@ -31,15 +34,49 @@ export function ContactSection({
   className,
   onSubmit,
 }: ContactSectionProps) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    onSubmit?.({
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const data = {
       name: (fd.get("name") as string) ?? "",
       email: (fd.get("email") as string) ?? "",
       phone: (fd.get("phone") as string) ?? "",
       message: (fd.get("message") as string) ?? "",
-    });
+    };
+
+    // Callback opcional para página pai
+    onSubmit?.(data);
+
+    // Enviar para Formspree
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        // Limpar formulário
+        form.reset();
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -104,9 +141,21 @@ export function ContactSection({
           </div>
         </label>
 
-        <button type="submit" className={styles.submit}>
-          {submitLabel}
+        <button type="submit" className={styles.submit} disabled={isSubmitting}>
+          {isSubmitting ? "Enviando..." : submitLabel}
         </button>
+
+        {submitStatus === "success" && (
+          <div className={styles.successMessage}>
+            ✓ Mensagem enviada com sucesso! Responderemos em breve.
+          </div>
+        )}
+
+        {submitStatus === "error" && (
+          <div className={styles.errorMessage}>
+            ✗ Erro ao enviar mensagem. Tente novamente ou envie e-mail diretamente.
+          </div>
+        )}
       </form>
     </section>
   );

@@ -15,6 +15,7 @@
   grid-template-columns: 1fr;
   gap: 24px;
   align-items: start;
+  padding-left: 16px;
 }
 
 .colLogo {
@@ -26,6 +27,8 @@
 .colRight {
   display: grid;
   gap: 12px;
+  color: rgba(114, 114, 114, 1);
+  ;
 }
 
 .infoGroup {
@@ -62,10 +65,9 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: var(--pill);
-  border-radius: 8px;
+  background: var(--color-gray-400);
+  border-radius: 4px;
   font-size: 18px;
-  transition: opacity .15s ease, transform .1s ease;
 }
 
 .socials a:hover {
@@ -78,7 +80,11 @@
 
 .line {
   background: var(--color-gray-300);
-  height: 12px;
+  color: var(--color-gray-200);
+  font-size: 12px;
+  padding: 16px;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .brandRight {
@@ -89,5 +95,24 @@
   .row {
     grid-template-columns: 1.2fr 1fr 1fr 1fr;
     column-gap: 48px;
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+  }
+
+  .line{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .copyright{
+    display: flex;
+    gap: 8px;
   }
 }

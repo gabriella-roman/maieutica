@@ -1,6 +1,6 @@
 import { ColoredLine } from "../../components/ColoredLine/ColoredLine";
 import styles from "./Footer.module.css";
-import logo from "../../assets/images/logo-maieutica.svg";
+import logo from "../../assets/images/logo-maieutica-colorida.svg";
 import { NavbarFooter } from "../../components/NavbarFooter/NavbarFooter";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -74,7 +74,14 @@ export function Footer() {
         </div>
       </div>
 
-      <div className={styles.line} />
+      <div className={styles.line}>
+        <span className={styles.copyright}>
+          <div>Copyright © 2025 Maiêutica </div>
+          <div>Todos os direitos reservados. </div>
+        </span>
+        <div>Desenvolvido por Soav Tech</div>
+      </div>
+
     </footer>
   );
 }

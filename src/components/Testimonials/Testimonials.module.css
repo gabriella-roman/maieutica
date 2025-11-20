@@ -113,7 +113,7 @@
     border-radius: 18px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, .08);
     padding: 24px;
-    min-height: 400px;
+    min-height: 445px;
     display: grid;
     grid-template-rows: auto 1fr auto;
     gap: 14px;
