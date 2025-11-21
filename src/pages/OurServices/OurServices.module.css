@@ -20,7 +20,6 @@
   align-items: center;
   text-align: center;
   padding: 32px 24px;
-  gap: 32px;
 }
 
 .sectionIntro__title {
@@ -36,37 +35,225 @@
   max-width: 600px;
 }
 
-/* PC */
-@media (min-width: 768px) {
-  .sectionIntro {
-    padding: 96px 64px;
-  }
-
-  .sectionIntro__title {
-    font-size: 2.5rem;         /* título maior */
-    margin-bottom: 0;          /* remove o espaço extra */
-    flex: 1;                   /* ocupa metade do espaço */
-  }
-
-  .sectionIntro__subtitle {
-    font-size: 1.25rem;        /* subtítulo maior */
-    max-width: 700px;          /* mais largura permitida */
-    flex: 2;                   /* ocupa mais espaço que o título */
-  }
+.supportContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  gap: 24px;
 }
 
-/* Telas bem grandes */
-@media (min-width: 1200px) {
+.cardSupport {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #063264;
+  color: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 24px;
+  gap: 64px;
+}
+
+.cardSupport h2 {
+  font-size: 36px;
+  line-height: normal;
+}
+
+.imageSupport {
+  border-radius: 16px;
+  margin: 24px;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  height: 400px;
+}
+
+
+.sectionServices {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 32px;
+}
+
+.button {
+  border-radius: 64px;
+  border: none;
+  background-color: #ccc;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.sectionDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 32px;
+}
+
+.filter {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px;
+  white-space: nowrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonArea {
+  display: flex;
+  background-color: #E8E8E8;
+  border-radius: 16px;
+  border: 1px solid #898B8D;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.filterButton {
+  display: flex;
+  color: #5C5E5F;
+  border: none;
+  border-radius: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.infoCard {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 32px;
+  margin: 24px;
+  gap: 24px;
+}
+
+.divider {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionChoose {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* PC */
+@media (min-width: 768px) {
+  .cardSupport {
+    max-width: 400;
+  }
+
+  .filter {
+    display: flex;
+    padding: 0px;
+  }
+
+  .buttonAreaDesktop {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 400px;
+  }
+
+  .buttonAreaDesktop button {
+    font-size: 16px;
+    font-weight: bold;
+    text-wrap: wrap;
+    text-align: start;
+  }
+
+  .filterButtonDesktop {
+    display: flex;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
   .sectionIntro {
-    padding: 96px 64px;
+    padding: 64px 24px;
   }
-
   .sectionIntro__title {
-    font-size: 3rem;
+  font-size: 80px;
+}
+
+.sectionIntro__subtitle {
+  font-size: 16px;
+}
+
+.cardSupport {
+  width: 400px;
+}
+
+.cardSupport h2 {
+  font-size: 50px;
+  line-height: normal;
+}
+
+  .supportContainer {
+    flex-direction: row;
+    justify-content: space-between;
   }
 
-  .sectionIntro__subtitle {
-    font-size: 1.5rem;
-    max-width: 800px;
+  .imageSupport {
+    width: 900px;
+  }
+
+  .divider {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px 24px;
+    width: 100%;
+  }
+
+  .infoCard {
+    margin: 0px;
+    max-width: 900px;
+  }
+
+  .filter {
+    flex-direction: column;
+  }
+
+  .sectionChoose {
+    flex-direction: column-reverse;
+  }
+
+  .sectionDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between  ;
+  align-items: center;
+  padding-top: 32px;
+}
+}
+
+@media (min-width: 1200px) {
+  .supportContainer {
+    justify-content: center;
+  }
+
+  .divider {
+    justify-content: center;
+    gap: 24px;
   }
 }
