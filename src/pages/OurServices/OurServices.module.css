@@ -40,7 +40,6 @@
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  gap: 24px;
 }
 
 .cardSupport {
@@ -192,22 +191,23 @@
   .sectionIntro {
     padding: 64px 24px;
   }
+
   .sectionIntro__title {
-  font-size: 80px;
-}
+    font-size: 80px;
+  }
 
-.sectionIntro__subtitle {
-  font-size: 16px;
-}
+  .sectionIntro__subtitle {
+    font-size: 16px;
+  }
 
-.cardSupport {
-  width: 400px;
-}
+  .cardSupport {
+    width: 400px;
+  }
 
-.cardSupport h2 {
-  font-size: 50px;
-  line-height: normal;
-}
+  .cardSupport h2 {
+    font-size: 50px;
+    line-height: normal;
+  }
 
   .supportContainer {
     flex-direction: row;
@@ -241,12 +241,12 @@
   }
 
   .sectionDetails {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between  ;
-  align-items: center;
-  padding-top: 32px;
-}
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+  }
 }
 
 @media (min-width: 1200px) {
