@@ -10,19 +10,22 @@ import checkiconLaranja from '../../assets/icons/checkicon_laranja.svg'
 import maieuticaIconAzul from '../../assets/icons/maieutica-icon-azul.svg'
 import imagem from '../../assets/images/imagens_background.png'
 import imagem2 from '../../assets/images/imagens_background_2.png'
-import SectionHeader from '../../components/SectionHeader/SectionHeader'
+import { Banner } from '../../components/Banner/Banner'
 
 export default function OurServices() {
   const [ativo, setAtivo] = useState<'educadores' | 'escolas'>('educadores')
 
-  const [aconselhamentoDeCarreira, setAconselhamentoDeCarreira] = useState(ativo === 'educadores' ? true : false)
-  const [perfilPsicologicoEducadores, setPerfilPsicologico] = useState(false)
+  // selected sub-option: for 'educadores' -> 'aconselhamento'|'perfil'; for 'escolas' -> 'processo'|'perfil'|'aporte'
+  const [selected, setSelected] = useState<'aconselhamento' | 'perfil' | 'processo' | 'aporte'>('aconselhamento')
 
-  const [processoSeletivoEducacional, setProcessoSeletivoEducacional] = useState(false)
-  const [perfilPsicologicoEscolas, setPerfilPsicologicoEscolas] = useState(ativo === 'escolas' ? true : false)
-  const [aporte, setAporte] = useState(false)
+  // responsive flag with resize listener
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768)
 
-  const isMobile = window.innerWidth <= 768
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   type EducadoresOpcao = {
     cor: string
@@ -30,8 +33,6 @@ export default function OurServices() {
     subtitulo: string
     text: string
     imagem: string
-    aconselhamentoDeCarreira: boolean
-    perfilPsicologico: boolean
   }
 
   type EscolasOpcao = {
@@ -40,9 +41,6 @@ export default function OurServices() {
     subtitulo: string
     text: string
     imagem: string
-    processoSeletivoEducacional: boolean
-    perfilPsicologico: boolean
-    aporte: boolean
   }
 
   type Opcao = {
@@ -57,8 +55,6 @@ export default function OurServices() {
       subtitulo: 'Há mais de 15 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução do processo seletivo e total respeito aos agentes envolvidos: escola e educadores.',
       text: 'Suporte para Instituições de Ensino',
       imagem: imagem,
-      aconselhamentoDeCarreira: aconselhamentoDeCarreira,
-      perfilPsicologico: perfilPsicologicoEducadores,
     },
     escolas: {
       cor: '#063264',
@@ -66,39 +62,25 @@ export default function OurServices() {
       subtitulo: 'Há mais de 15 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução do processo seletivo e total respeito aos agentes envolvidos: escola e educadores.',
       text: 'Suporte para Professores',
       imagem: imagem2,
-      processoSeletivoEducacional: processoSeletivoEducacional,
-      perfilPsicologico: perfilPsicologicoEscolas,
-      aporte: aporte,
     },
   }
 
   const atual = opcoes[ativo]
 
   useEffect(() => {
-    if (ativo === 'educadores') {
-      setAconselhamentoDeCarreira(true)
-      setPerfilPsicologico(false)
-      setProcessoSeletivoEducacional(false)
-      setPerfilPsicologicoEscolas(false)
-      setAporte(false)
-    } else if (ativo === 'escolas') {
-      setProcessoSeletivoEducacional(true)
-      setPerfilPsicologicoEscolas(false)
-      setAconselhamentoDeCarreira(false)
-      setPerfilPsicologico(false)
-      setAporte(false)
-    }
+    if (ativo === 'educadores') setSelected('aconselhamento')
+    else setSelected('processo')
   }, [ativo])
 
 
   return (
     <div className={styles.page}>
-      <Header />
+      <Header headerBg='#084385' />
 
-      <SectionHeader
-        title='Nossos Serviços'
-        subtitle='Conheça as soluções que oferecemos para educadores e instituições de ensino.'
-        backgroundColor='#084385'
+      <Banner
+        title="Nossos Serviços"
+        breadcrumb={["Conheça as soluções que oferecemos para educadores e instituições de ensino."]}
+        bgColor="#084385"
       />
 
       <div className={styles.sectionChoose}>
@@ -138,10 +120,8 @@ export default function OurServices() {
             }}
             onClick={() => {
               setAtivo('educadores')
-              window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-              })
+              setSelected('aconselhamento')
+              window.scrollTo({ top: 0, behavior: 'smooth' })
             }}>
             Para Educadores
           </button>
@@ -155,10 +135,8 @@ export default function OurServices() {
             }}
             onClick={() => {
               setAtivo('escolas')
-              window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-              })
+              setSelected('processo')
+              window.scrollTo({ top: 0, behavior: 'smooth' })
             }}>
             Para Escolas
           </button>
@@ -187,16 +165,10 @@ export default function OurServices() {
                   <button
                     className={styles.filterButton}
                     style={{
-                      backgroundColor: aconselhamentoDeCarreira ? '#FFFFFF' : '#E8E8E8'
+                      backgroundColor: selected === 'aconselhamento' ? '#FFFFFF' : '#E8E8E8'
                     }}
                     onClick={() => {
-                      if (ativo === 'educadores') {
-                        setAconselhamentoDeCarreira(true)
-                        setPerfilPsicologico(false)
-                        setProcessoSeletivoEducacional(false)
-                        setPerfilPsicologicoEscolas(false)
-                        setAporte(false)
-                      }
+                      if (ativo === 'educadores') setSelected('aconselhamento')
                     }}
                   >
                     Aconselhamento de Carreira
@@ -205,16 +177,10 @@ export default function OurServices() {
                   <button
                     className={styles.filterButton}
                     style={{
-                      backgroundColor: perfilPsicologicoEducadores ? '#FFFFFF' : '#E8E8E8'
+                      backgroundColor: selected === 'perfil' ? '#FFFFFF' : '#E8E8E8'
                     }}
                     onClick={() => {
-                      if (ativo === 'educadores') {
-                        setAconselhamentoDeCarreira(false)
-                        setPerfilPsicologico(true)
-                        setProcessoSeletivoEducacional(false)
-                        setPerfilPsicologicoEscolas(false)
-                        setAporte(false)
-                      }
+                      if (ativo === 'educadores') setSelected('perfil')
                     }}
                   >
                     Perfil Psicológico
@@ -227,16 +193,10 @@ export default function OurServices() {
                   <button
                     className={styles.filterButton}
                     style={{
-                      backgroundColor: processoSeletivoEducacional ? '#FFFFFF' : '#E8E8E8'
+                      backgroundColor: selected === 'processo' ? '#FFFFFF' : '#E8E8E8'
                     }}
                     onClick={() => {
-                      if (ativo === 'escolas') {
-                        setAconselhamentoDeCarreira(false)
-                        setPerfilPsicologico(false)
-                        setProcessoSeletivoEducacional(true)
-                        setPerfilPsicologicoEscolas(false)
-                        setAporte(false)
-                      }
+                      if (ativo === 'escolas') setSelected('processo')
                     }}
                   >
                     Processo Seletivo Educacional
@@ -245,16 +205,10 @@ export default function OurServices() {
                   <button
                     className={styles.filterButton}
                     style={{
-                      backgroundColor: perfilPsicologicoEscolas ? '#FFFFFF' : '#E8E8E8'
+                      backgroundColor: selected === 'perfil' ? '#FFFFFF' : '#E8E8E8'
                     }}
                     onClick={() => {
-                      if (ativo === 'escolas') {
-                        setAconselhamentoDeCarreira(false)
-                        setPerfilPsicologico(false)
-                        setProcessoSeletivoEducacional(false)
-                        setPerfilPsicologicoEscolas(true)
-                        setAporte(false)
-                      }
+                      if (ativo === 'escolas') setSelected('perfil')
                     }}
                   >
                     Perfil Psicológico
@@ -263,16 +217,10 @@ export default function OurServices() {
                   <button
                     className={styles.filterButton}
                     style={{
-                      backgroundColor: aporte ? '#FFFFFF' : '#E8E8E8'
+                      backgroundColor: selected === 'aporte' ? '#FFFFFF' : '#E8E8E8'
                     }}
                     onClick={() => {
-                      if (ativo === 'escolas') {
-                        setAconselhamentoDeCarreira(false)
-                        setPerfilPsicologico(false)
-                        setProcessoSeletivoEducacional(false)
-                        setPerfilPsicologicoEscolas(false)
-                        setAporte(true)
-                      }
+                      if (ativo === 'escolas') setSelected('aporte')
                     }}
                   >
                     APORTE - Apoio e Orientação na Transição Profissional
@@ -289,18 +237,8 @@ export default function OurServices() {
                   <div className={styles.buttonAreaDesktop}>
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{
-                        color: aconselhamentoDeCarreira ? '#084385' : '#898B8D'
-                      }}
-                      onClick={() => {
-                        if (ativo === 'educadores') {
-                          setAconselhamentoDeCarreira(true)
-                          setPerfilPsicologico(false)
-                          setProcessoSeletivoEducacional(false)
-                          setPerfilPsicologicoEscolas(false)
-                          setAporte(false)
-                        }
-                      }}
+                      style={{ color: selected === 'aconselhamento' ? '#084385' : '#898B8D' }}
+                        onClick={() => { if (ativo === 'educadores') setSelected('aconselhamento') }}
                     >
                       Aconselhamento de Carreira
                     </button>
@@ -309,18 +247,8 @@ export default function OurServices() {
 
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{
-                        color: perfilPsicologicoEducadores ? '#C25450' : '#898B8D'
-                      }}
-                      onClick={() => {
-                        if (ativo === 'educadores') {
-                          setAconselhamentoDeCarreira(false)
-                          setPerfilPsicologico(true)
-                          setProcessoSeletivoEducacional(false)
-                          setPerfilPsicologicoEscolas(false)
-                          setAporte(false)
-                        }
-                      }}
+                      style={{ color: selected === 'perfil' ? '#C25450' : '#898B8D' }}
+                      onClick={() => { if (ativo === 'educadores') setSelected('perfil') }}
                     >
                       Perfil Psicológico
                     </button>
@@ -331,18 +259,8 @@ export default function OurServices() {
                   <div className={styles.buttonAreaDesktop}>
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{
-                        color: processoSeletivoEducacional ? '#5A9E8C' : '#898B8D'
-                      }}
-                      onClick={() => {
-                        if (ativo === 'escolas') {
-                          setAconselhamentoDeCarreira(false)
-                          setPerfilPsicologico(false)
-                          setProcessoSeletivoEducacional(true)
-                          setPerfilPsicologicoEscolas(false)
-                          setAporte(false)
-                        }
-                      }}
+                      style={{ color: selected === 'processo' ? '#5A9E8C' : '#898B8D' }}
+                      onClick={() => { if (ativo === 'escolas') setSelected('processo') }}
                     >
                       Processo Seletivo Educacional
                     </button>
@@ -351,18 +269,8 @@ export default function OurServices() {
 
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{
-                        color: perfilPsicologicoEscolas ? '#CE6C39' : '#898B8D'
-                      }}
-                      onClick={() => {
-                        if (ativo === 'escolas') {
-                          setAconselhamentoDeCarreira(false)
-                          setPerfilPsicologico(false)
-                          setProcessoSeletivoEducacional(false)
-                          setPerfilPsicologicoEscolas(true)
-                          setAporte(false)
-                        }
-                      }}
+                      style={{ color: selected === 'perfil' ? '#CE6C39' : '#898B8D' }}
+                      onClick={() => { if (ativo === 'escolas') setSelected('perfil') }}
                     >
                       Perfil Psicológico
                     </button>
@@ -371,18 +279,8 @@ export default function OurServices() {
 
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{
-                        color: aporte ? '#DFA242' : '#898B8D'
-                      }}
-                      onClick={() => {
-                        if (ativo === 'escolas') {
-                          setAconselhamentoDeCarreira(false)
-                          setPerfilPsicologico(false)
-                          setProcessoSeletivoEducacional(false)
-                          setPerfilPsicologicoEscolas(false)
-                          setAporte(true)
-                        }
-                      }}
+                      style={{ color: selected === 'aporte' ? '#DFA242' : '#898B8D' }}
+                      onClick={() => { if (ativo === 'escolas') setSelected('aporte') }}
                     >
                       APORTE - Apoio e Orientação na Transição Profissional
                     </button>
@@ -392,8 +290,7 @@ export default function OurServices() {
             </div>
           )}
 
-
-          {ativo === 'educadores' && opcoes.educadores.aconselhamentoDeCarreira && (
+          {ativo === 'educadores' && selected === 'aconselhamento' && (
             <div className={styles.infoCard}>
               <h1 style={{
                 color: '#084385'
@@ -482,7 +379,7 @@ export default function OurServices() {
             </div>
           )}
 
-          {ativo === 'educadores' && opcoes.educadores.perfilPsicologico && (
+          {ativo === 'educadores' && selected === 'perfil' && (
             <div className={styles.infoCard}>
               <h1 style={{
                 color: '#C25450'
@@ -538,7 +435,7 @@ export default function OurServices() {
             </div>
           )}
 
-          {ativo === 'escolas' && opcoes.escolas.processoSeletivoEducacional && (
+          {ativo === 'escolas' && selected === 'processo' && (
             <div className={styles.infoCard}>
               <h1 style={{
                 color: '#5A9E8C'
@@ -630,7 +527,7 @@ export default function OurServices() {
             </div>
           )}
 
-          {ativo === 'escolas' && opcoes.escolas.perfilPsicologico && (
+          {ativo === 'escolas' && selected === 'perfil' && (
             <div className={styles.infoCard}>
               <h1 style={{
                 color: '#CE6C39'
@@ -709,7 +606,7 @@ export default function OurServices() {
             </div>
           )}
 
-          {ativo === 'escolas' && opcoes.escolas.aporte && (
+          {ativo === 'escolas' && selected === 'aporte' && (
             <div className={styles.infoCard}>
               <h1 style={{
                 color: '#DFA242'

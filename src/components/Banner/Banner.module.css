@@ -12,6 +12,7 @@
   background: var(--banner-bg, #d99639);
   color: var(--banner-text, #ffffff);
   box-sizing: border-box;
+  gap: 24px;
 }
 
 .title {

@@ -221,17 +221,19 @@
   .divider {
     flex-direction: row;
     justify-content: space-between;
-    padding: 16px 24px;
     width: 100%;
   }
 
   .infoCard {
-    margin: 0px;
     max-width: 900px;
   }
 
   .filter {
     flex-direction: column;
+  }
+
+  .filterDesktop {
+    margin: 24px;
   }
 
   .sectionChoose {
