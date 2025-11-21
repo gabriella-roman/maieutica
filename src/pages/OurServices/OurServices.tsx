@@ -146,11 +146,11 @@ export default function OurServices() {
       <div className={styles.sectionDetails}>
         {isMobile && (
           <>
-            <span>
+            <span style={{ color:'#063264' }}>
               Serviços
             </span>
 
-            <h1>
+            <h1 style={{ color:'#6B8EB6' }}>
               {atual.titulo}
             </h1>
           </>
@@ -238,7 +238,7 @@ export default function OurServices() {
                     <button
                       className={styles.filterButtonDesktop}
                       style={{ color: selected === 'aconselhamento' ? '#084385' : '#898B8D' }}
-                        onClick={() => { if (ativo === 'educadores') setSelected('aconselhamento') }}
+                      onClick={() => { if (ativo === 'educadores') setSelected('aconselhamento') }}
                     >
                       Aconselhamento de Carreira
                     </button>
