@@ -18,13 +18,12 @@ export function Banner({
   maxWidth,
   radius,
 }: BannerProps) {
-  const styleVars: React.CSSProperties = {
-    // @ts-expect-error custom props for CSS vars
+  const styleVars = {
     "--banner-bg": bgColor || "#d99639",
     "--banner-text": textColor || "#fff",
     "--banner-max": typeof maxWidth === "number" ? `${maxWidth}px` : (maxWidth || "1120px"),
     "--banner-radius": radius ? `${radius}px` : undefined,
-  };
+  } as React.CSSProperties;
 
   return (
     <section className={styles.container} style={styleVars}>

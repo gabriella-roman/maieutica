@@ -4,6 +4,7 @@ import { Header } from "../../components/Header/Header";
 import { Banner } from "../../components/Banner/Banner";
 import { Button } from "../../components/Button/Button";
 import { Footer } from "../../components/Footer/Footer";
+import image from "../../assets/images/img-woman-about-us.png";
 
 export default function AboutUs() {
   return (
@@ -23,6 +24,7 @@ export default function AboutUs() {
 
         <section className={styles.layout}>
           <div className={styles.lead}>
+            <h2 className={styles.ourMissionTitle}>Quem somos?</h2>
             <p className={styles.text}>
               Somos uma consultoria em RH Educacional que há mais de 15 anos
               realiza um trabalho especializado e personalizado de acordo com as
@@ -41,17 +43,17 @@ export default function AboutUs() {
               pedagógica, para os quais estamos prontos a auxiliá-las.
             </p>
 
-            <div className={styles.ctaWrap}>
-              <Button
-                label="Saiba mais sobre nossos serviços"
-                href="/services"
-                accentColor="#C25450"
-                onClick={() => console.log("Clicou no saiba mais")}
-              />
-            </div>
+            <Button
+              label="Nossos serviços"
+              href="/services"
+              accentColor="#C25450"
+              onClick={() => console.log("Clicou no saiba mais")}
+            />
           </div>
 
-          <div className={styles.heroImage} aria-hidden title="Área para imagem" />
+          <div className={styles.heroImage} aria-hidden title="Área para imagem">
+            <img className={styles.image} src={image} alt="Mulher sorridente com braços cruzados" />
+          </div>
 
           <div className={styles.mission}>
             <h2 className={styles.ourMissionTitle}>No que acreditamos</h2>

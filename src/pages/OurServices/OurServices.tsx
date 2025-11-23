@@ -8,21 +8,19 @@ import checkiconVermelho from '../../assets/icons/checkicon_vermelho.svg'
 import checkiconAmarelo from '../../assets/icons/checkicon_amarelo.svg'
 import checkiconLaranja from '../../assets/icons/checkicon_laranja.svg'
 import maieuticaIconAzul from '../../assets/icons/maieutica-icon-azul.svg'
-import imagem from '../../assets/images/imagens_background.png'
-import imagem2 from '../../assets/images/imagens_background_2.png'
+import imagem2 from '../../assets/images/imagens_background.png'
+import imagem from '../../assets/images/imagens_background_2.png'
 import { Banner } from '../../components/Banner/Banner'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBrain, faHandshake, faRotate, faGraduationCap, faUsers } from '@fortawesome/free-solid-svg-icons'
 
 export default function OurServices() {
   const [ativo, setAtivo] = useState<'educadores' | 'escolas'>('educadores')
-
-  // selected sub-option: for 'educadores' -> 'aconselhamento'|'perfil'; for 'escolas' -> 'processo'|'perfil'|'aporte'
   const [selected, setSelected] = useState<'aconselhamento' | 'perfil' | 'processo' | 'aporte'>('aconselhamento')
-
-  // responsive flag with resize listener
-  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768)
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1024)
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 768)
+    const onResize = () => setIsMobile(window.innerWidth < 1024)
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
@@ -53,14 +51,14 @@ export default function OurServices() {
       cor: '#063264',
       titulo: 'Para Educadores',
       subtitulo: 'Há mais de 15 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução do processo seletivo e total respeito aos agentes envolvidos: escola e educadores.',
-      text: 'Suporte para Instituições de Ensino',
+      text: 'Suporte para Professores',
       imagem: imagem,
     },
     escolas: {
       cor: '#063264',
       titulo: 'Para Escolas',
       subtitulo: 'Há mais de 15 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução do processo seletivo e total respeito aos agentes envolvidos: escola e educadores.',
-      text: 'Suporte para Professores',
+      text: 'Suporte para Instituições de Ensino',
       imagem: imagem2,
     },
   }
@@ -146,11 +144,11 @@ export default function OurServices() {
       <div className={styles.sectionDetails}>
         {isMobile && (
           <>
-            <span style={{ color:'#063264' }}>
+            <span style={{ color: '#063264' }}>
               Serviços
             </span>
 
-            <h1 style={{ color:'#6B8EB6' }}>
+            <h1 style={{ color: '#6B8EB6' }}>
               {atual.titulo}
             </h1>
           </>
@@ -165,25 +163,31 @@ export default function OurServices() {
                   <button
                     className={styles.filterButton}
                     style={{
-                      backgroundColor: selected === 'aconselhamento' ? '#FFFFFF' : '#E8E8E8'
+                      backgroundColor: selected === 'aconselhamento' ? '#FFFFFF' : '#E8E8E8',
+                      display: 'flex',
+                      alignItems: 'center'
                     }}
                     onClick={() => {
                       if (ativo === 'educadores') setSelected('aconselhamento')
                     }}
                   >
+                    <FontAwesomeIcon icon={faHandshake} style={{ marginRight: '8px' }} />
                     Aconselhamento de Carreira
                   </button>
 
                   <button
                     className={styles.filterButton}
                     style={{
-                      backgroundColor: selected === 'perfil' ? '#FFFFFF' : '#E8E8E8'
+                      backgroundColor: selected === 'perfil' ? '#FFFFFF' : '#E8E8E8',
+                      display: 'flex',
+                      alignItems: 'center'
                     }}
                     onClick={() => {
                       if (ativo === 'educadores') setSelected('perfil')
                     }}
                   >
-                    Perfil Psicológico
+                    <FontAwesomeIcon icon={faRotate} style={{ marginRight: '8px' }} />
+                    ELAB – revisão e elaboração de currículo
                   </button>
                 </div>
               )}
@@ -199,6 +203,7 @@ export default function OurServices() {
                       if (ativo === 'escolas') setSelected('processo')
                     }}
                   >
+                    <FontAwesomeIcon icon={faGraduationCap} style={{ marginRight: '8px' }} />
                     Processo Seletivo Educacional
                   </button>
 
@@ -211,6 +216,7 @@ export default function OurServices() {
                       if (ativo === 'escolas') setSelected('perfil')
                     }}
                   >
+                    <FontAwesomeIcon icon={faBrain} style={{ marginRight: '8px' }} />
                     Perfil Psicológico
                   </button>
 
@@ -223,6 +229,7 @@ export default function OurServices() {
                       if (ativo === 'escolas') setSelected('aporte')
                     }}
                   >
+                    <FontAwesomeIcon icon={faUsers} style={{ marginRight: '8px' }} />
                     APORTE - Apoio e Orientação na Transição Profissional
                   </button>
                 </div>
@@ -237,9 +244,14 @@ export default function OurServices() {
                   <div className={styles.buttonAreaDesktop}>
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{ color: selected === 'aconselhamento' ? '#084385' : '#898B8D' }}
+                      style={{
+                        color: selected === 'aconselhamento' ? '#084385' : '#898B8D',
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
                       onClick={() => { if (ativo === 'educadores') setSelected('aconselhamento') }}
                     >
+                      <FontAwesomeIcon icon={faHandshake} style={{ marginRight: '8px' }} />
                       Aconselhamento de Carreira
                     </button>
 
@@ -247,10 +259,14 @@ export default function OurServices() {
 
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{ color: selected === 'perfil' ? '#C25450' : '#898B8D' }}
+                      style={{
+                        color: selected === 'perfil' ? '#C25450' : '#898B8D', display: 'flex',
+                        alignItems: 'center'
+                      }}
                       onClick={() => { if (ativo === 'educadores') setSelected('perfil') }}
                     >
-                      Perfil Psicológico
+                      <FontAwesomeIcon icon={faRotate} style={{ marginRight: '8px' }} />
+                      ELAB – revisão e elaboração de currículo
                     </button>
                   </div>
                 )}
@@ -259,9 +275,13 @@ export default function OurServices() {
                   <div className={styles.buttonAreaDesktop}>
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{ color: selected === 'processo' ? '#5A9E8C' : '#898B8D' }}
+                      style={{ color: selected === 'processo' ? '#5A9E8C' : '#898B8D',
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
                       onClick={() => { if (ativo === 'escolas') setSelected('processo') }}
                     >
+                      <FontAwesomeIcon icon={faGraduationCap} style={{ marginRight: '8px' }} />
                       Processo Seletivo Educacional
                     </button>
 
@@ -269,9 +289,13 @@ export default function OurServices() {
 
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{ color: selected === 'perfil' ? '#CE6C39' : '#898B8D' }}
+                      style={{ color: selected === 'perfil' ? '#CE6C39' : '#898B8D',
+                        display: 'flex',
+                        alignItems: 'center'
+                       }}
                       onClick={() => { if (ativo === 'escolas') setSelected('perfil') }}
                     >
+                      <FontAwesomeIcon icon={faBrain} style={{ marginRight: '8px' }} />
                       Perfil Psicológico
                     </button>
 
@@ -279,9 +303,13 @@ export default function OurServices() {
 
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{ color: selected === 'aporte' ? '#DFA242' : '#898B8D' }}
+                      style={{ color: selected === 'aporte' ? '#DFA242' : '#898B8D',
+                        display: 'flex',
+                        alignItems: 'center'
+                       }}
                       onClick={() => { if (ativo === 'escolas') setSelected('aporte') }}
                     >
+                      <FontAwesomeIcon icon={faUsers} style={{ marginRight: '8px' }} />
                       APORTE - Apoio e Orientação na Transição Profissional
                     </button>
                   </div>

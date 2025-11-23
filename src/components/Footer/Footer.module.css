@@ -115,4 +115,8 @@
     display: flex;
     gap: 8px;
   }
+
+  .container{
+    padding: 0 40px;
+  }
 }

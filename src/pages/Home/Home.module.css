@@ -69,7 +69,7 @@
   .whatRow {
     display: flex;
     flex-direction: row;
-    gap: 40px;
+    gap: 30px;
     align-items: flex-start;
   }
 
@@ -82,7 +82,8 @@
     display: flex;
     flex-direction: row-reverse;
     gap: var(--grid-gap);
-    padding: 16px 0px;
+    padding: 32px 40px;
+    align-items: flex-start;
   }
 
 }
@@ -337,5 +338,13 @@
     display: grid;
     align-content: start;
     min-height: 450px;
+  }
+
+  .section {
+    padding: 64px 32px;
+  }
+
+  .sectionFeedback {
+    padding: 32px 40px;
   }
 }

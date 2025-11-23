@@ -1,5 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import styles from "./StatsSection.module.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faChevronLeft, faChevronRight, faBook, faArrowRight } from "@fortawesome/free-solid-svg-icons"
+import iconeClaro from "../../assets/images/iconec_bge.svg"
+import iconeEscuro from "../../assets/images/iconee_bgc.svg"
+import imgProfessora from "../../assets/images/img-professora.svg"
+import arrowRight from '../../assets/icons/arrow-right.svg';
+import arrowLeft from '../../assets/icons/arrow-left.svg';
+import stackBooks from "../../assets/icons/stack-of-books 1.svg"
 
 type StatItem = {
   value: string
@@ -12,22 +20,18 @@ type Props = {
   items?: StatItem[]
 }
 
-function BrandMark({ className = "" }: { className?: string }) {
+function BrandMark({ className = "", variant }: { className?: string; variant?: "dark" | "light" }) {
+  const logo = variant === "dark" ? iconeClaro : iconeEscuro
   return (
-    <svg viewBox="0 0 64 36" className={className} aria-hidden focusable="false">
-      <path d="M16 30 4 10h24L16 30Z" fill="currentColor" opacity="0.22" />
-      <path d="M40 30 28 10h24L40 30Z" fill="currentColor" opacity="0.28" />
-      <path d="M32 26 22 8h20L32 26Z" fill="currentColor" opacity="0.40" />
-    </svg>
+    <img src={logo} alt="" className={className} aria-hidden />
   )
 }
 
-// ✅ Hook para animar números
 function useCountUp(target: number, duration = 2000, start = false) {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    if (!start) return // só anima quando "start" for true
+    if (!start) return
     let startTime: number | null = null
 
     const step = (timestamp: number) => {
@@ -44,14 +48,12 @@ function useCountUp(target: number, duration = 2000, start = false) {
   return count
 }
 
-// ✅ Função para separar número do texto (ex: "+20k" → {prefix:"+", num:20, suffix:"k"})
 function parseValue(str: string) {
   const match = str.match(/([^\d]*)(\d+)([^\d]*)/)
   if (!match) return { prefix: "", num: 0, suffix: str }
   return { prefix: match[1], num: parseInt(match[2]), suffix: match[3] }
 }
 
-// ✅ Componente de cada card com IntersectionObserver
 function StatCard({ item, className }: { item: StatItem; className?: string }) {
   const { prefix, num, suffix } = parseValue(item.value)
   const [visible, setVisible] = useState(false)
@@ -64,10 +66,10 @@ function StatCard({ item, className }: { item: StatItem; className?: string }) {
       (entries) => {
         if (entries[0].isIntersecting) {
           setVisible(true)
-          observer.disconnect() // dispara só uma vez
+          observer.disconnect()
         }
       },
-      { threshold: 0.3 } // 30% visível já dispara
+      { threshold: 0.3 }
     )
 
     if (ref.current) observer.observe(ref.current)
@@ -82,7 +84,7 @@ function StatCard({ item, className }: { item: StatItem; className?: string }) {
       ref={ref}
       className={`${styles.card} ${item.variant === "dark" ? styles.dark : styles.light} ${className || ""}`}
     >
-      <BrandMark className={styles.brandMark} />
+      <BrandMark className={styles.brandMark} variant={item.variant} />
       <div className={styles.bottom}>
         <div className={styles.value}>
           {prefix}
@@ -154,7 +156,6 @@ export function StatsSection({ items }: Props) {
 
   return (
     <section className={styles.section} aria-label="Sobre nós e nossos números">
-      {/* MOBILE */}
       <div className={styles.track} ref={trackRef}>
         {data.map((s, i) => (
           <StatCard key={`m-${s.value}-${i}`} item={s} />
@@ -168,7 +169,7 @@ export function StatsSection({ items }: Props) {
           disabled={!canPrev}
           aria-label="Anterior"
         >
-          <span className={styles.chevronPrev}>‹</span>
+          <img src={arrowLeft} alt="Seta para a esquerda" />
         </button>
         <button
           className={`${styles.navBtn} ${styles.next}`}
@@ -176,15 +177,14 @@ export function StatsSection({ items }: Props) {
           disabled={!canNext}
           aria-label="Próximo"
         >
-          <span className={styles.chevronNext}>›</span>
+          <img src={arrowRight} alt="Seta para a direita" />
         </button>
       </div>
 
-      {/* DESKTOP */}
       <div className={styles.desktopGrid}>
         <div className={`${styles.aboutGrid} ${styles.areaAbout}`}>
-          <div className={styles.aboutBadge}>
-            <span className={styles.aboutBadgeIcon} aria-hidden>📚</span>
+          <div className={styles.badge}>
+            <img src={stackBooks} alt="" aria-hidden className={styles.badgeIcon} />
             <span>NOSSA HISTÓRIA</span>
           </div>
           <h2 className={styles.aboutTitle}>Sobre nós</h2>
@@ -194,7 +194,7 @@ export function StatsSection({ items }: Props) {
             seletivo e total respeito aos agentes envolvidos: escola e educadores.
           </p>
           <a href="/about-us" className={styles.aboutCta}>
-            Saiba mais sobre nós <span aria-hidden>➜</span>
+            Saiba mais sobre nós <span aria-hidden><FontAwesomeIcon icon={faArrowRight} /></span>
           </a>
         </div>
 
@@ -209,7 +209,8 @@ export function StatsSection({ items }: Props) {
         <div
           className={`${styles.imageCard} ${styles.areaImg}`}
           role="img"
-          aria-label="Imagem ilustrativa (substituir depois)"
+          aria-label="Professora"
+          style={{ backgroundImage: `url(${imgProfessora})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
         />
       </div>
     </section>

@@ -14,9 +14,8 @@ p {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
     margin: 0;
-    /* reserve space for two lines even when the title is short */
     line-height: 1.2;
-    min-height: calc(2 * 1.2em); /* two text lines height */
+    min-height: calc(2 * 1.2em);
 }
 
 .cardTitle {
@@ -44,7 +43,7 @@ p {
 }
 
 .cardCollapsed {
-    height: 220px; 
+    height: 220px;
     overflow: hidden;
 }
 
@@ -134,7 +133,7 @@ p {
     flex: 0 0 auto;
 }
 
-.containerBtn > * {
+.containerBtn>* {
     flex: 1 1 0;
     min-width: 0;
 }
@@ -149,18 +148,19 @@ p {
     text-decoration: none;
     color: white;
 }
+
 .containerBtn a:hover,
 .containerBtn a:active {
     text-decoration: none;
     color: white;
 }
 
-.containerBtn a > button {
+.containerBtn a>button {
     text-decoration: none;
     color: white;
 }
 
-.containerBtn a > button {
+.containerBtn a>button {
     width: 100%;
 }
 
@@ -198,7 +198,7 @@ p {
     background-color: #5A9E8C;
     color: white;
     border: none;
-    box-shadow: 0 6px 18px rgba(90,158,140,0.08);
+    box-shadow: 0 6px 18px rgba(90, 158, 140, 0.08);
 }
 
 .btnSecundary {
@@ -285,16 +285,18 @@ button .material-icons {
     .containerBtn {
         flex-direction: column;
         gap: 0.5rem;
-        padding-left: 12px;
-        padding-right: 12px;
+        padding: 4px 0px;
     }
-    .containerBtn > * {
+
+    .containerBtn>* {
         flex: none;
         width: 100%;
     }
+
     .containerBtn a {
         width: 100%;
     }
+
     .containerBtn button {
         width: 100%;
         max-width: 100%;
@@ -308,7 +310,7 @@ button .material-icons {
         gap: 0.75rem;
     }
 
-    .containerBtn > * {
+    .containerBtn>* {
         flex: none;
         min-width: 0;
     }
@@ -319,7 +321,7 @@ button .material-icons {
         min-width: 0;
     }
 
-    .containerBtn a > button {
+    .containerBtn a>button {
         width: 100%;
     }
 
@@ -350,6 +352,7 @@ button .material-icons {
     .cardDescription {
         display: block;
     }
+
     .cardDescription.clamped .cardText {
         display: -webkit-box;
         -webkit-line-clamp: 1;

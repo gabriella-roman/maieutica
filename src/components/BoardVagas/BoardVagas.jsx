@@ -25,15 +25,45 @@ export default function BoardVagas({ limit = 4 }) {
       setError(null);
       try {
         const resp = await api.get(
-          `/vacancies?released=true&status=published&per_page=${Math.max(4, limit * 2)}&page=1`
+          `/vacancies`, {
+            params: {
+              released: true,
+              status: 'published',
+              per_page: Math.max(4, limit * 2),
+              page: 1,
+              include: 'address'
+            }
+          }
         );
         const data = resp?.data?.data ?? [];
+        const included = resp?.data?.included ?? [];
+        
+        const idx = {};
+        for (const it of included) {
+          if (!it?.id) continue;
+          const t = String(it.type || "").toLowerCase();
+          idx[t] = idx[t] || {};
+          idx[t][String(it.id)] = it;
+        }
+
         const mapped = data.map((job) => {
           const attrs = job.attributes || {};
+        
+          let locationStr = "Localização não informada";
+          const addressRel = job?.relationships?.address?.data;
+          const pick = Array.isArray(addressRel) ? addressRel?.[0] : addressRel;
+          if (pick?.id && pick?.type) {
+            const node = idx[String(pick.type).toLowerCase()]?.[String(pick.id)];
+            const city = node?.attributes?.city_name;
+            const uf = node?.attributes?.state_abbreviation || node?.attributes?.state_name;
+            if (city && uf) locationStr = `${city} - ${uf}`;
+            else if (city) locationStr = city;
+          }
+          
           return {
             title: attrs.title || "Título não informado",
             description: stripHtml(attrs.description || "") || "Descrição não informada",
-            location: attrs?.address ? attrs.address : "Localização não informada",
+            location: locationStr,
             area: attrs.area || "",
             salary: attrs.salary || "",
             contractingRegime: attrs.contracting_regime || "",

@@ -12,6 +12,10 @@ import { ContactInfo } from "../../components/ContactInfo/ContactInfo"
 import { ContactSection } from "../../components/ContactSection/ContactSection"
 import { Footer } from "../../components/Footer/Footer"
 import BoardVagas from '../../components/BoardVagas/BoardVagas';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShareNodes, faGraduationCap, faBrain, faCompass, faComments, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import connectPeople from '../../assets/icons/icon_connectpeople.svg'
+import schoolIcon from '../../assets/icons/school.svg'
 
 import ImagemFeedback from '../../assets/images/Mask group.svg'
 
@@ -22,7 +26,7 @@ export default function Home() {
       description:
         "Trabalho personalizado às características da escola e realizado por psicólogos especializados em seleção de educadores.",
       href: "/our-services#processos",
-      icon: <span>🎓</span>,
+      icon: <FontAwesomeIcon icon={faGraduationCap} />,
       colors: { accent: "#5A9E8C", iconBg: "#D7EFE7", iconFg: "#2E7B6A" },
     },
     {
@@ -30,7 +34,7 @@ export default function Home() {
       description:
         "Ferramenta de avaliação importantíssima na contratação de profissionais que lidam com pessoas.",
       href: "/our-services#perfil",
-      icon: <span>🧠</span>,
+      icon: <FontAwesomeIcon icon={faBrain} />,
       colors: { accent: "#D1805D", iconBg: "#F2D3C5", iconFg: "#C16E4C" },
     },
     {
@@ -38,7 +42,7 @@ export default function Home() {
       description:
         "Apoio e orientação a profissionais em desligamento ou aposentadoria, oferecido pela empresa.",
       href: "/our-services#aporte",
-      icon: <span>🧭</span>,
+      icon: <FontAwesomeIcon icon={faCompass} />,
       colors: { accent: "#E2A642", iconBg: "#F6E7C7", iconFg: "#B58425" },
     },
     {
@@ -46,7 +50,7 @@ export default function Home() {
       description:
         "Análise, reflexão e apoio prático para carreiras profissionais em educação.",
       href: "/our-services#aconselhamento",
-      icon: <span>💬</span>,
+      icon: <FontAwesomeIcon icon={faComments} />,
       colors: { accent: "#1F4D82", iconBg: "#D4E2F4", iconFg: "#1F4D82" },
     },
     {
@@ -54,7 +58,7 @@ export default function Home() {
       description:
         "Reorganização e elaboração do currículo alinhado ao percurso e aos objetivos.",
       href: "/our-services#elab",
-      icon: <span>📝</span>,
+      icon: <FontAwesomeIcon icon={faPenToSquare} />,
       colors: { accent: "#C26E64", iconBg: "#F1D3D0", iconFg: "#A5574F" },
     },
   ]
@@ -74,7 +78,7 @@ export default function Home() {
       quote:
         "Graças à Maieutica RH, consegui uma oportunidade que tem tudo a ver com meu perfil. O processo foi rápido e bem organizado. Recomendo para quem quer algo prático e eficiente!",
       name: "João Trajano",
-      role: "Professor de Língua Portuguesa",
+      role: "Professor de História",
       avatar: "https://i.pravatar.cc/112?img=15",
     },
     {
@@ -101,7 +105,7 @@ export default function Home() {
         <div className={styles.whatRow}>
           <WhatWeDo
           badgeText="CONECTANDO PESSOAS"
-          badgeIcon="✳"
+          badgeIcon={<img src={connectPeople} alt="Ícone conectando pessoas" />}
           title="Confira as vagas"
           text1="Entre em contato para tirar dúvidas, solicitar informações ou conversar com nossa equipe."
           text2="Estamos prontos para ajudar!"
@@ -120,7 +124,7 @@ export default function Home() {
 
       <div className={styles.sectionWWDS}>
         <WhatWeDoSection items={services} />
-        <Carroussel badgeIconSrc={stackBooks} items={logos} />
+        <Carroussel badgeIconSrc={stackBooks} items={logos} title="Nossos clientes"/>
       </div>
 
 
@@ -130,15 +134,15 @@ export default function Home() {
         <div className={styles.feedbackHeading}>
           <WhatWeDo
             badgeText="CONECTANDO PESSOAS"
-            badgeIcon="🎓"
+            badgeIcon={<img src={schoolIcon} alt="Ícone escola" />}
             title="Feedback dos profissionais"
             showButton={false}
             text1=""
             text2=""
             colors={{
-              accent: "#2E7B6A",
-              badgeBg: "#EAF5F1",
-              badgeFg: "#2E7B6A",
+              accent: "var(--color-maieutica-azul)",
+              badgeBg: "var(--color-white)",
+              badgeFg: "var(--color-maieutica-azul)",
             }}
           />
         </div>
@@ -153,7 +157,7 @@ export default function Home() {
 
       <section className={styles.sectionContact} aria-hidden="true">
         <ContactInfo />
-        <ContactSection onSubmit={(data) => console.log("Contato:", data)} />
+        <ContactSection />
       </section>
 
       <Footer />

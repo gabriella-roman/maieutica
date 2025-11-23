@@ -25,6 +25,7 @@
 
 .icon {
   color: var(--svc-icon-fg);
+  font-size: 20px;
 }
 
 .title {
@@ -72,7 +73,7 @@
 
 @media (min-width: 992px) {
   .card {
-    padding: 18px;
+    padding: 18px 0px;
     gap: 14px;
     border-radius: 20px;
   }

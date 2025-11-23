@@ -9,7 +9,7 @@ export type FilterKey =
   | "bilingue"
   | "localizacao";
 
-export type FiltersState = Partial<Record<FilterKey, string>>;
+export type FiltersState = Partial<Record<FilterKey, string[]>>;
 
 export type FilterConfig = {
   key: FilterKey;
@@ -47,8 +47,12 @@ export function FiltersBar({
   <div className={`${styles.wrapper} ${className ?? ""}`} role="toolbar" aria-label="Filtros">
         {configs.map((cfg) => {
           const current = value[cfg.key];
-          const currentLabel =
-            current && cfg.options.find((o) => o.value === current)?.label;
+          const currentLabel = 
+            current && current.length > 0
+              ? current.length === 1
+                ? cfg.options.find((o) => o.value === current[0])?.label
+                : `${current.length} selecionados`
+              : cfg.label;
           return (
             <button
               key={cfg.key}
@@ -59,7 +63,7 @@ export function FiltersBar({
               onClick={() => setOpenKey(cfg.key)}
             >
               <span className={styles.chipLabel}>
-                {currentLabel || cfg.label}
+                {currentLabel}
               </span>
               <span className={styles.icons}>
                 <FontAwesomeIcon icon={faFilter} />
@@ -76,11 +80,17 @@ export function FiltersBar({
             key={cfg.key}
             title={cfg.label}
             options={cfg.options}
-            selected={value[cfg.key] ?? ""}
+            selected={value[cfg.key] ?? []}
             onSelect={(val) => {
-              const next = { ...value, [cfg.key]: val };
+              const current = value[cfg.key] ?? [];
+              const isSelected = current.includes(val);
+              const next = {
+                ...value,
+                [cfg.key]: isSelected
+                  ? current.filter(v => v !== val)
+                  : [...current, val]
+              };
               onChange(next);
-              close();
             }}
             onClear={() => {
               const next = { ...value };
@@ -106,7 +116,7 @@ function OptionsModal({
 }: {
   title: string;
   options: { value: string; label: string }[];
-  selected: string;
+  selected: string[];
   onSelect: (value: string) => void;
   onClear: () => void;
   onClose: () => void;
@@ -146,7 +156,7 @@ function OptionsModal({
 
         <div className={styles.options}>
           {options.map((opt) => {
-            const isActive = selected === opt.value;
+            const isActive = selected.includes(opt.value);
             return (
               <button
                 key={opt.value}
@@ -165,7 +175,7 @@ function OptionsModal({
             Limpar filtro
           </button>
           <button className={styles.applyBtn} onClick={onClose} type="button">
-            Fechar
+            Aplicar
           </button>
         </footer>
       </div>

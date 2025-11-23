@@ -59,6 +59,7 @@
   gap: 28px;
   padding: 0;
   margin: 0;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .link {
@@ -78,7 +79,7 @@
 }
 
 .active {
-  color: var(--color-text-on);
+  color: #FFFFFF;
   text-decoration: underline;
   text-underline-offset: 3px;    
 }
@@ -172,7 +173,6 @@
   top: var(--header-height);
   width: 100%;
   background: #fff;
-  /* keep panel under the header */
   z-index: 50;
   border-radius: 0 0 16px 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
@@ -244,7 +244,7 @@
 }
 
 .mobileLink.active {
-  color: var(--color-text-on);
+  color: var(--color-maieutica-verde);
 }
 
 .ctaMobile {
@@ -257,7 +257,7 @@
   .inner {
     max-width: var(--container-max);
     grid-template-columns: auto 1fr;
-    padding: 16px 0;
+    padding: 16px 40px;
   }
 
   .nav {

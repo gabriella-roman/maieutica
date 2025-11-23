@@ -1,6 +1,3 @@
-// ContactSection.tsx
-// Envia formulário de contato para Formspree
-
 import React, { useState } from "react";
 import styles from "./ContactSection.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,9 +6,9 @@ import {
   faPaperPlane,
   faPhone,
   faEnvelope,
+  faIdCard,
 } from "@fortawesome/free-solid-svg-icons";
 
-// Endpoint Formspree configurado
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xovrbajr";
 
 export type ContactSectionProps = {
@@ -47,11 +44,7 @@ export function ContactSection({
       phone: (fd.get("phone") as string) ?? "",
       message: (fd.get("message") as string) ?? "",
     };
-
-    // Callback opcional para página pai
     onSubmit?.(data);
-
-    // Enviar para Formspree
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
@@ -66,7 +59,6 @@ export function ContactSection({
 
       if (response.ok) {
         setSubmitStatus("success");
-        // Limpar formulário
         form.reset();
       } else {
         setSubmitStatus("error");
@@ -93,7 +85,7 @@ export function ContactSection({
               required
               autoComplete="name"
             />
-            <FontAwesomeIcon icon={faUser} className={styles.icon} aria-hidden />
+            <FontAwesomeIcon icon={faIdCard} className={styles.icon} aria-hidden />
           </div>
         </label>
 
@@ -160,3 +152,4 @@ export function ContactSection({
     </section>
   );
 }
+

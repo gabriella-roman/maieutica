@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./WhatWeDoSection.module.css";
 import { ServiceCard } from "../ServiceCard/ServiceCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import connectPeople from '../../assets/icons/icon_connectpeople.svg'
+import arrowRight from '../../assets/icons/arrow-right.svg';
+import arrowLeft from '../../assets/icons/arrow-left.svg';
 
 export type ServiceItem = {
   title: string;
@@ -75,7 +80,7 @@ export function WhatWeDoSection({ items }: Props) {
         <div className={styles.mobileBlock}>
           <div className={styles.intro}>
             <div className={styles.badge}>
-              <span className={styles.badgeIcon} aria-hidden>👥</span>
+              <span className={styles.badgeIcon} aria-hidden><FontAwesomeIcon icon={faUsers} /></span>
               <span>CONECTANDO PESSOAS</span>
             </div>
 
@@ -111,7 +116,7 @@ export function WhatWeDoSection({ items }: Props) {
               disabled={!canPrev}
               aria-label="Anterior"
             >
-              <span className={styles.chevronPrev} aria-hidden>‹</span>
+              <img src={arrowLeft} alt="Seta para a esquerda" />
             </button>
             <button
               className={`${styles.navBtn} ${styles.next}`}
@@ -119,7 +124,7 @@ export function WhatWeDoSection({ items }: Props) {
               disabled={!canNext}
               aria-label="Próximo"
             >
-              <span className={styles.chevronNext} aria-hidden>›</span>
+              <img src={arrowRight} alt="Seta para a direita" />
             </button>
           </div>
         </div>
@@ -127,7 +132,7 @@ export function WhatWeDoSection({ items }: Props) {
         <div className={styles.desktopGrid}>
           <div className={styles.introDesk}>
             <div className={styles.badge}>
-              <span className={styles.badgeIcon} aria-hidden>👥</span>
+              <span className={styles.badgeIcon} aria-hidden><FontAwesomeIcon icon={faUsers} /></span>
               <span>CONECTANDO PESSOAS</span>
             </div>
 

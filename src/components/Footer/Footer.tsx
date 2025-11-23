@@ -15,7 +15,7 @@ export function Footer() {
       <div className={styles.container}>
         <div className={styles.row}>
           <div className={styles.colLogo}>
-            <img src={logo} alt="Maiêutica RH Educacional" height={156} />
+            <img src={logo} alt="Maiêutica RH Educacional" height={156/1.5} />
           </div>
 
           <div className={styles.col}>

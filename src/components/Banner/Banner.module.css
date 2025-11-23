@@ -5,8 +5,8 @@
   margin: 0;
   padding: 0; /* innerContent handles padding */
   /* only bottom corners rounded */
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   background: var(--banner-bg, #d99639);
@@ -38,23 +38,21 @@
 
 @media (min-width: 768px) {
   .container {
-    /* keep full-bleed background but bottom radius larger on wider screens */
-    border-bottom-left-radius: var(--banner-radius, 24px);
-    border-bottom-right-radius: var(--banner-radius, 24px);
+    border-bottom-left-radius: 32px;
+    border-bottom-right-radius: 32px;
   }
   .title { font-size: 40px; line-height: 1.15; }
 }
 
 @media (min-width: 1024px) {
   .container {
-    border-bottom-left-radius: var(--banner-radius, 32px);
-    border-bottom-right-radius: var(--banner-radius, 32px);
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
   }
   .title { font-size: 56px; line-height: 1.1; }
   .breadcrumb { font-size: 14px; gap: 8px; }
 }
 
-/* inner content: centered and aligned with header container max width */
 .innerContent {
   max-width: var(--container-max, 1120px);
   margin: 0 auto;
@@ -66,5 +64,5 @@
 }
 
 @media (min-width: 1024px) {
-  .innerContent { padding: 44px 0px; }
+  .innerContent { padding: 44px 40px; }
 }

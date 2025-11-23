@@ -4,6 +4,27 @@
   color: #5C5E5F;
 }
 
+.badge{
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,.32);
+  font-weight: 700;
+  color: var(--color-maieutica-vermelho);
+  letter-spacing: .02em;
+}
+
+.badgeIcon{
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+
 .aboutWrap {
   display: grid;
   gap: 12px;
@@ -100,9 +121,6 @@
 .brandMark {
   width: 76px;
   height: auto;
-  color: #000;
-  mix-blend-mode: multiply;
-  opacity: .9;
 }
 
 .bottom {
@@ -200,7 +218,7 @@
 
 @media (min-width: 1024px) {
   .section {
-    padding: 28px 20px 32px;
+    padding: 32px 40px;
   }
 
   .aboutWrap {
@@ -256,11 +274,11 @@
     background: #fff;
     box-shadow: var(--shadow, 0 10px 24px rgba(0, 0, 0, .08));
     color: #5C5E5F;
-
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
-    row-gap: 8px;
+    row-gap: 6px;
     overflow: hidden;
+    justify-items: center;
   }
 
   .aboutGrid>* {
@@ -289,10 +307,10 @@
 
   .aboutTitle {
     margin: 0;
-    font-weight: 800;
+    font-size: var(--text-heading-h1-size);
+    font-weight: var(--text-heading-h1-weight);
     color: #2f3134;
-    line-height: 1.2;
-    font-size: clamp(22px, 2.2vw, 26px);
+    font-size: 22px;
   }
 
   .aboutText {
@@ -354,9 +372,6 @@
   .brandMark {
     width: 84px;
     height: auto;
-    color: #000;
-    mix-blend-mode: multiply;
-    opacity: .9;
   }
 
   .value {

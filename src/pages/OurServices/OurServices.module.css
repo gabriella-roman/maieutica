@@ -5,6 +5,7 @@
   color: var(--text);
   line-height: 1.7;
   background-color: #F3F3F3;
+  overflow-x: hidden;
 }
 
 .section {
@@ -19,18 +20,20 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 32px 24px;
+  padding: clamp(32px, 5vw, 64px) 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sectionIntro__title {
-  font-size: 2rem;
+  font-size: clamp(2rem, 8vw, 5rem);
   font-weight: bold;
   margin-bottom: 12px;
   color: #5C5E5F;
 }
 
 .sectionIntro__subtitle {
-  font-size: 1rem;
+  font-size: clamp(1rem, 2vw, 1.125rem);
   color: #5C5E5F;
   max-width: 600px;
 }
@@ -39,7 +42,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  gap: 24px;
+  padding: 0 24px;
 }
 
 .cardSupport {
@@ -50,30 +58,37 @@
   color: #FFFFFF;
   border-radius: 16px;
   padding: 24px;
-  margin: 24px;
+  margin: 0;
   gap: 64px;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
 }
 
 .cardSupport h2 {
-  font-size: 36px;
-  line-height: normal;
+  font-size: clamp(28px, 6vw, 50px);
+  line-height: 1.2;
 }
 
 .imageSupport {
   border-radius: 16px;
-  margin: 24px;
+  margin: 0;
+  width: 100%;
+  max-width: 500px;
   height: auto;
   display: block;
   object-fit: cover;
-  height: 400px;
+  min-height: 300px;
 }
 
 
 .sectionServices {
   display: flex;
   justify-content: center;
-  gap: 24px;
-  padding-top: 32px;
+  align-items: center;
+  gap: 10px;
+  padding: 32px 24px 0;
+  flex-wrap: wrap;
 }
 
 .button {
@@ -81,12 +96,18 @@
   border: none;
   background-color: #ccc;
   color: white;
-  font-size: 16px;
+  font-size: clamp(14px, 2vw, 16px);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 16px 24px;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  opacity: 0.9;
 }
 
 .sectionDetails {
@@ -95,15 +116,20 @@
   justify-content: center;
   align-items: center;
   padding-top: 32px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .filter {
   display: flex;
   gap: 16px;
   padding: 16px 24px;
+  margin: 24px 0;
   width: 100%;
+  max-width: 100%;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .buttonArea {
@@ -116,16 +142,25 @@
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+.buttonArea::-webkit-scrollbar {
+  display: none;
 }
 
 .filterButton {
   display: flex;
+  align-items: center;
   color: #5C5E5F;
   border: none;
   border-radius: 16px;
   padding: 8px 16px;
   cursor: pointer;
   flex: 0 0 auto;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
 }
 
 .infoCard {
@@ -133,38 +168,253 @@
   flex-direction: column;
   background-color: #FFFFFF;
   border-radius: 16px;
-  padding: 32px;
-  margin: 24px;
+  padding: clamp(24px, 4vw, 32px);
   gap: 24px;
   color: #5C5E5F;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .divider {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .sectionChoose {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .sectionTitle {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* TABLET (600px - 767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+  .supportContainer {
+    max-width: 600px;
+    margin: 0 auto;
+  }
 
-/* PC */
-@media (min-width: 768px) {
+  .cardSupport,
+  .imageSupport {
+    max-width: 550px;
+  }
+
+  .buttonArea button {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+/* TABLET-DESKTOP (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .supportContainer {
+    flex-direction: row;
+    align-items: self-start;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+    gap: 24px;
+  }
+
   .cardSupport {
-    max-width: 400;
+    flex: 1;
+    min-width: 0;
+    max-width: 400px;
+    margin: 0;
+  }
+
+  .imageSupport {
+    flex: 1;
+    min-width: 0;
+    max-width: 500px;
+    margin: 0;
+    min-height: 400px;
+  }
+
+  .divider {
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+    padding: 0 24px;
   }
 
   .filter {
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+  }
+
+  .filterDesktop {
+    margin: 0;
+  }
+
+  .buttonAreaDesktop {
     display: flex;
-    padding: 0px;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .buttonAreaDesktop button {
+    font-size: 15px;
+    font-weight: bold;
+    text-wrap: wrap;
+    text-align: start;
+  }
+
+  .filterButtonDesktop {
+    display: flex;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .filterButtonDesktop:hover {
+    opacity: 0.8;
+  }
+
+  .infoCard {
+    max-width: 600px;
+    margin: 0 24px 24px 0;
+  }
+
+  .sectionChoose {
+    flex-direction: column-reverse;
+  }
+}
+
+/* DESKTOP (1024px - 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .supportContainer {
+    flex-direction: row;
+    align-items: self-start;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 32px;
+    padding: 0 40px;
+  }
+
+  .cardSupport {
+    flex: 0 0 auto;
+    width: 400px;
+    max-width: 400px;
+    margin: 0;
+  }
+
+  .imageSupport {
+    flex: 1;
+    min-width: 0;
+    max-width: 700px;
+    margin: 0;
+    min-height: 450px;
+  }
+
+  .divider {
+    flex-direction: row;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .filter {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .filterDesktop {
+    margin: 0 32px 0 40px;
+  }
+
+  .buttonAreaDesktop {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 400px;
+  }
+
+  .buttonAreaDesktop button {
+    font-size: 16px;
+    font-weight: bold;
+    text-wrap: wrap;
+    text-align: start;
+  }
+
+  .filterButtonDesktop {
+    display: flex;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .filterButtonDesktop:hover {
+    opacity: 0.8;
+  }
+
+  .infoCard {
+    max-width: 800px;
+    margin: 0 40px 0 0;
+  }
+
+  .sectionChoose {
+    flex-direction: column-reverse;
+  }
+}
+
+/* DESKTOP LARGE (1200px+) */
+@media (min-width: 1200px) {
+  .supportContainer {
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 40px;
+  }
+
+  .cardSupport {
+    flex: 0 0 auto;
+    width: 400px;
+    max-width: 400px;
+  }
+
+  .imageSupport {
+    flex: 0 0 auto;
+    width: 900px;
+    max-width: 900px;
+    min-height: 500px;
+  }
+
+  .divider {
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .filter {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .filterDesktop {
+    margin: 24px;
   }
 
   .buttonAreaDesktop {
@@ -186,54 +436,15 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+    transition: opacity 0.3s ease;
   }
 
-  .sectionIntro {
-    padding: 64px 24px;
-  }
-
-  .sectionIntro__title {
-    font-size: 80px;
-  }
-
-  .sectionIntro__subtitle {
-    font-size: 16px;
-  }
-
-  .cardSupport {
-    width: 400px;
-  }
-
-  .cardSupport h2 {
-    font-size: 50px;
-    line-height: normal;
-  }
-
-  .supportContainer {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .imageSupport {
-    width: 900px;
-  }
-
-  .divider {
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
+  .filterButtonDesktop:hover {
+    opacity: 0.8;
   }
 
   .infoCard {
     max-width: 900px;
-  }
-
-  .filter {
-    flex-direction: column;
-  }
-
-  .filterDesktop {
-    margin: 24px;
   }
 
   .sectionChoose {
@@ -246,16 +457,5 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 32px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .supportContainer {
-    justify-content: center;
-  }
-
-  .divider {
-    justify-content: center;
-    gap: 24px;
   }
 }

@@ -40,7 +40,6 @@ export function Carroussel({
     setLoadedCount(0);
   }, [items]);
 
-  // start the RAF loop once images are loaded and measurements are available
   useEffect(() => {
     const viewport = viewportRef.current;
     const track = trackRef.current;
@@ -61,9 +60,7 @@ export function Carroussel({
       if (lastTimeRef.current == null) lastTimeRef.current = time;
       const delta = (time - lastTimeRef.current) / 1000;
       lastTimeRef.current = time;
-      // advance scrollLeft
       vp.scrollLeft += pixelsPerSecond * delta;
-      // when we've scrolled one set, jump back by one set width (no visual jump because content repeats)
       const half = tr.scrollWidth / 2;
       if (vp.scrollLeft >= half) {
         vp.scrollLeft -= half;
@@ -71,8 +68,7 @@ export function Carroussel({
       rafRef.current = requestAnimationFrame(step);
     }
 
-  // initialize positions (in case of hot reload)
-  vp.scrollLeft = 0;
+    vp.scrollLeft = 0;
     rafRef.current = requestAnimationFrame(step);
 
     return () => {

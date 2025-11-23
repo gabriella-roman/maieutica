@@ -2,18 +2,18 @@
   width: 100%;
   max-width: 1120px;
   margin: 0 auto;
-  background: var(--card-bg);
+  background: var(--surface-card);
   border: 1px solid #e5e7eb;
   border-radius: calc(var(--radius) + 6px);
   box-shadow: var(--shadow);
 }
 
 .inner {
-  border: 2px solid var(--color-maieutica-amarelo);
-  border-radius: calc(var(--radius) + 2px);
+  border-radius: 28px;
   padding: 16px;
   display: grid;
   gap: 12px;
+  margin: 16px;
 }
 
 .inner>*:first-child {
@@ -153,21 +153,64 @@
   }
 
   .inner {
-    padding: 28px 36px;
-    gap: 18px;
-    grid-template-columns: 1.05fr 1fr;
-    column-gap: 48px;
-    height: 430px;
-    align-items: center;
+    padding: 40px 50px;
+    gap: 60px;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+    align-items: start;
+  }
+
+  .left {
+    gap: 16px;
   }
 
   .title {
-    font-size: 30px;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .text {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-top: 4px;
+  }
+
+  .socialTitle {
+    margin-top: 12px;
+    font-size: 11px;
+  }
+
+  .socials {
+    margin-top: 8px;
   }
 
   .socials a {
-    width: 36px;
-    height: 36px;
-    font-size: 19px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .right {
+    gap: 24px;
+  }
+
+  .infoBlock {
+    gap: 16px;
+  }
+
+  .icon {
+    font-size: 24px;
+  }
+
+  .label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .valueEmail,
+  .valueStrong {
+    font-size: 17px;
   }
 }

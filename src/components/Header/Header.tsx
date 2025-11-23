@@ -76,78 +76,88 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
           } as React.CSSProperties
         }
       >
-      <div className={styles.inner}>
-        <button
-          className={styles.brand}
-          onClick={() => handleNav("/")}
-          aria-label="Ir para a página inicial"
-        >
-          <img src={logo} alt="Maiêutica RH Educacional" />
-        </button>
-
-        <nav className={styles.nav} aria-label="principal">
-          <ul className={styles.navList}>
-            {navItems.map(({ label, path }) => (
-              <li key={path}>
-                <button
-                  className={`${styles.link} ${location.pathname === path ? styles.active : ""}`}
-                  onClick={() => handleNav(path)}
-                >
-                  {label}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <button className={styles.cta} onClick={() => handleNav("/job-board")}>
-            VER VAGAS
-            <FontAwesomeIcon icon={faArrowRight} />
+        <div className={styles.inner}>
+          <button
+            className={styles.brand}
+            onClick={() => handleNav("/")}
+            aria-label="Ir para a página inicial"
+          >
+            <img src={logo} alt="Maiêutica RH Educacional" />
           </button>
-        </nav>
 
-        <button
-          ref={menuBtnRef}
-          className={`${styles.menuBtn} ${isMenuOpen ? styles.menuOpen : ""}`}
-          onClick={toggleMenu}
-          aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
-          aria-controls="mobileNav"
-          aria-expanded={isMenuOpen}
-        >
-          <img src={menu} alt="Abrir menu" className={styles.iconHamburger} />
-          <img src={close} alt="Fechar menu" className={styles.iconClose} />
-        </button>
-      </div>
-
-      {isMenuOpen && (
-        <div className={styles.backdrop} onClick={() => setIsMenuOpen(false)} />
-      )}
-
-      <div
-        id="mobileNav"
-        ref={menuRef}
-        className={`${styles.mobilePanel} ${isMenuOpen ? styles.open : ""}`}
-      >
-          
-        <nav className={styles.mobileNav} aria-label="menu mobile">
-          {navItems.map(({ label, path }) => (
-            <button
-              key={path}
-              className={`${styles.mobileLink} ${location.pathname === path ? styles.active : ""
-                }`}
-              onClick={() => handleNav(path)}
-            >
-              {label}
+          <nav className={styles.nav} aria-label="principal">
+            <ul className={styles.navList}>
+              {navItems.map(({ label, path }) => (
+                <li key={path}>
+                  <button
+                    className={`${styles.link} ${location.pathname === path ? styles.active : ""}`}
+                    onClick={() => handleNav(path)}
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <button className={styles.cta} onClick={() => handleNav("/job-board")} style={{
+              color: headerBgColor,
+              borderColor: headerBgColor
+            }}>
+              Ver Vagas
+              <FontAwesomeIcon icon={faArrowRight} />
             </button>
-          ))}
+          </nav>
 
           <button
-            className={`${styles.cta} ${styles.ctaMobile}`}
-            onClick={() => handleNav("/job-board")}
+            ref={menuBtnRef}
+            className={`${styles.menuBtn} ${isMenuOpen ? styles.menuOpen : ""}`}
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-controls="mobileNav"
+            aria-expanded={isMenuOpen}
           >
-            VER VAGAS
-            <img src={arrow} alt="" aria-hidden />
+            <img src={menu} alt="Abrir menu" className={styles.iconHamburger} />
+            <img src={close} alt="Fechar menu" className={styles.iconClose} />
           </button>
-        </nav>
-      </div>
+        </div>
+
+        {isMenuOpen && (
+          <div className={styles.backdrop} onClick={() => setIsMenuOpen(false)} />
+        )}
+
+        <div
+          id="mobileNav"
+          ref={menuRef}
+          className={`${styles.mobilePanel} ${isMenuOpen ? styles.open : ""}`}
+        >
+
+          <nav className={styles.mobileNav} aria-label="menu mobile">
+            {navItems.map(({ label, path }) => (
+              <button
+                key={path}
+                className={`${styles.mobileLink} ${location.pathname === path ? styles.active : ""
+                  }`}
+                onClick={() => handleNav(path)}
+                style={location.pathname === path ? {
+                  color: headerBgColor
+                } : undefined}
+              >
+                {label}
+              </button>
+            ))}
+
+            <button
+              className={`${styles.cta} ${styles.ctaMobile}`}
+              onClick={() => handleNav("/job-board")}
+              style={{
+                color: headerBgColor,
+                borderColor: headerBgColor
+              }}
+            >
+              VER VAGAS
+              <img src={arrow} alt="" aria-hidden />
+            </button>
+          </nav>
+        </div>
       </header>
 
       <div aria-hidden style={{ height: "var(--header-height)", pointerEvents: "none" }} />

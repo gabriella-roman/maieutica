@@ -24,7 +24,7 @@
 }
 
 .badgeIcon {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
 }
 
@@ -96,6 +96,9 @@
   box-shadow: 0 10px 22px rgba(0, 0, 0, .12);
   cursor: pointer;
   transition: transform .1s ease, opacity .15s ease, filter .15s ease, background .15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .chevronPrev,
@@ -104,6 +107,8 @@
   font-size: 28px;
   font-weight: 800;
   line-height: 1;
+  padding: 0px;
+  margin: 0px;
 }
 
 .chevronPrev {
@@ -142,7 +147,7 @@
 
 @media (min-width:1024px) {
   .section {
-    padding: 24px;
+    padding: 24px 40px
   }
 
   .mobileBlock {
@@ -169,14 +174,14 @@
     display: grid;
     gap: 10px;
     align-content: start;
-    padding: 16px;
+    padding: 16px 0px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
     background: #fff;
   }
 
   .title {
-    font-size: var(--text-heading-h1-size);
+    font-size: 24px;
     line-height: var(--text-heading-h1-line-height);
     font-weight: var(--text-heading-h1-weight);
     letter-spacing: var(--text-heading-h1-letter-spacing);

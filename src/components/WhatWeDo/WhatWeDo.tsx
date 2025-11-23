@@ -53,7 +53,7 @@ export function WhatWeDo({
       : (
         <button type="button" className={`${styles.ctaOutline} ${styles.ctaButton}`} onClick={onButtonClick}>
           {buttonLabel}
-          <span className={styles.arrow} aria-hidden>›</span>
+          <span className={styles.arrow} aria-hidden></span>
         </button>
       )
     : null;

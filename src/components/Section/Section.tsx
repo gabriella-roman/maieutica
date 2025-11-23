@@ -52,7 +52,6 @@ export function Section(props: SectionProps) {
       {description && (
         <p
           className={styles.description}
-          // permite rich text controlado
           dangerouslySetInnerHTML={{ __html: description }}
         />
       )}

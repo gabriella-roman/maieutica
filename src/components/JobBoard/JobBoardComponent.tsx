@@ -40,10 +40,7 @@ function useIsDesktop(breakpoint = 768) {
       setIsDesktop(window.innerWidth >= breakpoint);
     };
 
-    // checa na primeira montagem
     check();
-
-    // atualiza quando redimensionar
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, [breakpoint]);
@@ -133,7 +130,7 @@ export default function JobBoardComponent() {
       Array.from(new Set(arr.filter(Boolean)))
         .filter((v) => v !== "Não informado" && v !== "Não informada")
         .sort((a, b) => a.localeCompare(b, "pt-BR"));
-    // classify area from title/description into requested buckets
+        
     const classifyArea = (title: string, desc: string) => {
       const txt = `${title || ""} ${desc || ""}`.toLowerCase();
       if (/infantil/.test(txt)) return "Educação Infantil";
@@ -171,10 +168,15 @@ export default function JobBoardComponent() {
 
     return jobs.filter((v) => {
       const classified = classifyArea(v.title, v.description);
-      const okArea = !filters.area || classified === filters.area;
-      const okDisc = !filters.disciplina || v.disciplina === filters.disciplina;
-      const okLoc = !filters.localizacao || v.location === filters.localizacao;
-      const okBil = !filters.bilingue || (filters.bilingue === "sim" ? v.isBilingual : !v.isBilingual);
+    
+      const okArea = !filters.area || filters.area.length === 0 || filters.area.includes(classified);
+      const okDisc = !filters.disciplina || filters.disciplina.length === 0 || filters.disciplina.includes(v.disciplina);
+      const okLoc = !filters.localizacao || filters.localizacao.length === 0 || filters.localizacao.includes(v.location);
+      
+      const okBil = !filters.bilingue || filters.bilingue.length === 0 || 
+        (filters.bilingue.includes("sim") && v.isBilingual) ||
+        (filters.bilingue.includes("nao") && !v.isBilingual);
+      
       return okArea && okDisc && okLoc && okBil;
     });
   }, [jobs, filters]);
@@ -225,7 +227,8 @@ export default function JobBoardComponent() {
                     <h3 className={styles.filterGroupTitle}>{cfg.label}</h3>
                     <div className={styles.filterGroupOptions}>
                       {cfg.options.map((opt) => {
-                        const checked = filters[cfg.key] === opt.value;
+                        const current = filters[cfg.key] ?? [];
+                        const checked = current.includes(opt.value);
                         return (
                           <label
                             key={opt.value}
@@ -236,10 +239,14 @@ export default function JobBoardComponent() {
                               checked={checked}
                               onChange={() => {
                                 const next: FiltersState = { ...filters };
+                                const currentValues = next[cfg.key] ?? [];
                                 if (checked) {
-                                  delete next[cfg.key];
+                                  next[cfg.key] = currentValues.filter(v => v !== opt.value);
+                                  if (next[cfg.key]?.length === 0) {
+                                    delete next[cfg.key];
+                                  }
                                 } else {
-                                  next[cfg.key] = opt.value;
+                                  next[cfg.key] = [...currentValues, opt.value];
                                 }
                                 setFilters(next);
                               }}
