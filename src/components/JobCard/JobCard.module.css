@@ -45,6 +45,7 @@ p {
 .cardCollapsed {
     height: 220px;
     overflow: hidden;
+    background-color: #ffffff;
 }
 
 .cardExpanded {
@@ -127,10 +128,7 @@ p {
 }
 
 .containerBtn button {
-    min-width: 0;
-    max-width: none;
-    width: auto;
-    flex: 0 0 auto;
+    box-sizing: border-box;
 }
 
 .containerBtn>* {
@@ -140,6 +138,7 @@ p {
 
 .containerBtn a {
     display: flex;
+    width: 100%;
 }
 
 .containerBtn a,
@@ -160,10 +159,6 @@ p {
     color: white;
 }
 
-.containerBtn a>button {
-    width: 100%;
-}
-
 .containerBtn {
     width: 100%;
     padding-left: 12px;
@@ -174,24 +169,28 @@ p {
 .containerBtn .btnPrimary,
 .containerBtn .btnSecundary {
     text-align: center;
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .btn {
     border-radius: 999px;
     border: 1px solid transparent;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
     height: 3rem;
     min-height: 40px;
-    padding: 0 14px;
+    padding: 0 20px;
     font-weight: 600;
     font-size: 14px;
     line-height: 1;
+    white-space: nowrap;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .btnPrimary {
@@ -285,7 +284,6 @@ button .material-icons {
     .containerBtn {
         flex-direction: column;
         gap: 0.5rem;
-        padding: 4px 0px;
     }
 
     .containerBtn>* {
@@ -301,38 +299,47 @@ button .material-icons {
         width: 100%;
         max-width: 100%;
     }
+
 }
 
 @media (min-width: 1025px) {
     .containerBtn {
         flex-direction: row;
-        justify-content: flex-start;
-        gap: 0.75rem;
+        justify-content: space-between;
+        gap: 12px;
     }
 
     .containerBtn>* {
-        flex: none;
-        min-width: 0;
+        flex: 1 1 calc(50% - 6px);
+        min-width: calc(50% - 6px);
+        max-width: calc(50% - 6px);
     }
 
     .containerBtn a {
         display: flex;
-        flex: 1 1 auto;
-        min-width: 0;
+        flex: 1 1 calc(50% - 6px);
+        min-width: calc(50% - 6px);
+        max-width: calc(50% - 6px);
     }
 
     .containerBtn a>button {
         width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        flex: 1;
     }
 
-    .containerBtn .btnPrimary {
-        min-width: 9rem;
-        flex: 0 0 auto;
-    }
-
+    .containerBtn .btnPrimary,
     .containerBtn .btnSecundary {
-        flex: 1 1 auto;
-        min-width: 0;
+        flex: 1 1 calc(50% - 6px);
+        min-width: calc(50% - 6px);
+        max-width: calc(50% - 6px);
+        width: 100%;
+    }
+
+    .containerBtn button {
+        flex-shrink: 0;
+        width: 100%;
     }
 }
 

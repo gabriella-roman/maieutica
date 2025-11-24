@@ -4,7 +4,7 @@
   color: #5C5E5F;
 }
 
-.badge{
+.badge {
   justify-self: center;
   display: inline-flex;
   align-items: center;
@@ -12,13 +12,12 @@
   padding: 10px 16px;
   border-radius: 999px;
   background: #fff;
-  box-shadow: 0 6px 16px rgba(0,0,0,.32);
   font-weight: 700;
   color: var(--color-maieutica-vermelho);
   letter-spacing: .02em;
 }
 
-.badgeIcon{
+.badgeIcon {
   width: 22px;
   height: 22px;
   display: block;
@@ -32,7 +31,6 @@
   text-align: center;
   max-width: var(--container-max);
   margin: 0 auto 8px;
-  background-color: red;
 }
 
 .aboutBadge {
@@ -217,6 +215,20 @@
 }
 
 @media (min-width: 1024px) {
+
+  .badge {
+    font-size: 12px;
+  }
+
+  .badgeIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+  }
+
   .section {
     padding: 32px 40px;
   }
@@ -269,14 +281,12 @@
 
   .aboutGrid {
     height: var(--tile);
-    padding: 14px 16px 20px;
+    padding: 12px 16px;
     border-radius: var(--radius, 18px);
-    background: #fff;
-    box-shadow: var(--shadow, 0 10px 24px rgba(0, 0, 0, .08));
     color: #5C5E5F;
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
-    row-gap: 6px;
+    row-gap: 10px;
     overflow: hidden;
     justify-items: center;
   }
@@ -329,12 +339,10 @@
     align-self: end;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
+    gap: 8px;
+    padding: 8px 16px;
     border-radius: 999px;
-    border: 2px solid #CE6C39;
     background: #fff;
-    color: #CE6C39;
     font-weight: 800;
     text-decoration: none;
     width: max-content;

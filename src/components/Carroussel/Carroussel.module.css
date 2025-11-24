@@ -1,14 +1,14 @@
-.section{
+.section {
   background: var(--card-bg);
   border-radius: var(--radius);
   padding: 18px 14px 22px;
   display: grid;
   gap: 12px;
   /* default logo height for small screens */
-  --logo-height: 44px;
+  --logo-height: 56px;
 }
 
-.badge{
+.badge {
   justify-self: center;
   display: inline-flex;
   align-items: center;
@@ -16,28 +16,29 @@
   padding: 10px 16px;
   border-radius: 999px;
   background: #fff;
-  box-shadow: 0 6px 16px rgba(0,0,0,.32);
+  box-shadow: var(--shadow-lg);
   font-weight: 700;
   color: #CE8A2A;
   letter-spacing: .02em;
+  margin-bottom: 14px;
 }
 
-.badgeIcon{
+.badgeIcon {
   width: 22px;
   height: 22px;
   display: block;
 }
 
-.title{
+.title {
   margin: 0;
   text-align: center;
-  font-size: 28px;
+  font-size: 20px;
   line-height: 1.2;
   font-weight: 800;
   color: var(--color-maieutica-amarelo);
 }
 
-.viewport{
+.viewport {
   /* contain the visible carousel to the site container width and hide overflow
      so the scrollLeft-driven animation moves content inside this viewport */
   width: 100%;
@@ -47,13 +48,18 @@
   overflow-y: hidden;
   position: relative;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-  -ms-overflow-style: none; /* IE/Edge */
-  scrollbar-width: none; /* Firefox */
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -ms-overflow-style: none;
+  /* IE/Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
-.viewport::-webkit-scrollbar{ display: none; }
 
-.track{
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.track {
   display: inline-flex;
   gap: var(--gap);
   /* let track width be determined by its content (two concatenated sequences) */
@@ -61,14 +67,14 @@
   will-change: scroll-left;
 }
 
-.item{
+.item {
   flex: 0 0 auto;
   display: grid;
   place-items: center;
   min-width: 120px;
 }
-.item img{
-  /* restore original logo sizing via CSS variable so it's easy to tweak */
+
+.item img {
   height: var(--logo-height, 44px);
   max-height: var(--logo-height, 44px);
   width: auto;
@@ -77,14 +83,33 @@
   opacity: .9;
   transition: filter .2s ease, opacity .2s ease;
 }
-.item img:hover{
+
+.item img:hover {
   filter: none;
   opacity: 1;
 }
 
-@media (min-width: 768px){
-  .section{ padding: 22px 20px 26px; gap: 14px; }
-  .title{ font-size: 36px; }
-  /* desktop default logo height */
-  .section{ --logo-height: 52px; }
+@media (min-width: 768px) {
+  .section {
+    padding: 32px 40px;
+    gap: 0px;
+  }
+
+  .badge{
+    font-size: 12px;
+  }
+
+  .badgeIcon{
+    width: 16px;
+    height: 16px;
+  }
+
+  .title {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .section {
+    --logo-height: 100px;
+  }
 }

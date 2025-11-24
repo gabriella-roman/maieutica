@@ -26,7 +26,6 @@ export function Button(props: ButtonProps) {
       } : undefined}
     >
       <span className={styles.label}>{label}</span>
-      <span className={styles.divider} aria-hidden />
       <FontAwesomeIcon icon={faArrowRight} className={styles.icon} />
     </button>
   );

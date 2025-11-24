@@ -156,6 +156,21 @@ export function StatsSection({ items }: Props) {
 
   return (
     <section className={styles.section} aria-label="Sobre nós e nossos números">
+      <div className={styles.aboutWrap}>
+        <div className={styles.badge}>
+          <img src={stackBooks} alt="" aria-hidden className={styles.badgeIcon} />
+          <span>NOSSA HISTÓRIA</span>
+        </div>
+        <h2 className={styles.aboutTitle}>Sobre nós</h2>
+        <p className={styles.aboutText}>
+          Há mais de 15 anos realizamos um trabalho especializado e personalizado às
+          características e demandas da escola, com ética na condução do processo
+          seletivo e total respeito aos agentes envolvidos: escola e educadores.
+        </p>
+        <a href="/about-us" className={styles.aboutCta}>
+          Saiba mais sobre nós <span aria-hidden><FontAwesomeIcon icon={faArrowRight} /></span>
+        </a>
+      </div>
       <div className={styles.track} ref={trackRef}>
         {data.map((s, i) => (
           <StatCard key={`m-${s.value}-${i}`} item={s} />

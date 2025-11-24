@@ -35,6 +35,7 @@
 
 .button:hover {
   background: color-mix(in srgb, var(--accent) 10%, transparent);
+  cursor: pointer;
 }
 .button:hover .icon { transform: translateX(2px); }
 

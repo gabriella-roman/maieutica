@@ -8,7 +8,7 @@ import { ServiceItem, WhatWeDoSection } from "../../components/WhatWeDoSection/W
 import stackBooks from "../../assets/icons/stack-of-books 1.svg"
 import StatsSection from "../../components/StatsSection/StatsSection"
 import Testimonials from "../../components/Testimonials/Testimonials"
-import { ContactInfo } from "../../components/ContactInfo/ContactInfo"
+import { ContactInfoHome } from "../../components/ContactInfoHome/ContactInfoHome"
 import { ContactSection } from "../../components/ContactSection/ContactSection"
 import { Footer } from "../../components/Footer/Footer"
 import BoardVagas from '../../components/BoardVagas/BoardVagas';
@@ -156,8 +156,10 @@ export default function Home() {
       </section>
 
       <section className={styles.sectionContact} aria-hidden="true">
-        <ContactInfo />
+        <ContactInfoHome />
         <ContactSection />
+
+
       </section>
 
       <Footer />

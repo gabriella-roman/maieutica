@@ -149,7 +149,8 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
               className={`${styles.cta} ${styles.ctaMobile}`}
               onClick={() => handleNav("/job-board")}
               style={{
-                color: headerBgColor,
+                color: '#ffffff',
+                background: headerBgColor,
                 borderColor: headerBgColor
               }}
             >

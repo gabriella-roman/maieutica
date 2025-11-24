@@ -220,7 +220,7 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   .supportContainer {
     flex-direction: row;
-    align-items: self-start;
+    align-items: stretch;
     justify-content: center;
     max-width: 1000px;
     margin: 0 auto;
@@ -233,6 +233,9 @@
     min-width: 0;
     max-width: 400px;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .imageSupport {
@@ -240,7 +243,8 @@
     min-width: 0;
     max-width: 500px;
     margin: 0;
-    min-height: 400px;
+    height: 100%;
+    object-fit: cover;
   }
 
   .divider {
@@ -301,7 +305,7 @@
 @media (min-width: 1024px) and (max-width: 1199px) {
   .supportContainer {
     flex-direction: row;
-    align-items: self-start;
+    align-items: stretch;
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -314,6 +318,9 @@
     width: 400px;
     max-width: 400px;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .imageSupport {
@@ -321,7 +328,8 @@
     min-width: 0;
     max-width: 700px;
     margin: 0;
-    min-height: 450px;
+    height: 100%;
+    object-fit: cover;
   }
 
   .divider {
@@ -329,6 +337,7 @@
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 32px 24px;
   }
 
   .filter {
@@ -380,7 +389,7 @@
 @media (min-width: 1200px) {
   .supportContainer {
     flex-direction: row;
-    align-items: start;
+    align-items: stretch;
     justify-content: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -391,13 +400,17 @@
     flex: 0 0 auto;
     width: 400px;
     max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .imageSupport {
     flex: 0 0 auto;
     width: 900px;
     max-width: 900px;
-    min-height: 500px;
+    height: 100%;
+    object-fit: cover;
   }
 
   .divider {
@@ -406,6 +419,7 @@
     gap: 40px;
     max-width: 1400px;
     margin: 0 auto;
+    padding: 32px 0px;
   }
 
   .filter {
@@ -414,7 +428,7 @@
   }
 
   .filterDesktop {
-    margin: 24px;
+    margin: 0px;
   }
 
   .buttonAreaDesktop {

@@ -99,7 +99,7 @@ export function JobCard(props: JobCardProps) {
             className={`btn-primary btn-sm ${styles.btn} ${styles.btnSecundary}`}
             onClick={onToggle}
           >
-            {isExpanded ? 'Esconder detalhes' : 'Detalhes da vaga'}{' '}
+            {isExpanded ? 'Detalhes' : 'Detalhes'}{' '}
             {isExpanded ? (
               <KeyboardArrowUpIcon className={styles.iconButt} />
             ) : (
@@ -107,12 +107,13 @@ export function JobCard(props: JobCardProps) {
             )}
           </button>
 
-          <a href={slugLink} target="_blank" rel="noopener noreferrer">
-            <button
-              className={`btn-primary btn-sm ${styles.btn} ${styles.btnPrimary}`}
-            >
-              Me candidatar <ArrowToRight className={styles.icon} />
-            </button>
+          <a
+            href={slugLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`btn-primary btn-sm ${styles.btn} ${styles.btnPrimary}`}
+          >
+            Candidatar <ArrowToRight className={styles.icon} />
           </a>
         </div>
       </div>
