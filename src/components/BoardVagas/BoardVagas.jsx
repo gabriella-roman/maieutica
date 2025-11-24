@@ -67,7 +67,8 @@ export default function BoardVagas({ limit = 4 }) {
             area: attrs.area || "",
             salary: attrs.salary || "",
             contractingRegime: attrs.contracting_regime || "",
-            slugLink: attrs.slug || "#",
+            // construct full external link to the candidate portal (same as JobBoard)
+            slugLink: attrs.slug ? `https://candidatos.abler.com.br/vagas/${attrs.slug}` : "#",
           };
         });
         if (!cancelled) setJobs(mapped.slice(0, limit));
