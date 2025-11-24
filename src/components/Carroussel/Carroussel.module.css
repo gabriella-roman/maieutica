@@ -39,8 +39,6 @@
 }
 
 .viewport {
-  /* contain the visible carousel to the site container width and hide overflow
-     so the scrollLeft-driven animation moves content inside this viewport */
   width: 100%;
   max-width: var(--container-max);
   margin: 6px auto 0;

@@ -185,7 +185,47 @@ export default function JobBoardPage() {
     setExpandedSlug((prev) => (prev === key ? null : key));
   };
 
-  if (loading) return <div>Carregando...</div>;
+  if (loading)
+    return (
+      <div className={styles.loaderOverlay} role="status" aria-live="polite">
+        <div className={styles.loader}>
+          <svg xmlns="http://www.w3.org/2000/svg" height="200px" width="200px" viewBox="0 0 200 200" className="pencil" aria-hidden>
+            <defs>
+              <clipPath id="pencil-eraser">
+                <rect height="30" width="30" ry="5" rx="5"></rect>
+              </clipPath>
+            </defs>
+            <circle transform="rotate(-113,100,100)" stroke-linecap="round" stroke-dashoffset="439.82" stroke-dasharray="439.82 439.82" stroke-width="2" stroke="#427161" fill="none" r="70" className="pencil__stroke"></circle>
+            <g transform="translate(100,100)" className="pencil__rotate">
+              <g fill="none">
+                <circle transform="rotate(-90)" stroke-dashoffset="402" stroke-dasharray="402.12 402.12" stroke-width="30" stroke="#5A9E8C" r="64" className="pencil__body1"></circle>
+                <circle transform="rotate(-90)" stroke-dashoffset="465" stroke-dasharray="464.96 464.96" stroke-width="10" stroke="#9CC5BA" r="74" className="pencil__body2"></circle>
+                <circle transform="rotate(-90)" stroke-dashoffset="339" stroke-dasharray="339.29 339.29" stroke-width="10" stroke="#427161" r="54" className="pencil__body3"></circle>
+              </g>
+              <g transform="rotate(-90) translate(49,0)" className="pencil__eraser">
+                <g className="pencil__eraser-skew">
+                  <rect height="30" width="30" ry="5" rx="5" fill="#DEECE8"></rect>
+                  <rect clip-path="url(#pencil-eraser)" height="30" width="5" fill="#9CC5BA"></rect>
+                  <rect height="20" width="30" fill="#FFFFFF"></rect>
+                  <rect height="20" width="15" fill="#F4F4F5"></rect>
+                  <rect height="20" width="5" fill="#E6E7E6"></rect>
+                  <rect height="2" width="30" y="6" fill="rgba(0,0,0,0.08)"></rect>
+                  <rect height="2" width="30" y="13" fill="rgba(0,0,0,0.08)"></rect>
+                </g>
+              </g>
+              <g transform="rotate(-90) translate(49,-30)" className="pencil__point">
+                <polygon points="15 0,30 30,0 30" fill="hsl(33,90%,70%)"></polygon>
+                <polygon points="15 0,6 30,0 30" fill="hsl(33,90%,50%)"></polygon>
+                <polygon points="15 0,20 10,10 10" fill="hsl(223,10%,10%)"></polygon>
+              </g>
+            </g>
+          </svg>
+            <div className={styles.loaderText} aria-hidden>
+              Buscando vagas
+            </div>
+          </div>
+      </div>
+    );
   if (error) return <div>{error}</div>;
 
   return (

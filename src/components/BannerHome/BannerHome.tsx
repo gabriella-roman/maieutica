@@ -32,7 +32,7 @@ export function BannerHome() {
           </p>
 
           <div className={styles.ctaRow}>
-            <a href="#vagas" className={styles.cta} aria-label="Ver todas as vagas">
+            <a href="/job-board" className={styles.cta} aria-label="Ver todas as vagas">
               Ver todas as vagas
               <FontAwesomeIcon icon={faLayerGroup} className={styles.ctaIcon} />
             </a>
@@ -40,7 +40,7 @@ export function BannerHome() {
         </div>
 
         <div className={styles.heroWrapper}>
-          <div className={styles.heroImage}></div>
+          <img src={ImagemBannerMulher} alt="Professora" className={styles.heroImage} />
         </div>
       </div>
     </section >

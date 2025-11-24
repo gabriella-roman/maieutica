@@ -4,7 +4,7 @@ import { Header } from "../../components/Header/Header";
 import { Banner } from "../../components/Banner/Banner";
 import { Button } from "../../components/Button/Button";
 import { Footer } from "../../components/Footer/Footer";
-import image from "../../assets/images/img-woman-about-us.png";
+import image from "../../assets/images/professora_sobre.svg";
 
 export default function AboutUs() {
   return (

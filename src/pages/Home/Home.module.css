@@ -272,6 +272,7 @@
 
 .feedbackMedia {
   width: 100%;
+  border-radius: 10px;
 }
 
 .feedbackCard {
@@ -304,6 +305,10 @@
 
   .ctaOutline {
     padding: 14px 24px;
+  }
+
+  .sectionContact{
+    padding: 32px 0px;
   }
 
   .aboutSection {

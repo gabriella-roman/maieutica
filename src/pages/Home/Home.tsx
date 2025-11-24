@@ -17,7 +17,7 @@ import { faShareNodes, faGraduationCap, faBrain, faCompass, faComments, faPenToS
 import connectPeople from '../../assets/icons/icon_connectpeople.svg'
 import schoolIcon from '../../assets/icons/school.svg'
 
-import ImagemFeedback from '../../assets/images/Mask group.svg'
+import ImagemFeedback from '../../assets/images/ProfessorFeedback.svg'
 
 export default function Home() {
   const services: ServiceItem[] = [
@@ -73,29 +73,39 @@ export default function Home() {
     logos.push({ src, alt: name });
   });
 
-  const feedbacks = [
-    {
-      quote:
-        "Graças à Maieutica RH, consegui uma oportunidade que tem tudo a ver com meu perfil. O processo foi rápido e bem organizado. Recomendo para quem quer algo prático e eficiente!",
-      name: "João Trajano",
-      role: "Professor de História",
-      avatar: "https://i.pravatar.cc/112?img=15",
-    },
-    {
-      quote:
-        "Equipe atenciosa e comunicação muito clara. Em poucos dias eu já estava em entrevistas.",
-      name: "Marina Souza",
-      role: "Coordenadora Pedagógica",
-      avatar: "https://i.pravatar.cc/112?img=5",
-    },
-    {
-      quote:
-        "Processo seletivo objetivo e respeitoso. Me senti acompanhado o tempo todo.",
-      name: "Rafael Martins",
-      role: "Professor de Matemática",
-      avatar: "https://i.pravatar.cc/112?img=8",
-    },
-  ]
+const feedbacks = [
+  {
+    quote:
+      "Mesmo não tendo sido selecionada para a vaga inicial, meu perfil profissional foi traçado com tamanho cuidado que recebi, algumas semanas mais tarde, um contato da recrutadora sobre uma vaga para a qual fui contratada. A disponibilidade, gentileza e competência da equipe da Maiêutica foram indispensáveis para minha recolocação profissional.",
+    name: "Luciana",
+    role: "Coord. Pedagógica",
+  },
+  {
+    quote:
+      "Primeiramente gostaria de destacar o trabalho profissional da Maiêutica em todos os momentos. Foi um processo extremamente claro, com descrição de todas as etapas desde o princípio. A Cynthia e a Larissa são extremamente profissionais e supercautelosas, minha eterna gratidão.",
+    name: "Willian",
+    role: "Coord. Área Tecnologia Educacional",
+  },
+  {
+    quote:
+      "Meu presente de fim de ano! Consegui o sonhado salto na minha carreira de educadora através da Maiêutica! O processo todo foi um prazer, as entrevistas super profissionais, pertinentes e respeitosas. É um orgulho adicional conseguir um novo e desejado emprego sabendo que o processo é idôneo e cuidadoso. Recomendo muito a Maiêutica!",
+    name: "Ana",
+    role: "Prof. Bilíngue – EF1",
+  },
+  {
+    quote:
+      "Agradeço e parabenizo o profissionalismo e trabalho realizado pela equipe da Maiêutica durante meu processo seletivo.",
+    name: "Ana C.",
+    role: "Prof. Bilíngue – EF1",
+  },
+  {
+    quote:
+      "Tive o prazer de participar de um processo seletivo esse ano com a Maiêutica RH Educacional e só tenho elogios ao trabalho deles. Processo humanizado, com feedbacks e evoluções das etapas. A profissional de RH Cynthia sempre muito atenciosa, me guiou em todas as etapas do processo com excelência!",
+    name: "Paula",
+    role: "Cargo Gestão em RH",
+  },
+];
+
 
   return (
     <div className={styles.page}>

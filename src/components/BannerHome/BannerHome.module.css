@@ -25,6 +25,11 @@
   align-content: start;
 }
 
+@media (min-width: 1024px) {
+  .heroImage {
+    max-width: 320px;              /* increased for mobile */
+  }
+}
 .badge {
   display: inline-flex;
   align-items: center;
@@ -109,13 +114,9 @@
 .heroImage {
   width: 100%;
   max-width: 260px;
-  aspect-ratio: 3 / 4;
-  background-image: url('../../assets/images/ImagemBannerMulher.svg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  box-shadow: none;
-  background-color: transparent;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 @media (min-width: 1024px) {
@@ -153,9 +154,9 @@
   }
 
   .heroImage {
-    max-width: 330px;              /* ~metade do tamanho antigo */
+    max-width: 450px;
     height: auto;
-    aspect-ratio: 3 / 4;
+    object-fit: contain;
   }
 
   .badge span {
@@ -166,3 +167,4 @@
     letter-spacing: var(--text-h1UP-letter-spacing);
   }
 }
+
