@@ -45,7 +45,7 @@ export default function AboutUs() {
 
             <Button
               label="Nossos serviços"
-              href="/services"
+              href="/our-services"
               accentColor="#C25450"
               onClick={() => console.log("Clicou no saiba mais")}
             />

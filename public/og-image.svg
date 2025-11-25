@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <style>
+      .bg { fill: #5A9E8C; }
+      .panel { fill: rgba(255,255,255,0.06); }
+      .title { fill: #ffffff; font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif; font-weight:700; font-size:48px; }
+      .subtitle { fill: rgba(255,255,255,0.95); font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif; font-size:28px; }
+    </style>
+  </defs>
+
+  <!-- background -->
+  <rect class="bg" width="1200" height="630" rx="0" ry="0" />
+
+  <!-- subtle panel behind content -->
+  <rect class="panel" x="60" y="60" width="1080" height="510" rx="20" ry="20" />
+
+  <!-- logo image centered -->
+  <!-- uses the public/logo-maieutica.svg file which exists in the repo -->
+  <g transform="translate(150,75)">
+    <image href="logo-maieutica.svg" x="0" y="0" width="900" height="360" preserveAspectRatio="xMidYMid meet" />
+  </g>
+
+  <!-- title and subtitle -->
+  <text x="600" y="480" text-anchor="middle" class="title">Maieutica — RH Educacional</text>
+  <text x="600" y="520" text-anchor="middle" class="subtitle">Seleção, avaliação psicológica e orientação de carreira</text>
+
+</svg>

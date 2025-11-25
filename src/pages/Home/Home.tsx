@@ -109,7 +109,7 @@ const feedbacks = [
 
   return (
     <div className={styles.page}>
-      <Header />
+  <Header headerBg="transparent" headerFg="#ffffff" />
       <BannerHome />
       <section className={styles.section}>
         <div className={styles.whatRow}>

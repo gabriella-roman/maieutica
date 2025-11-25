@@ -5,9 +5,22 @@ import { NavbarFooter } from "../../components/NavbarFooter/NavbarFooter";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebookF, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 import { Fragment } from "react";
 
 export function Footer() {
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 120);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
     <footer className={styles.footer}>
       <ColoredLine />
@@ -82,6 +95,16 @@ export function Footer() {
         <div>Desenvolvido por Soav Tech</div>
       </div>
 
+      {/* scroll-to-top button */}
+      <button
+        className={`${styles.scrollTop} ${showTop ? styles.show : ''}`}
+        onClick={scrollToTop}
+        aria-label="Voltar ao topo"
+      >
+        <FontAwesomeIcon icon={faChevronUp} />
+      </button>
+
     </footer>
   );
 }
+

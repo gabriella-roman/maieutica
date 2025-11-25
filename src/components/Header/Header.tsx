@@ -16,6 +16,7 @@ type HeaderProps = {
 
 export function Header({ headerBg, headerFg }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,6 +33,22 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
 
   const headerBgColor = headerBg ?? (isHome ? "#2E7B6A" : "#ffffff");
   const headerFgColor = headerFg ?? (isHome ? "#ffffff" : "#1f2937");
+  // If header is transparent, pick a sensible CTA color (brand green) so buttons remain visible
+  const ctaColor = headerBgColor === "transparent" ? "#5A9E8C" : headerBgColor;
+
+  // Update scrolled state: when on home, if user scrolls past header height, make header solid green
+  useEffect(() => {
+    if (!isHome) return;
+    const onScroll = () => {
+      const h = headerRef.current?.getBoundingClientRect().height ?? 0;
+      const scrolled = window.scrollY >= h;
+      setIsScrolled(scrolled);
+    };
+    // run once to initialize
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
 
   useEffect(() => {
     if (!headerRef.current) return;
@@ -71,9 +88,9 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
         role="banner"
         style={
           {
-            ["--header-bg" as any]: headerBgColor,
-            ["--header-fg" as any]: headerFgColor,
-          } as React.CSSProperties
+                ["--header-bg" as any]: (isHome && isScrolled) ? "#2E7B6A" : headerBgColor,
+                ["--header-fg" as any]: (isHome && isScrolled) ? "#ffffff" : headerFgColor,
+              } as React.CSSProperties
         }
       >
         <div className={styles.inner}>
@@ -99,8 +116,8 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
               ))}
             </ul>
             <button className={styles.cta} onClick={() => handleNav("/job-board")} style={{
-              color: headerBgColor,
-              borderColor: headerBgColor
+              color: ctaColor,
+              borderColor: ctaColor
             }}>
               Ver Vagas
               <FontAwesomeIcon icon={faArrowRight} />
@@ -150,8 +167,8 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
               onClick={() => handleNav("/job-board")}
               style={{
                 color: '#ffffff',
-                background: headerBgColor,
-                borderColor: headerBgColor
+                background: ctaColor,
+                borderColor: ctaColor
               }}
             >
               VER VAGAS

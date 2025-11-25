@@ -78,6 +78,36 @@
   transform: scale(.98);
 }
 
+/* scroll to top button */
+.scrollTop {
+  position: fixed;
+  right: 20px;
+  bottom: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-maieutica-verde);
+  color: #ffffff;
+  border: 0;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px) scale(.98);
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 120;
+}
+.scrollTop.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.scrollTop:active {
+  transform: translateY(0) scale(.98);
+}
+
 .line {
   background: var(--color-gray-300);
   color: var(--color-gray-200);

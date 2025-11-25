@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { JobCard } from "../JobCard/JobCard";
 import api from "../../utils/api";
 import styles from "./JobBoard.module.css";
+import { normalizeLabel, titleCase } from "../../utils/normalize";
 
 import { Header } from "../Header/Header";
 import { Banner } from "../Banner/Banner";
@@ -22,6 +23,8 @@ type Job = {
   area: string;
   segmento: string;
   disciplina: string;
+  disciplinaList?: string[];
+  disciplinaNormalized?: string[];
   languages: string[];
   salary: string | number;
   contractingRegime: string;
@@ -47,20 +50,19 @@ function useIsDesktop(breakpoint = 768) {
 
   return isDesktop;
 }
-
 export default function JobBoardComponent() {
+
   const [jobs, setJobs] = useState<Job[]>([]);
-  const [filters, setFilters] = useState<FiltersState>({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
+const [filters, setFilters] = useState<FiltersState>({});
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
 
-  const isDesktop = useIsDesktop(768);
+const isDesktop = useIsDesktop(768);
 
-
-  useEffect(() => {
-    fetchJobs();
-  }, []);
+useEffect(() => {
+  fetchJobs();
+}, []);
 
   async function fetchJobs() {
     try {
@@ -95,7 +97,17 @@ export default function JobBoardComponent() {
         const location = resolveLocation(job, idx);
         const area = resolveArea(job, idx);
         const segmento = inferSegmentoFromText(title, cleanDesc);
-        const disciplina = inferDisciplinaFromText(title, cleanDesc);
+
+        // disciplina: prefer relationships/attributes.courses, fallback to inference
+        const rawDisc = getDisciplina(job, idx);
+        let disciplinaList: string[] = [];
+        if (rawDisc) {
+          disciplinaList = rawDisc.split(" · ").map((s) => String(s || "").trim()).filter(Boolean);
+        } else {
+          const inferred = inferDisciplinaFromText(title, cleanDesc);
+          if (inferred && inferred !== "Não informada") disciplinaList = [inferred];
+        }
+        const disciplinaNormalized = Array.from(new Set(disciplinaList.map((d) => normalizeLabel(d)).filter(Boolean)));
 
         const languages = extractLanguages(job, idx);
         const isBilingual = detectBilingual(title, cleanDesc, languages);
@@ -106,7 +118,9 @@ export default function JobBoardComponent() {
           location,
           area,
           segmento,
-          disciplina,
+          disciplina: disciplinaList.length ? disciplinaList.join(" · ") : "Não informada",
+          disciplinaList,
+          disciplinaNormalized,
           languages,
           salary: attrs.salary ?? "Salário não informada",
           contractingRegime: attrs.contracting_regime || "Tipo não informada",
@@ -143,13 +157,34 @@ export default function JobBoardComponent() {
     };
 
     const areas = uniq(jobs.map((j) => classifyArea(j.title, j.description)));
-    const disciplinas = uniq(jobs.map((j) => j.disciplina));
     const locais = uniq(jobs.map((j) => j.location));
+
+    const discMap = new Map<string, { label: string; count: number }>();
+    for (const jb of jobs) {
+      const list = jb.disciplinaList ?? [];
+      const seen = new Set<string>();
+      for (const d of list) {
+        const norm = normalizeLabel(d);
+        if (!norm || seen.has(norm)) continue;
+        seen.add(norm);
+        const existing = discMap.get(norm);
+        const display = titleCase(d);
+        if (existing) {
+          existing.count++;
+        } else {
+          discMap.set(norm, { label: display, count: 1 });
+        }
+      }
+    }
+
+    const disciplinasOptions = Array.from(discMap.entries())
+      .sort((a, b) => a[1].label.localeCompare(b[1].label, "pt-BR"))
+      .map(([norm, meta]) => ({ value: norm, label: `${meta.label} (${meta.count})` }));
 
     return [
       { key: "localizacao", label: "Localização", options: locais.map((v) => ({ value: v, label: v })) },
       { key: "area", label: "Área de atuação", options: areas.map((v) => ({ value: v, label: v })) },
-      { key: "disciplina", label: "Disciplina", options: disciplinas.map((v) => ({ value: v, label: v })) },
+      { key: "disciplina", label: "Disciplina", options: disciplinasOptions },
       { key: "bilingue", label: "Bilíngue", options: [{ value: "sim", label: "Bilíngue" }, { value: "nao", label: "Não bilíngue" }] },
     ] as FilterConfig[];
   }, [jobs]);
@@ -170,7 +205,10 @@ export default function JobBoardComponent() {
       const classified = classifyArea(v.title, v.description);
     
       const okArea = !filters.area || filters.area.length === 0 || filters.area.includes(classified);
-      const okDisc = !filters.disciplina || filters.disciplina.length === 0 || filters.disciplina.includes(v.disciplina);
+      const selectedDisc = filters.disciplina ?? [];
+      const okDisc =
+        selectedDisc.length === 0 ||
+        (Array.isArray(v.disciplinaNormalized) && v.disciplinaNormalized.some((nd) => selectedDisc.includes(nd)));
       const okLoc = !filters.localizacao || filters.localizacao.length === 0 || filters.localizacao.includes(v.location);
       
       const okBil = !filters.bilingue || filters.bilingue.length === 0 || 
@@ -249,6 +287,9 @@ export default function JobBoardComponent() {
                                   next[cfg.key] = [...currentValues, opt.value];
                                 }
                                 setFilters(next);
+                                if (isDesktop && typeof window !== "undefined") {
+                                  window.scrollTo({ top: 0, behavior: "smooth" });
+                                }
                               }}
                             />
                             <span>{opt.label}</span>
@@ -399,6 +440,42 @@ function inferDisciplinaFromText(title: string, desc: string): string {
   if (/ci[eê]ncias/.test(t)) return "Ciências";
   if (/ingl[eê]s|english/.test(t)) return "Inglês";
   return "Não informada";
+}
+
+/**
+ * Tenta extrair a(s) disciplina(s) a partir dos relacionamentos do job.
+ * Procura por 'subjects' e também por 'courses' (quando a API usar esse naming).
+ * Retorna uma string única (nomes unidos por ' · ') ou undefined quando não encontrar.
+ */
+function getDisciplina(job: any, idx: Record<string, Record<string, any>>): string | undefined {
+  const relKeys = ["subjects", "courses"];
+
+  for (const key of relKeys) {
+    const rel = getRel(job, key);
+    const picks = Array.isArray(rel) ? rel : rel ? [rel] : [];
+    const names: string[] = [];
+    for (const p of picks) {
+      if (!p?.id || !p?.type) continue;
+      const t = String(p.type).toLowerCase();
+      const node = idx[t]?.[String(p.id)];
+      const name =
+        node?.attributes?.name ??
+        node?.attributes?.title ??
+        node?.attributes?.label ??
+        node?.attributes?.description;
+      if (name) names.push(String(name).trim());
+    }
+    if (names.length) return Array.from(new Set(names)).join(" · ");
+  }
+
+  // fallback: some payloads include an attributes.courses array (string names)
+  const attrCourses = job?.attributes?.courses;
+  if (Array.isArray(attrCourses) && attrCourses.length) {
+    const names = attrCourses.filter(Boolean).map((n: any) => String(n).trim());
+    if (names.length) return Array.from(new Set(names)).join(" · ");
+  }
+
+  return undefined;
 }
 
 function extractLanguages(

@@ -14,6 +14,7 @@ import {
   FilterConfig,
   FiltersState,
 } from "../../components/Filters/FiltersBar";
+import { normalizeLabel, titleCase } from "../../utils/normalize";
 import { Footer } from "../../components/Footer/Footer";
 
 type Job = {
@@ -23,6 +24,8 @@ type Job = {
   area: string;
   segmento: string;
   disciplina: string;
+  disciplinaList?: string[];
+  disciplinaNormalized?: string[];
   salary: string | number;
   contractingRegime: string;
   seniority: string;
@@ -88,7 +91,7 @@ export default function JobBoardPage() {
           if (/m[eé]dio/i.test(t)) return "Ensino Médio";
           return undefined;
         });
-        const disciplina = relLabel(job, "subjects", idx, () => {
+        let disciplina = relLabel(job, "subjects", idx, () => {
           const t = `${attrs.title} ${cleanDesc}`;
           if (/matem[aá]tica/i.test(t)) return "Matemática";
           if (/portugu[eê]s/i.test(t)) return "Português";
@@ -99,6 +102,15 @@ export default function JobBoardPage() {
           return undefined;
         });
 
+        const attrCourses = attrs.courses;
+        if ((disciplina === "Não informado" || !disciplina) && Array.isArray(attrCourses) && attrCourses.length) {
+          const names = attrCourses.filter(Boolean).map((n: any) => String(n).trim());
+          if (names.length) disciplina = Array.from(new Set(names)).join(" · ");
+        }
+
+        const disciplinaList = disciplina && disciplina !== "Não informado" ? String(disciplina).split(" · ").map((s) => String(s || "").trim()).filter(Boolean) : [];
+        const disciplinaNormalized = Array.from(new Set(disciplinaList.map((d) => normalizeLabel(d)).filter(Boolean)));
+
         const isBilingual = detectBilingual(job, idx, title, cleanDesc);
 
         return {
@@ -108,6 +120,8 @@ export default function JobBoardPage() {
           area,
           segmento,
           disciplina,
+          disciplinaList,
+          disciplinaNormalized,
           salary: attrs.salary ?? "Salário não informada",
           contractingRegime: attrs.contracting_regime || "Tipo não informada",
           seniority: attrs.seniority || "Senioridade não informada",
@@ -143,13 +157,32 @@ export default function JobBoardPage() {
     };
 
     const areas = uniq(jobs.map((j) => classifyArea(j.title, j.description)));
-    const disciplinas = uniq(jobs.map((j) => j.disciplina));
     const locais = uniq(jobs.map((j) => j.location));
+
+    const discMap = new Map<string, { label: string; count: number }>();
+    for (const jb of jobs) {
+      const list = (jb as any).disciplinaList ?? [];
+      // count each normalized discipline at most once per job
+      const seen = new Set<string>();
+      for (const d of list) {
+        const norm = normalizeLabel(d);
+        if (!norm || seen.has(norm)) continue;
+        seen.add(norm);
+        const existing = discMap.get(norm);
+        const display = titleCase(d);
+        if (existing) existing.count++;
+        else discMap.set(norm, { label: display, count: 1 });
+      }
+    }
+
+    const disciplinasOptions = Array.from(discMap.entries())
+      .sort((a, b) => a[1].label.localeCompare(b[1].label, "pt-BR"))
+      .map(([norm, meta]) => ({ value: norm, label: `${meta.label} (${meta.count})` }));
 
     return [
       { key: "localizacao" as const, label: "Localização", options: locais.map((v) => ({ value: v, label: v })) },
       { key: "area" as const, label: "Área de atuação", options: areas.map((v) => ({ value: v, label: v })) },
-      { key: "disciplina" as const, label: "Disciplina", options: disciplinas.map((v) => ({ value: v, label: v })) },
+      { key: "disciplina" as const, label: "Disciplina", options: disciplinasOptions },
       { key: "bilingue" as const, label: "Bilíngue", options: [{ value: "sim", label: "Bilíngue" }, { value: "nao", label: "Não bilíngue" }] },
     ] as FilterConfig[];
   }, [jobs]);
@@ -170,7 +203,10 @@ export default function JobBoardPage() {
       const classified = classifyArea(v.title, v.description);
       
       const okArea = !filters.area || filters.area.length === 0 || filters.area.includes(classified);
-      const okDisc = !filters.disciplina || filters.disciplina.length === 0 || filters.disciplina.includes(v.disciplina);
+      const selectedDisc = filters.disciplina ?? [];
+      const okDisc =
+        selectedDisc.length === 0 ||
+        (Array.isArray((v as any).disciplinaNormalized) && (v as any).disciplinaNormalized.some((nd: string) => selectedDisc.includes(nd)));
       const okLoc = !filters.localizacao || filters.localizacao.length === 0 || filters.localizacao.includes(v.location);
       
       const okBil = !filters.bilingue || filters.bilingue.length === 0 || 
@@ -287,7 +323,10 @@ export default function JobBoardPage() {
                                 } else {
                                   next[cfg.key] = [...currentValues, opt.value];
                                 }
-                                setFilters(next);
+                                  setFilters(next);
+                                  if (isDesktop && typeof window !== "undefined") {
+                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                  }
                               }}
                             />
                             <span>{opt.label}</span>

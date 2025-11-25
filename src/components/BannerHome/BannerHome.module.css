@@ -4,9 +4,14 @@
 }
 
 .banner {
-  background: linear-gradient(180deg, #2e7b6a 0%, #246a5b 100%);
+  /* Gradient from #5A9E8C to #427161 as requested */
+  background: linear-gradient(to top right, #5A9E8C 0%, #427161 96%);
   color: #fff;
-  padding: 18px 16px 0px;
+  /* keep normal inner padding but pull the banner up under the fixed header using negative margin
+     so we don't double-count the header spacer that the Header component already adds */
+  margin-top: calc(-1 * var(--header-height, 72px));
+  /* add extra space (header height + 48px) so banner items sit further below the header */
+  padding: calc(var(--header-height, 72px) + 48px) 16px 0px;
   overflow: hidden;
 }
 
@@ -121,7 +126,9 @@
 
 @media (min-width: 1024px) {
   .banner {
-    padding: 0px;
+    /* desktop: same approach — pull banner under header and keep extra inner padding */
+    margin-top: calc(-1 * var(--header-height, 72px));
+    padding: calc(var(--header-height, 72px) + 48px) 0px 0px;
   }
 
   .container {
