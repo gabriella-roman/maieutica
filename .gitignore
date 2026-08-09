@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.js
 
@@ -9,7 +9,8 @@
 /coverage
 
 # production
-/build
+build/
+dist/
 
 # misc
 .DS_Store
@@ -17,6 +18,23 @@
 .env.development.local
 .env.test.local
 .env.production.local
+
+# terraform and infra secrets/state
+.terraform/
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+*.pem
+.env
+.env.*
+env
+!.env.example
+!.terraform.lock.hcl
+*.key
 
 npm-debug.log*
 yarn-debug.log*

@@ -11,13 +11,11 @@ export default function AboutUs() {
     <div className={styles.page}>
       <div className={styles.contentPage}>
         <div className={styles.topSection}>
-          <Header
-            headerBg="#C25450"
-          />
+          <Header headerBg="transparent" headerFg="#ffffff" mobileScrolledBg="#C25450" />
 
           <Banner
             title="Sobre nós"
-            breadcrumb={["Há mais de 15 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução"]}
+            breadcrumb={["Conectamos instituições educacionais e educadores por meio de processos seletivos especializados, éticos e humanizados."]}
             bgColor="#C25450"
           />
         </div>
@@ -26,21 +24,24 @@ export default function AboutUs() {
           <div className={styles.lead}>
             <h2 className={styles.ourMissionTitle}>Quem somos?</h2>
             <p className={styles.text}>
-              Somos uma consultoria em RH Educacional que há mais de 15 anos
-              realiza um trabalho especializado e personalizado de acordo com as
-              características e demandas de cada instituição. Conduzimos os
-              processos seletivos sempre de maneira ética, respeitando as
-              necessidades e expectativas tanto das escolas como dos educadores.
+              Somos uma consultoria especializada em <b>RH Educacional</b>, com mais de
+              <b>18 anos de experiência</b> na condução de processos seletivos
+              personalizados para instituições de ensino.
             </p>
 
             <p className={styles.text}>
-              Realizamos processos seletivos apenas para instituições de ensino
-              e, por isso, temos um conhecimento aprofundado das necessidades
-              específicas deste segmento, como as questões de calendário e as
-              diferentes funções dentro de uma escola. Merece destaque ainda
-              nossa vasta experiência com escolas internacionais e bilíngues, que
-              enfrentam desafios particulares no momento de compor sua equipe
-              pedagógica, para os quais estamos prontos a auxiliá-las.
+              Atuamos de forma <b>ética, estratégica e sensível</b>, considerando as
+              características, os valores e as necessidades de cada escola, assim
+              como as expectativas e trajetórias dos educadores.
+            </p>
+
+            <p className={styles.text}>
+              Por trabalharmos <b>exclusivamente com o setor educacional</b>, temos um
+              olhar aprofundado sobre suas especificidades - diferentes
+              calendários, funções e contextos pedagógicos. Acumulamos ampla
+              experiência com escolas nacionais, internacionais e bilíngues,
+              apoiando a formação de equipes alinhadas à cultura institucional e
+              aos desafios da educação contemporânea.
             </p>
 
             <Button
@@ -58,13 +59,20 @@ export default function AboutUs() {
           <div className={styles.mission}>
             <h2 className={styles.ourMissionTitle}>No que acreditamos</h2>
             <p className={styles.ourMissionText}>
-              Embora as ferramentas digitais sejam hoje indispensáveis, acreditamos
-              fortemente na importância da experiência de profissionais qualificados
-              para a condução de um processo seletivo bem sucedido. Por isso
-              oferecemos um serviço especializado, com comprometimento total ao
-              alinhamento entre o perfil definido pela instituição e as expectativas
-              dos educadores. Além disso, acreditamos no valor de cada profissional
-              e baseamos nosso trabalho na ética e no respeito por cada candidato.
+              Acreditamos que, mesmo com o avanço das ferramentas digitais de
+              seleção, <b>o olhar humano e a experiência profissional</b> continuam sendo
+              essenciais para um processo seletivo de qualidade.
+            </p>
+
+            <p className={styles.ourMissionText}>
+              Oferecemos um serviço <b>especializado e cuidadoso</b>, comprometido com o
+              alinhamento entre o <b>perfil buscado</b> pela instituição e as
+              expectativas, valores e trajetórias dos educadores.
+            </p>
+
+            <p className={styles.ourMissionText}>
+              Valorizamos cada profissional envolvido no processo e pautamos nosso
+              trabalho na <b>ética, no respeito e na escuta </b>.
             </p>
           </div>
         </section>

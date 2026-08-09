@@ -2,6 +2,7 @@
   width: 100%;
   padding: 16px;
   color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .container {
@@ -21,6 +22,7 @@
   font-weight: 700;
   font-size: 12px;
   width: max-content;
+  font-family: inherit;
 }
 
 .badgeIcon {
@@ -33,14 +35,17 @@
   font-weight: 800;
   font-size: 28px;
   line-height: 1.2;
-  color: var(--color-gray-400);
+  color: var(--color-gray-500);
+  font-family: inherit;
 }
 
 .text {
   margin: 0;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.7;
   color: var(--color-gray-400);
+  opacity: .95;
+  font-family: inherit;
 }
 
 .mobileBlock {
@@ -52,7 +57,7 @@
   display: grid;
   gap: 10px;
   align-content: start;
-  padding: 16px;
+  padding: 16px 4px;
   border-radius: var(--radius-lg);
 }
 
@@ -173,7 +178,7 @@
     display: grid;
     gap: 10px;
     align-content: start;
-    padding: 16px 0px;
+    padding: 16px 4px;
     border-radius: var(--radius-lg);
   }
 
@@ -185,10 +190,8 @@
   }
 
   .text {
-    font-size: var(--text-body-m-size);
-    line-height: var(--text-body-m-line-height);
-    font-weight: var(--text-body-m-weight);
-    letter-spacing: var(--text-body-m-letter-spacing);
+    font-size: 15px;
+    line-height: 1.7;
   }
 
   .slot0 {

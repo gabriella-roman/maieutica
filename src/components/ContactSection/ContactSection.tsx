@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import styles from "./ContactSection.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
   faPaperPlane,
   faPhone,
   faEnvelope,
   faIdCard,
 } from "@fortawesome/free-solid-svg-icons";
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xovrbajr";
+const CONTACT_ENDPOINT = "/api/contact";
+const LEGACY_CONTACT_ENDPOINT =
+  process.env.REACT_APP_LEGACY_EMAIL_API_URL || "https://maieuticarh.com.br:9200/postmsg";
+const ENABLE_LEGACY_FALLBACK = process.env.REACT_APP_ENABLE_LEGACY_EMAIL_FALLBACK === "true";
+const CONTACT_ENCODING = process.env.REACT_APP_CONTACT_ENCODING || "urlencoded";
+
+type SubmitStatus = "idle" | "success" | "error";
 
 export type ContactSectionProps = {
   title?: string;
@@ -32,7 +37,40 @@ export function ContactSection({
   onSubmit,
 }: ContactSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const sendToEndpoint = async (
+    endpoint: string,
+    data: { name: string; email: string; phone: string; message: string }
+  ) => {
+    const isUrlEncoded = CONTACT_ENCODING === "urlencoded";
+    const body = isUrlEncoded
+      ? new URLSearchParams({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          message: data.message,
+        }).toString()
+      : JSON.stringify(data);
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": isUrlEncoded
+          ? "application/x-www-form-urlencoded"
+          : "application/json",
+      },
+      body,
+    });
+
+    if (response.ok) {
+      return;
+    }
+
+    const text = await response.text();
+    throw new Error(text || `Falha no envio (${response.status})`);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,24 +85,25 @@ export function ContactSection({
     onSubmit?.(data);
     setIsSubmitting(true);
     setSubmitStatus("idle");
+    setErrorMessage("");
 
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      try {
+        await sendToEndpoint(CONTACT_ENDPOINT, data);
+      } catch (primaryError) {
+        if (!ENABLE_LEGACY_FALLBACK) {
+          throw primaryError;
+        }
 
-      if (response.ok) {
-        setSubmitStatus("success");
-        form.reset();
-      } else {
-        setSubmitStatus("error");
+        await sendToEndpoint(LEGACY_CONTACT_ENDPOINT, data);
       }
+
+      setSubmitStatus("success");
+      form.reset();
     } catch (error) {
       console.error("Erro ao enviar formulário:", error);
+      const message = error instanceof Error && error.message ? error.message : "Erro inesperado no envio.";
+      setErrorMessage(message);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -145,7 +184,7 @@ export function ContactSection({
 
         {submitStatus === "error" && (
           <div className={styles.errorMessage}>
-            ✗ Erro ao enviar mensagem. Tente novamente ou envie e-mail diretamente.
+            ✗ Nao foi possivel enviar sua mensagem. {errorMessage}
           </div>
         )}
       </form>

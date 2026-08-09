@@ -1,0 +1,59 @@
+#!/bin/bash
+set -e
+
+exec > /var/log/user-data.log 2>&1
+
+echo "=== Atualizando sistema ==="
+apt-get update -y
+apt-get upgrade -y
+
+echo "=== Instalando pacotes base ==="
+apt-get install -y nginx curl
+
+echo "=== Criando diretorio da aplicacao ==="
+mkdir -p /var/www/maieutica
+chown -R ubuntu:ubuntu /var/www/maieutica
+
+echo "=== Criando pagina temporaria ==="
+cat <<'EOF' >/var/www/maieutica/index.html
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Maieutica - Temporary Page</title>
+</head>
+<body>
+	<h1>Maieutica frontend not deployed yet</h1>
+	<p>Publish the production build to replace this temporary page.</p>
+</body>
+</html>
+EOF
+chown ubuntu:ubuntu /var/www/maieutica/index.html
+
+echo "=== Instalando snippet de headers de seguranca ==="
+mkdir -p /etc/nginx/snippets
+cat <<'EOF' >/etc/nginx/snippets/security-headers.conf
+${security_headers_conf}
+EOF
+
+echo "=== Instalando configuracao Nginx da EC2 nova (somente frontend estatico) ==="
+cat <<'EOF' >/etc/nginx/sites-available/maieuticarh.conf
+${nginx_site_conf}
+EOF
+
+rm -f /etc/nginx/sites-enabled/default
+ln -sf /etc/nginx/sites-available/maieuticarh.conf /etc/nginx/sites-enabled/maieuticarh.conf
+
+echo "=== Validando e iniciando Nginx ==="
+nginx -t
+systemctl enable nginx
+
+if systemctl is-active --quiet nginx; then
+	systemctl reload nginx
+else
+	systemctl start nginx
+fi
+
+echo "=== IMPORTANTE ==="
+echo "Certbot nao e executado no first boot. Execute apenas apos DNS apontar para esta EC2."

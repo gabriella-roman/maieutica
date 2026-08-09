@@ -2,7 +2,7 @@
   width: 100%;
   /* full-bleed background */
   max-width: none;
-  margin: 0;
+  margin: calc(-1 * var(--header-height, 72px)) 0 0;
   padding: 0; /* innerContent handles padding */
   /* only bottom corners rounded */
   border-bottom-left-radius: 24px;
@@ -56,13 +56,17 @@
 .innerContent {
   max-width: var(--container-max, 1120px);
   margin: 0 auto;
-  padding: 20px 24px;
+  padding: calc(var(--header-height, 72px) + 20px) 24px 20px;
 }
 
 @media (min-width: 768px) {
-  .innerContent { padding: 28px 32px; }
+  .innerContent {
+    padding: calc(var(--header-height, 72px) + 28px) 32px 28px;
+  }
 }
 
 @media (min-width: 1024px) {
-  .innerContent { padding: 44px 40px; }
+  .innerContent {
+    padding: calc(var(--header-height, 72px) + 44px) 40px 44px;
+  }
 }

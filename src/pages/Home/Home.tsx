@@ -5,7 +5,6 @@ import { BannerHome } from "../../components/BannerHome/BannerHome"
 import { WhatWeDo } from "../../components/WhatWeDo/WhatWeDo"
 import { Carroussel } from "../../components/Carroussel/Carroussel"
 import { ServiceItem, WhatWeDoSection } from "../../components/WhatWeDoSection/WhatWeDoSection"
-import stackBooks from "../../assets/icons/stack-of-books 1.svg"
 import StatsSection from "../../components/StatsSection/StatsSection"
 import Testimonials from "../../components/Testimonials/Testimonials"
 import { ContactInfoHome } from "../../components/ContactInfoHome/ContactInfoHome"
@@ -13,18 +12,23 @@ import { ContactSection } from "../../components/ContactSection/ContactSection"
 import { Footer } from "../../components/Footer/Footer"
 import BoardVagas from '../../components/BoardVagas/BoardVagas';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareNodes, faGraduationCap, faBrain, faCompass, faComments, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faGraduationCap, faBrain, faCompass, faComments, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import connectPeople from '../../assets/icons/icon_connectpeople.svg'
 import schoolIcon from '../../assets/icons/school.svg'
+import stackBooksIcon from '../../assets/icons/stack-of-books 1.svg'
 
 import ImagemFeedback from '../../assets/images/ProfessorFeedback.svg'
 
 export default function Home() {
+  const scrollToVagas = () => {
+    document.getElementById('vagas')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   const services: ServiceItem[] = [
     {
-      title: "Processos seletivos para escolas",
+      title: "Segmento educacional para escolas",
       description:
-        "Trabalho personalizado às características da escola e realizado por psicólogos especializados em seleção de educadores.",
+        "Trabalho personalizado às características das instituições educacionais e realizado por psicólogos especializados em seleção de equipes educacionais.",
       href: "/our-services#processos",
       icon: <FontAwesomeIcon icon={faGraduationCap} />,
       colors: { accent: "#5A9E8C", iconBg: "#D7EFE7", iconFg: "#2E7B6A" },
@@ -109,18 +113,19 @@ const feedbacks = [
 
   return (
     <div className={styles.page}>
-  <Header headerBg="transparent" headerFg="#ffffff" />
+      <Header headerFg="#ffffff" />
       <BannerHome />
       <section className={styles.section}>
         <div className={styles.whatRow}>
           <WhatWeDo
+          variant="feature"
           badgeText="CONECTANDO PESSOAS"
           badgeIcon={<img src={connectPeople} alt="Ícone conectando pessoas" />}
           title="Confira as vagas"
-          text1="Entre em contato para tirar dúvidas, solicitar informações ou conversar com nossa equipe."
-          text2="Estamos prontos para ajudar!"
+          text1="Explore oportunidades exclusivas para docentes em diversas áreas. Filtre por disciplina e encontre seu próximo desafio em sala de aula."
+          showButton={true}
           buttonLabel="Ver todas as vagas"
-          buttonHref="#vagas"
+          onButtonClick={scrollToVagas}
           colors={{
             accent: "#CE6C39",
             badgeBg: "#EBC4B0",
@@ -134,7 +139,13 @@ const feedbacks = [
 
       <div className={styles.sectionWWDS}>
         <WhatWeDoSection items={services} />
-        <Carroussel badgeIconSrc={stackBooks} items={logos} title="Nossos clientes"/>
+        <Carroussel
+          items={logos}
+          title="Nossos clientes"
+          showBadge={true}
+          badgeText="QUEM CONFIA"
+          badgeIconSrc={stackBooksIcon}
+        />
       </div>
 
 
@@ -143,9 +154,9 @@ const feedbacks = [
       <section className={styles.sectionFeedback} id="vagas">
         <div className={styles.feedbackHeading}>
           <WhatWeDo
-            badgeText="CONECTANDO PESSOAS"
+            badgeText="HISTÓRIAS REAIS"
             badgeIcon={<img src={schoolIcon} alt="Ícone escola" />}
-            title="Feedback dos profissionais"
+            title="Depoimentos"
             showButton={false}
             text1=""
             text2=""

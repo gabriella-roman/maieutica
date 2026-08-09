@@ -5,6 +5,7 @@ import AboutUs from '../pages/AboutUs/AboutUs'
 import { ContactUs } from '../pages/ContactUs/ContactUs'
 import JobBoard from '../pages/JobBoard/JobBoard'
 import OurServices  from '../pages/OurServices/OurServices'
+import NotFound from '../pages/NotFound/NotFound'
 
 export function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export function AppRoutes() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/job-board" element={<JobBoard />} />
         <Route path="/our-services" element={<OurServices />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )

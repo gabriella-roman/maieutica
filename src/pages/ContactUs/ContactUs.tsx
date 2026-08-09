@@ -16,7 +16,7 @@ export function ContactUs() {
         />
         <Banner
           title="Fale conosco"
-          breadcrumb={["Home", "Fale conosco"]}
+          breadcrumb={["Estamos disponíveis para atender escolas e candidatos. Fale com nossa equipe."]}
           bgColor="#d99639"
         />
 

@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebookF, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { Fragment } from "react";
 
 export function Footer() {
   const [showTop, setShowTop] = useState(false);
@@ -35,11 +34,11 @@ export function Footer() {
             <NavbarFooter
               title="Serviços"
               options={[
-                { title: "Processo seletivo", navigate: "/" },
-                { title: "Perfil psicológico", navigate: "/" },
-                { title: "Aconselhamento de carreira", navigate: "/" },
-                { title: "Outplacement", navigate: "/" },
-                { title: "Avaliação do idioma inglês", navigate: "/" },
+                { title: "Processos seletivos para o segmento educacional", navigate: "/our-services" },
+                { title: "Perfil psicológico", navigate: "/our-services" },
+                { title: "Aporte - apoio e orientação na transição profissional", navigate: "/our-services" },
+                { title: "Aconselhamento de carreira", navigate: "/our-services" },
+                { title: "ELAB - revisão e elaboração de currículo", navigate: "/our-services" },
               ]}
             />
           </div>

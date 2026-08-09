@@ -12,6 +12,7 @@ type Props = {
   title?: string;
   badgeText?: string;
   badgeIconSrc?: string;
+  showBadge?: boolean;
   items: LogoItem[];
   speedSec?: number;
   gap?: number;
@@ -21,6 +22,7 @@ export function Carroussel({
   title = "Nossos clientes",
   badgeText = "QUEM CONFIA",
   badgeIconSrc,
+  showBadge = true,
   items,
   speedSec = 40,
   gap = 56,
@@ -79,12 +81,14 @@ export function Carroussel({
   }, [loadedCount, items.length, speedSec]);
   return (
     <section className={styles.section} style={styleVars} aria-label={title}>
-      <div className={styles.badge}>
-        {badgeIconSrc && (
-          <img src={badgeIconSrc} alt="" aria-hidden className={styles.badgeIcon} />
-        )}
-        <span>{badgeText}</span>
-      </div>
+      {showBadge && (
+        <div className={styles.badge}>
+          {badgeIconSrc && (
+            <img src={badgeIconSrc} alt="" aria-hidden className={styles.badgeIcon} />
+          )}
+          <span>{badgeText}</span>
+        </div>
+      )}
       
 
       <h2 className={styles.title}>{title}</h2>

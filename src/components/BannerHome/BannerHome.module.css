@@ -4,14 +4,11 @@
 }
 
 .banner {
-  /* Gradient from #5A9E8C to #427161 as requested */
-  background: linear-gradient(to top right, #5A9E8C 0%, #427161 96%);
-  color: #fff;
-  /* keep normal inner padding but pull the banner up under the fixed header using negative margin
-     so we don't double-count the header spacer that the Header component already adds */
+  background: linear-gradient(180deg, var(--color-maieutica-laranja) 0%, #C55F34 100%);
+  color: #ffffff;
   margin-top: calc(-1 * var(--header-height, 72px));
-  /* add extra space (header height + 48px) so banner items sit further below the header */
-  padding: calc(var(--header-height, 72px) + 48px) 16px 0px;
+  padding: calc(var(--header-height, 72px) + 48px) 16px 48px;
+  position: relative;
   overflow: hidden;
 }
 
@@ -28,11 +25,17 @@
   display: grid;
   gap: 12px;
   align-content: start;
+  position: relative;
+  z-index: 2;
+}
+
+.left .badge {
+  background: rgba(255,255,255,0.12);
 }
 
 @media (min-width: 1024px) {
   .heroImage {
-    max-width: 320px;              /* increased for mobile */
+    max-width: none;
   }
 }
 .badge {
@@ -64,14 +67,14 @@
   margin: 0;
   font-weight: 600;
   line-height: 1.15;
-  font-size: 26px;
+  font-size: 44px;
   letter-spacing: -0.01em;
 }
 
 .subtitle {
   margin: 0;
   color: var(--mutedOn);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.6;
 }
 
@@ -117,27 +120,37 @@
 }
 
 .heroImage {
-  width: 100%;
-  max-width: 260px;
+  width: min(100%, 420px);
   height: auto;
   object-fit: contain;
   display: block;
 }
 
+@media (max-width: 991px) {
+  .banner {
+    padding: calc(var(--header-height, 72px) + 24px) 16px 0;
+  }
+
+  .container {
+    gap: 12px;
+  }
+}
+
 @media (min-width: 1024px) {
   .banner {
-    /* desktop: same approach — pull banner under header and keep extra inner padding */
     margin-top: calc(-1 * var(--header-height, 72px));
-    padding: calc(var(--header-height, 72px) + 48px) 0px 0px;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
   }
 
   .container {
     grid-template-columns: minmax(0, 55%) minmax(360px, 1fr);
-    align-items: flex-start;
     column-gap: 32px;
     display: grid;
     align-items: center;
+    min-height: 320px;
     padding: 0 40px;
+    position: relative;
   }
 
   .title {
@@ -156,12 +169,17 @@
   }
 
   .heroWrapper {
-    grid-column: 2;
-    display: flex;
+    position: absolute;
+    right: -40px;
+    bottom: -48px;
+    z-index: 1;
+    width: min(54vw, 615px);
+    display: block;
+    transform: none;
   }
 
   .heroImage {
-    max-width: 450px;
+    width: 100%;
     height: auto;
     object-fit: contain;
   }

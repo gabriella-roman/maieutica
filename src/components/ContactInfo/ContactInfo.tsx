@@ -3,8 +3,6 @@ import styles from "./ContactInfo.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import ImgMessage from "../../assets/icons/messageIcon.svg";
-
 import { faEnvelope, faLocationDot, faFolder } from "@fortawesome/free-solid-svg-icons";
 import { faInstagram, faFacebookF, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 
@@ -14,11 +12,6 @@ export function ContactInfo() {
       <div className={styles.inner}>
         {/* Coluna esquerda */}
         <div className={styles.left}>
-          <span className={styles.smallTitle}>
-            MENSAGEM PARA NÓS
-            <img src={ImgMessage} alt="Imagem de uma rubrica" />
-          </span>
-
           <h2 className={styles.title}>Fale Conosco</h2>
 
           <p className={styles.text}>

@@ -26,44 +26,47 @@
 
 .aboutWrap {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   justify-items: center;
   text-align: center;
   max-width: var(--container-max);
-  margin: 0 auto 8px;
+  margin: 0 auto 24px;
+  position: relative;
+  z-index: 2;
 }
 
 .aboutBadge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
+  padding: 9px 16px;
   border-radius: 999px;
   background: #fff;
-  color: #DFA242;
+  color: #c25450;
   box-shadow: 0 8px 18px rgba(0, 0, 0, .06);
-  font-weight: 800;
-  font-size: 13px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .12em;
 }
 
 .aboutBadgeIcon {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1;
 }
 
 .aboutTitle {
   margin: 0;
-  font-size: 28px;
-  line-height: 1.2;
-  font-weight: 800;
-  color: #5C5E5F;
+  font-size: 34px;
+  line-height: 1.05;
+  font-weight: 600;
+  color: #c25450;
 }
 
 .aboutText {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.8;
-  max-width: 760px;
+  font-size: 15px;
+  line-height: 1.45;
+  max-width: 42ch;
   color: #5C5E5F;
   opacity: .95;
 }
@@ -80,6 +83,8 @@
   background: #fff;
   font-weight: 800;
   text-decoration: none;
+  position: relative;
+  z-index: 2;
 }
 
 .track {
@@ -89,9 +94,11 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 10px 2px 10px;
+  padding: 18px 2px 10px;
   max-width: var(--container-max);
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .card {
@@ -281,14 +288,15 @@
 
   .aboutGrid {
     height: var(--tile);
-    padding: 12px 16px;
+    padding: 0 8px;
     border-radius: var(--radius, 18px);
     color: #5C5E5F;
     display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
     row-gap: 10px;
     overflow: hidden;
     justify-items: center;
+    align-content: start;
   }
 
   .aboutGrid>* {
@@ -299,39 +307,44 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 12px;
+    padding: 9px 16px;
     border-radius: 999px;
     background: #fff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
-    font-weight: 800;
-    color: #DFA242;
+    font-weight: 700;
+    color: #c25450;
     width: max-content;
-    transform: scale(.92);
-    transform-origin: left top;
+    transform: none;
+    transform-origin: center top;
+    font-size: 12px;
+    letter-spacing: .12em;
   }
 
   .aboutBadgeIcon {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
   }
 
   .aboutTitle {
     margin: 0;
-    font-size: var(--text-heading-h1-size);
-    font-weight: var(--text-heading-h1-weight);
-    color: #2f3134;
-    font-size: 22px;
+    color: #c25450;
+    font-size: 28px;
+    line-height: 1.02;
+    font-weight: 600;
   }
 
   .aboutText {
     margin: 0;
     color: #5C5E5F;
-    line-height: 1.5;
-    font-size: clamp(13px, 1.0vw, 14px);
+    line-height: 1.35;
+    font-size: 13px;
+    max-width: 44ch;
+    text-align: center;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
     overflow: hidden;
   }
 
@@ -348,6 +361,7 @@
     width: max-content;
     margin-top: 6px;
     white-space: nowrap;
+    justify-self: center;
   }
 
   .aboutCta:hover {

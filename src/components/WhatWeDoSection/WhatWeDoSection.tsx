@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./WhatWeDoSection.module.css";
 import { ServiceCard } from "../ServiceCard/ServiceCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
-import connectPeople from '../../assets/icons/icon_connectpeople.svg'
 import arrowRight from '../../assets/icons/arrow-right.svg';
 import arrowLeft from '../../assets/icons/arrow-left.svg';
 
@@ -29,16 +28,16 @@ export function WhatWeDoSection({ items }: Props) {
   const clamp = (v: number, min: number, max: number) =>
     Math.max(min, Math.min(max, v));
 
-  const getStep = (): number => {
+  const getStep = useCallback((): number => {
     const el = trackRef.current;
     if (!el) return 0;
     const first = el.firstElementChild as HTMLElement | null;
     const slideW = first ? first.getBoundingClientRect().width : el.clientWidth;
     const gap = parseFloat(getComputedStyle(el).columnGap || "0");
     return slideW + gap;
-  };
+  }, []);
 
-  const updateIndexFromScroll = () => {
+  const updateIndexFromScroll = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
     const step = getStep();
@@ -46,7 +45,7 @@ export function WhatWeDoSection({ items }: Props) {
     const raw = el.scrollLeft / step;
     const nextIdx = clamp(Math.round(raw), 0, Math.max(items.length - 1, 0));
     setIndex(nextIdx);
-  };
+  }, [getStep, items.length]);
 
   useEffect(() => {
     updateIndexFromScroll();
@@ -60,7 +59,7 @@ export function WhatWeDoSection({ items }: Props) {
       el.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", updateIndexFromScroll);
     };
-  }, [items.length]);
+  }, [items.length, updateIndexFromScroll]);
 
   const scrollToIndex = (target: number) => {
     const el = trackRef.current;
@@ -81,7 +80,7 @@ export function WhatWeDoSection({ items }: Props) {
           <div className={styles.intro}>
             <div className={styles.badge}>
               <span className={styles.badgeIcon} aria-hidden><FontAwesomeIcon icon={faUsers} /></span>
-              <span>CONECTANDO PESSOAS</span>
+              <span>NOSSAS SOLUCOES</span>
             </div>
 
             <h2 id="whatwedo-title" className={styles.title}>
@@ -89,10 +88,11 @@ export function WhatWeDoSection({ items }: Props) {
             </h2>
 
             <p className={styles.text}>
-              Entre em contato para tirar dúvidas, solicitar informações ou
-              conversar com nossa equipe.
+              Oferecemos solucoes personalizadas em recursos humanos para o ecossistema escolar.
             </p>
-            <p className={styles.text}>Estamos prontos para ajudar!</p>
+            <p className={styles.text}>
+              Do processo seletivo especializado ao aconselhamento de carreira, impulsionamos o crescimento de instituicoes de ensino e profissionais da educacao.
+            </p>
           </div>
 
           <div ref={trackRef} className={styles.track} aria-label="Serviços">
@@ -133,16 +133,17 @@ export function WhatWeDoSection({ items }: Props) {
           <div className={styles.introDesk}>
             <div className={styles.badge}>
               <span className={styles.badgeIcon} aria-hidden><FontAwesomeIcon icon={faUsers} /></span>
-              <span>CONECTANDO PESSOAS</span>
+              <span>NOSSAS SOLUCOES</span>
             </div>
 
             <h2 className={styles.title}>O que fazemos?</h2>
 
             <p className={styles.text}>
-              Entre em contato para tirar dúvidas, solicitar informações ou
-              conversar com nossa equipe.
+              Oferecemos solucoes personalizadas em recursos humanos para o ecossistema escolar.
             </p>
-            <p className={styles.text}>Estamos prontos para ajudar!</p>
+            <p className={styles.text}>
+              Do processo seletivo especializado ao aconselhamento de carreira, impulsionamos o crescimento de instituicoes de ensino e profissionais da educacao.
+            </p>
           </div>
 
           {items[0] && (

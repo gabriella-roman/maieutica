@@ -23,6 +23,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "proxy": "node proxy/server.js",
+    "dev": "concurrently -k -n proxy,app -c magenta,cyan \"npm run proxy\" \"npm start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -46,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^9.0.0",
     "@types/babel__core": "^7.20.5",
     "@types/babel__generator": "^7.27.0",
     "@types/babel__template": "^7.4.4",

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { JobCard } from "../../components/JobCard/JobCard";
 import api from "../../utils/api";
 import styles from "./JobBoard.module.css";
@@ -60,19 +60,35 @@ export default function JobBoardPage() {
 
   const isDesktop = useIsDesktop(1024);
 
-  useEffect(() => {
-    fetchJobs();
-  }, []);
-
-  async function fetchJobs() {
-    try {
-      const { data: payload } = await tryFetchWithIncludeFormats({
-        released: "true",
-        status: "published",
+  const requestVacancies = useCallback(async (includeParam: string) => {
+    return api.get('/vacancies', {
+      params: {
+        released: 'true',
+        status: 'published',
         per_page: 50,
         page: 1,
-      });
+        include: includeParam,
+      },
+    });
+  }, []);
 
+  const fetchJobs = useCallback(async () => {
+    try {
+      setError(null);
+
+      let response;
+      try {
+        response = await requestVacancies('address,area_of_interests,subjects,school_segments');
+      } catch (err: any) {
+        const status = err?.response?.status;
+        if (status === 400) {
+          response = await requestVacancies('address');
+        } else {
+          throw err;
+        }
+      }
+
+      const payload = response?.data ?? {};
       const jobData = payload?.data ?? [];
       const included = payload?.included ?? [];
       const idx = buildIncludedIndex(included);
@@ -137,7 +153,11 @@ export default function JobBoardPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [requestVacancies]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, [fetchJobs]);
 
   const filterConfigs: FilterConfig[] = useMemo(() => {
     const uniq = (arr: string[]) =>
@@ -266,9 +286,7 @@ export default function JobBoardPage() {
 
   return (
     <div className={styles.page}>
-      <Header 
-      headerBg="#5A9E8C"
-      />
+  <Header headerBg="transparent" headerFg="#ffffff" />
       <Banner
         title="Painel de vagas"
         breadcrumb={["Home", "Painel de vagas"]}
@@ -378,84 +396,6 @@ export default function JobBoardPage() {
       </section>
       <Footer />
     </div>
-  );
-}
-
-function buildCommaSeparated() {
-  return "address,area_of_interests,vacancies_languages,languages,subjects,school_segments";
-}
-function buildRepeatParam() {
-  const inc = [
-    "address",
-    "area_of_interests",
-    "vacancies_languages",
-    "languages",
-    "subjects",
-    "school_segments",
-  ];
-  return inc.map((v) => `include[]=${encodeURIComponent(v)}`).join("&");
-}
-function buildJsonArray() {
-  const arr = [
-    "address",
-    "area_of_interests",
-    "vacancies_languages",
-    "languages",
-    "subjects",
-    "school_segments",
-  ];
-  return encodeURIComponent(JSON.stringify(arr));
-}
-function buildMultiIncludeKeys() {
-  const inc = [
-    "address",
-    "area_of_interests",
-    "vacancies_languages",
-    "languages",
-    "subjects",
-    "school_segments",
-  ];
-  return inc.map((v) => `include=${encodeURIComponent(v)}`).join("&");
-}
-
-async function tryFetchWithIncludeFormats(
-  baseParams: Record<string, string | number>
-) {
-  const variants = [
-    {
-      label: "comma",
-      query: `include=${encodeURIComponent(buildCommaSeparated())}`,
-    },
-    { label: "repeatParam", query: buildRepeatParam() },
-    { label: "jsonArray", query: `include=${buildJsonArray()}` },
-    { label: "multiKeys", query: buildMultiIncludeKeys() },
-    { label: "onlyAddress", query: `include=address` },
-    { label: "baseline", query: "" },
-  ];
-
-  const fixed = Object.entries(baseParams)
-    .map(
-      ([k, v]) =>
-        `${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`
-    )
-    .join("&");
-
-  for (const v of variants) {
-    try {
-      const url = `/vacancies?${fixed}${v.query ? `&${v.query}` : ""}`;
-      const resp = await api.get(url);
-      const data = resp?.data ?? {};
-      const hasIncluded =
-        Array.isArray(data.included) && data.included.length > 0;
-      const hasData = Array.isArray(data.data);
-      if (hasIncluded || hasData) {
-        return { data };
-      }
-    } catch (_e) {}
-  }
-
-  throw new Error(
-    "Não foi possível obter as vagas (todas as variações de include falharam)."
   );
 }
 

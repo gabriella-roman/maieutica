@@ -15,6 +15,7 @@ type WhatWeDoProps = {
   text2?: string;
   badgeText: string;
   badgeIcon?: React.ReactNode; 
+  variant?: "default" | "feature";
   showButton?: boolean;
   buttonLabel?: string;
   buttonHref?: string; 
@@ -28,6 +29,7 @@ export function WhatWeDo({
   text2,
   badgeText,
   badgeIcon,
+  variant = "default",
   showButton = false,
   buttonLabel = "Ver todas as vagas",
   buttonHref,
@@ -60,15 +62,15 @@ export function WhatWeDo({
 
   return (
     <section className={styles.card} style={styleVars} aria-labelledby="wwd-title">
-      <div className={styles.badge}>
+      <div className={`${styles.badge} ${variant === "feature" ? styles.badgeFeature : ""}`}>
         {badgeIcon && <span className={styles.badgeIcon} aria-hidden>{badgeIcon}</span>}
         <span>{badgeText}</span>
       </div>
 
-      <h2 id="wwd-title" className={styles.title}>{title}</h2>
+      <h2 id="wwd-title" className={`${styles.title} ${variant === "feature" ? styles.titleFeature : ""}`}>{title}</h2>
 
-      {text1 && <p className={styles.text}>{text1}</p>}
-      {text2 && <p className={styles.text}>{text2}</p>}
+      {text1 && <p className={`${styles.text} ${variant === "feature" ? styles.textFeature : ""}`}>{text1}</p>}
+      {text2 && <p className={`${styles.text} ${variant === "feature" ? styles.textFeature : ""}`}>{text2}</p>}
 
       {CTA}
     </section>

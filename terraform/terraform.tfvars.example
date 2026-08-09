@@ -1,0 +1,9 @@
+aws_region       = "us-east-1"
+instance_type    = "t3.micro"
+confirm_create_new_infrastructure = false
+key_name         = "maieutica-key"
+domain_name      = "maieuticarh.com.br"
+www_domain_name  = "www.maieuticarh.com.br"
+admin_cidr       = "OBRIGATORIO_INFORMAR_IP_PUBLICO_COM_32"
+contact_api_url  = ""
+project_name     = "maieutica"

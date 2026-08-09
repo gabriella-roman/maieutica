@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 
-import logo from "../../assets/images/logo-maieutica.svg";
+import logo from "../../assets/images/logo-maieutica-colorida.svg";
+import logoWhite from "../../assets/images/logo-maieutica.svg";
 import arrow from "../../assets/icons/arrow.svg";
 import menu from "../../assets/icons/hamburguer-menu.svg";
 import close from "../../assets/icons/close.svg";
@@ -12,18 +13,24 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 type HeaderProps = {
   headerBg?: string;
   headerFg?: string;
+  mobileScrolledBg?: string;
+  mobileTopBg?: string;
+  mobileUseWhiteLogo?: boolean;
+  mobileMenuDarkIcons?: boolean;
 };
 
-export function Header({ headerBg, headerFg }: HeaderProps) {
+export function Header({ headerBg, headerFg, mobileScrolledBg, mobileTopBg, mobileUseWhiteLogo = true, mobileMenuDarkIcons = false }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 992);
   const [isScrolled, setIsScrolled] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
-  const isHome = location.pathname === "/";
+
   const navItems = [
     { label: "Home", path: "/" },
     { label: "Sobre Nós", path: "/about-us" },
@@ -31,49 +38,70 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
     { label: "Fale Conosco", path: "/contact-us" },
   ];
 
-  const headerBgColor = headerBg ?? (isHome ? "#2E7B6A" : "#ffffff");
-  const headerFgColor = headerFg ?? (isHome ? "#ffffff" : "#1f2937");
-  // If header is transparent, pick a sensible CTA color (brand green) so buttons remain visible
-  const ctaColor = headerBgColor === "transparent" ? "#5A9E8C" : headerBgColor;
-
-  // Update scrolled state: when on home, if user scrolls past header height, make header solid green
-  useEffect(() => {
-    if (!isHome) return;
-    const onScroll = () => {
-      const h = headerRef.current?.getBoundingClientRect().height ?? 0;
-      const scrolled = window.scrollY >= h;
-      setIsScrolled(scrolled);
-    };
-    // run once to initialize
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome]);
+  const headerBgColor = headerBg ?? "transparent";
+  const headerFgColor = headerFg ?? "#ffffff";
+  const ctaColor = "var(--color-maieutica-laranja)";
+  const routeMobileScrolledBg = {
+    "/": "#C55F34",
+    "/about-us": "#C25450",
+    "/contact-us": "#d99639",
+    "/job-board": "#5A9E8C",
+    "/our-services": "#084385",
+  }[location.pathname] ?? headerBgColor;
+  const mobileHeaderBgColor = isMobile
+    ? (isScrolled ? (mobileScrolledBg ?? routeMobileScrolledBg) : (mobileTopBg ?? "transparent"))
+    : headerBgColor;
+  const brandLogo = isMobile
+    ? (mobileUseWhiteLogo ? logoWhite : logo)
+    : logo;
 
   useEffect(() => {
     if (!headerRef.current) return;
+
     const setHeight = () => {
       const h = headerRef.current!.getBoundingClientRect().height;
       document.documentElement.style.setProperty("--header-height", `${h}px`);
     };
+
     setHeight();
     window.addEventListener("resize", setHeight);
-    return () => window.removeEventListener("resize", setHeight);
+
+    return () => {
+      window.removeEventListener("resize", setHeight);
+    };
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 992);
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+
+    onScroll();
+    window.addEventListener("resize", onResize);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!isMenuOpen) return;
+
       const t = e.target as Node;
+
       if (menuRef.current?.contains(t) || menuBtnRef.current?.contains(t)) return;
+
       setIsMenuOpen(false);
     };
+
     document.addEventListener("click", handleClickOutside);
+
     return () => document.removeEventListener("click", handleClickOutside);
   }, [isMenuOpen]);
 
-  const toggleMenu = () => setIsMenuOpen(v => !v);
-
+  const toggleMenu = () => setIsMenuOpen((v) => !v);
 
   const handleNav = (path: string) => {
     navigate(path);
@@ -84,13 +112,15 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
     <>
       <header
         ref={headerRef}
-        className={`${styles.header} ${isHome ? styles.merge : ""}`}
+        className={`${styles.header} ${styles.merge}`}
         role="banner"
         style={
           {
-                ["--header-bg" as any]: (isHome && isScrolled) ? "#2E7B6A" : headerBgColor,
-                ["--header-fg" as any]: (isHome && isScrolled) ? "#ffffff" : headerFgColor,
-              } as React.CSSProperties
+            backgroundColor: mobileHeaderBgColor,
+            ["--header-bg" as any]: mobileHeaderBgColor,
+            ["--header-fg" as any]: headerFgColor,
+            ["--menu-icon-filter" as any]: mobileMenuDarkIcons ? "brightness(0) saturate(100%)" : "none",
+          } as React.CSSProperties
         }
       >
         <div className={styles.inner}>
@@ -99,7 +129,7 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
             onClick={() => handleNav("/")}
             aria-label="Ir para a página inicial"
           >
-            <img src={logo} alt="Maiêutica RH Educacional" />
+            <img src={brandLogo} alt="Maiêutica RH Educacional" />
           </button>
 
           <nav className={styles.nav} aria-label="principal">
@@ -107,7 +137,9 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
               {navItems.map(({ label, path }) => (
                 <li key={path}>
                   <button
-                    className={`${styles.link} ${location.pathname === path ? styles.active : ""}`}
+                    className={`${styles.link} ${
+                      location.pathname === path ? styles.active : ""
+                    }`}
                     onClick={() => handleNav(path)}
                   >
                     {label}
@@ -115,10 +147,18 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
                 </li>
               ))}
             </ul>
-            <button className={styles.cta} onClick={() => handleNav("/job-board")} style={{
-              color: ctaColor,
-              borderColor: ctaColor
-            }}>
+
+            <button
+              className={styles.cta}
+              onClick={() => handleNav("/job-board")}
+              style={
+                {
+                  color: "#ffffff",
+                  background: ctaColor,
+                  borderColor: ctaColor,
+                }
+              }
+            >
               Ver Vagas
               <FontAwesomeIcon icon={faArrowRight} />
             </button>
@@ -138,7 +178,10 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
         </div>
 
         {isMenuOpen && (
-          <div className={styles.backdrop} onClick={() => setIsMenuOpen(false)} />
+          <div
+            className={styles.backdrop}
+            onClick={() => setIsMenuOpen(false)}
+          />
         )}
 
         <div
@@ -146,17 +189,21 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
           ref={menuRef}
           className={`${styles.mobilePanel} ${isMenuOpen ? styles.open : ""}`}
         >
-
           <nav className={styles.mobileNav} aria-label="menu mobile">
             {navItems.map(({ label, path }) => (
               <button
                 key={path}
-                className={`${styles.mobileLink} ${location.pathname === path ? styles.active : ""
-                  }`}
+                className={`${styles.mobileLink} ${
+                  location.pathname === path ? styles.active : ""
+                }`}
                 onClick={() => handleNav(path)}
-                style={location.pathname === path ? {
-                  color: headerBgColor
-                } : undefined}
+                style={
+                  location.pathname === path
+                    ? {
+                        color: "#5A9E8C",
+                      }
+                    : undefined
+                }
               >
                 {label}
               </button>
@@ -166,9 +213,9 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
               className={`${styles.cta} ${styles.ctaMobile}`}
               onClick={() => handleNav("/job-board")}
               style={{
-                color: '#ffffff',
+                color: "#ffffff",
                 background: ctaColor,
-                borderColor: ctaColor
+                borderColor: ctaColor,
               }}
             >
               VER VAGAS
@@ -178,7 +225,10 @@ export function Header({ headerBg, headerFg }: HeaderProps) {
         </div>
       </header>
 
-      <div aria-hidden style={{ height: "var(--header-height)", pointerEvents: "none" }} />
+      <div
+        aria-hidden
+        style={{ height: "var(--header-height)", pointerEvents: "none" }}
+      />
     </>
   );
 }

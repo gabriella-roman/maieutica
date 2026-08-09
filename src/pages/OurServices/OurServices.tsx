@@ -8,8 +8,6 @@ import checkiconVermelho from '../../assets/icons/checkicon_vermelho.svg'
 import checkiconAmarelo from '../../assets/icons/checkicon_amarelo.svg'
 import checkiconLaranja from '../../assets/icons/checkicon_laranja.svg'
 import maieuticaIconAzul from '../../assets/icons/maieutica-icon-azul.svg'
-import imagem2 from '../../assets/images/escolas_nossos.svg'
-import imagem from '../../assets/images/professor_nossos.svg'
 import { Banner } from '../../components/Banner/Banner'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBrain, faHandshake, faRotate, faGraduationCap, faUsers } from '@fortawesome/free-solid-svg-icons'
@@ -30,7 +28,6 @@ export default function OurServices() {
     titulo: string
     subtitulo: string
     text: string
-    imagem: string
   }
 
   type EscolasOpcao = {
@@ -38,7 +35,6 @@ export default function OurServices() {
     titulo: string
     subtitulo: string
     text: string
-    imagem: string
   }
 
   type Opcao = {
@@ -50,20 +46,26 @@ export default function OurServices() {
     educadores: {
       cor: '#063264',
       titulo: 'Para Educadores',
-      subtitulo: 'Há mais de 15 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução do processo seletivo e total respeito aos agentes envolvidos: escola e educadores.',
+      subtitulo: 'Há mais de 18 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução do processo seletivo e total respeito aos agentes envolvidos: escola e educadores.',
       text: 'Suporte para Professores',
-      imagem: imagem,
     },
     escolas: {
       cor: '#063264',
       titulo: 'Para Escolas',
-      subtitulo: 'Há mais de 15 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução do processo seletivo e total respeito aos agentes envolvidos: escola e educadores.',
+      subtitulo: 'Há mais de 18 anos realizamos um trabalho especializado e personalizado às características e demandas da escola, com ética na condução do processo seletivo e total respeito aos agentes envolvidos: escola e educadores.',
       text: 'Suporte para Instituições de Ensino',
-      imagem: imagem2,
     },
   }
 
   const atual = opcoes[ativo]
+
+  const getFilterButtonStyle = (isActive: boolean, activeColor: string) => ({
+    backgroundColor: isActive ? activeColor : '#FFFFFF',
+    color: isActive ? '#FFFFFF' : '#8B8B8D',
+    border: isActive ? '1px solid transparent' : '1px solid #D0D0D0',
+    display: 'flex',
+    alignItems: 'center',
+  })
 
   useEffect(() => {
     if (ativo === 'educadores') setSelected('aconselhamento')
@@ -73,7 +75,7 @@ export default function OurServices() {
 
   return (
     <div className={styles.page}>
-      <Header headerBg='#084385' />
+        <Header headerBg="transparent" headerFg="#ffffff" />
 
       <Banner
         title="Nossos Serviços"
@@ -83,78 +85,33 @@ export default function OurServices() {
 
       <div className={styles.sectionChoose}>
         <div className={styles.sectionTitle}>
-          <div className={styles.sectionIntro}>
-            <h1 className={styles.sectionIntro__title}>
-              {atual.titulo}
-            </h1>
-            <span className={styles.sectionIntro__subtitle}>
-              {atual.subtitulo}
-            </span>
+          <div className={styles.topTabs}>
+            <button
+              className={`${styles.topTab} ${ativo === 'escolas' ? styles.topTabActive : ''}`}
+              onClick={() => {
+                setAtivo('escolas')
+                setSelected('processo')
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            >
+              Para Escolas
+            </button>
+
+            <button
+              className={`${styles.topTab} ${ativo === 'educadores' ? styles.topTabActive : ''}`}
+              onClick={() => {
+                setAtivo('educadores')
+                setSelected('aconselhamento')
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            >
+              Para Educadores
+            </button>
           </div>
-
-          <div className={styles.supportContainer}>
-            <div className={styles.cardSupport}>
-              <img alt='ícone maiêutica azul' src={maieuticaIconAzul} style={{ alignSelf: 'start' }} />
-
-              <h2>
-                {atual.text}
-              </h2>
-            </div>
-
-            <img
-              alt='imagem de fundo'
-              src={atual.imagem}
-              className={styles.imageSupport} />
-          </div>
-        </div>
-
-
-
-        <div className={styles.sectionServices}>
-          <button
-            className={styles.button}
-            style={{
-              backgroundColor: ativo === 'educadores' ? opcoes.educadores.cor : '#ccc'
-            }}
-            onClick={() => {
-              setAtivo('educadores')
-              setSelected('aconselhamento')
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}>
-            Para Educadores
-          </button>
-
-          <img alt='ícone de separação' src={maieuticaIconAzul} style={{ alignSelf: 'center', height: 16 }} />
-
-          <button
-            className={styles.button}
-            style={{
-              backgroundColor: ativo === 'escolas' ? opcoes.escolas.cor : '#ccc'
-            }}
-            onClick={() => {
-              setAtivo('escolas')
-              setSelected('processo')
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}>
-            Para Escolas
-          </button>
         </div>
       </div>
 
       <div className={styles.sectionDetails}>
-        {isMobile && (
-          <>
-            <span style={{ color: '#063264' }}>
-              Serviços
-            </span>
-
-            <h1 style={{ color: '#6B8EB6' }}>
-              {atual.titulo}
-            </h1>
-          </>
-        )}
-
-
         <div className={styles.divider} >
           {isMobile && (
             <div className={styles.filter}>
@@ -244,25 +201,18 @@ export default function OurServices() {
                   <div className={styles.buttonAreaDesktop}>
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{
-                        color: selected === 'aconselhamento' ? '#084385' : '#898B8D',
-                        display: 'flex',
-                        alignItems: 'center'
-                      }}
+                      style={getFilterButtonStyle(selected === 'aconselhamento', '#084385')}
                       onClick={() => { if (ativo === 'educadores') setSelected('aconselhamento') }}
                     >
                       <FontAwesomeIcon icon={faHandshake} style={{ marginRight: '8px' }} />
                       Aconselhamento de Carreira
                     </button>
 
-                    <div style={{ height: 2, backgroundColor: '#898B8D' }} />
+                    <img alt='ícone de separação' src={maieuticaIconAzul} className={styles.filterSeparator} />
 
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{
-                        color: selected === 'perfil' ? '#C25450' : '#898B8D', display: 'flex',
-                        alignItems: 'center'
-                      }}
+                      style={getFilterButtonStyle(selected === 'perfil', '#C25450')}
                       onClick={() => { if (ativo === 'educadores') setSelected('perfil') }}
                     >
                       <FontAwesomeIcon icon={faRotate} style={{ marginRight: '8px' }} />
@@ -275,38 +225,29 @@ export default function OurServices() {
                   <div className={styles.buttonAreaDesktop}>
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{ color: selected === 'processo' ? '#5A9E8C' : '#898B8D',
-                        display: 'flex',
-                        alignItems: 'center'
-                      }}
+                      style={getFilterButtonStyle(selected === 'processo', '#5A9E8C')}
                       onClick={() => { if (ativo === 'escolas') setSelected('processo') }}
                     >
                       <FontAwesomeIcon icon={faGraduationCap} style={{ marginRight: '8px' }} />
                       Processo Seletivo Educacional
                     </button>
 
-                    <div style={{ height: 2, backgroundColor: '#898B8D' }} />
+                    <img alt='ícone de separação' src={maieuticaIconAzul} className={styles.filterSeparator} />
 
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{ color: selected === 'perfil' ? '#CE6C39' : '#898B8D',
-                        display: 'flex',
-                        alignItems: 'center'
-                       }}
+                      style={getFilterButtonStyle(selected === 'perfil', '#CE6C39')}
                       onClick={() => { if (ativo === 'escolas') setSelected('perfil') }}
                     >
                       <FontAwesomeIcon icon={faBrain} style={{ marginRight: '8px' }} />
                       Perfil Psicológico
                     </button>
 
-                    <div style={{ height: 2, backgroundColor: '#898B8D' }} />
+                    <img alt='ícone de separação' src={maieuticaIconAzul} className={styles.filterSeparator} />
 
                     <button
                       className={styles.filterButtonDesktop}
-                      style={{ color: selected === 'aporte' ? '#DFA242' : '#898B8D',
-                        display: 'flex',
-                        alignItems: 'center'
-                       }}
+                      style={getFilterButtonStyle(selected === 'aporte', '#DFA242')}
                       onClick={() => { if (ativo === 'escolas') setSelected('aporte') }}
                     >
                       <FontAwesomeIcon icon={faUsers} style={{ marginRight: '8px' }} />
@@ -318,8 +259,9 @@ export default function OurServices() {
             </div>
           )}
 
-          {ativo === 'educadores' && selected === 'aconselhamento' && (
-            <div className={styles.infoCard}>
+          <div className={styles.contentRow}>
+            {ativo === 'educadores' && selected === 'aconselhamento' && (
+              <div className={styles.infoCard}>
               <h1 style={{
                 color: '#084385'
               }}>
@@ -404,11 +346,11 @@ export default function OurServices() {
                   • Inclusão do currículo no banco de dados da Maiêutica RH e participação nas oportunidades em aberto, desde que o perfil esteja compatível com a vaga. <br />
                 </span>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
-          {ativo === 'educadores' && selected === 'perfil' && (
-            <div className={styles.infoCard}>
+            {ativo === 'educadores' && selected === 'perfil' && (
+              <div className={styles.infoCard}>
               <h1 style={{
                 color: '#C25450'
               }}>
@@ -460,11 +402,11 @@ export default function OurServices() {
                   Por meio de uma entrevista online com psicólogo especializado em RH Educacional, serão feitas, junto com o educador, uma análise do currículo atual e sugestões de mudança para a nova versão.  Ao fim do processo, o profissional recebe a nova versão do currículo com um visual atualizado desenvolvido por profissional da área de mídia.
                 </span>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
-          {ativo === 'escolas' && selected === 'processo' && (
-            <div className={styles.infoCard}>
+            {ativo === 'escolas' && selected === 'processo' && (
+              <div className={styles.infoCard}>
               <h1 style={{
                 color: '#5A9E8C'
               }}>
@@ -490,7 +432,7 @@ export default function OurServices() {
                 </div>
 
                 <span>
-                  Realizamos todas as etapas do processo seletivo, desde a divulgação da vaga, a triagem dos currículos, a entrevista dos candidatos mais promissores e, por fim, o encaminhamento dos finalistas para a escola.
+                  Conduzimos todas as etapas do processo seletivo, desde a <b>divulgação da vaga</b> e a <b>triagem criteriosa dos currículos</b>, passando pelas <b>entrevistas dos candidatos mais alinhados</b>, até o <b>encaminhamento dos finalistas à instituição de ensino</b>.
                 </span>
               </div>
 
@@ -514,16 +456,16 @@ export default function OurServices() {
 
                 <span>
                   <strong>Eficácia:</strong><br />
-                  Nos comprometemos a continuar buscando os candidatos mais alinhados ao perfil da vaga até que a escola esteja pronta a encaminhar a contratação.<br /><br />
+                  Seguimos buscando profissionais alinhados ao perfil definido até que a escola esteja segura e pronta para realizar a contratação.<br /><br />
 
                   <strong>Agilidade:</strong><br />
-                  O prazo pode variar conforme a complexidade da vaga e a organização interna da escola, mas buscamos enviar os candidatos finalistas dentro de até 30 dias.<br /><br />
+                  O prazo varia de acordo com a complexidade da vaga e a organização interna da escola, mas trabalhamos sempre para apresentar candidatos finalistas dentro dos prazos combinados.<br /><br />
 
                   <strong>Trabalho personalizado:</strong><br />
-                  Cada processo seletivo é único, e nossa experiência na área educacional nos permite uma compreensão particularizada das necessidades de cada instituição na hora de definir o perfil de uma vaga.<br /><br />
+                  Cada processo seletivo é único. Nossa experiência no setor educacional permite uma compreensão aprofundada das necessidades de cada instituição na definição do perfil profissional.<br /><br />
 
                   <strong>Sigilo:</strong><br />
-                  Sempre que necessário, conduzimos nossos processos seletivos com a máxima discrição, oferecendo uma opção segura quando as escolas precisam que assim seja.
+                  Atuamos com <b>graus de confidencialidade estabelecidos pelo contratante</b>, respeitados com rigor ao longo de todo o processo, oferecendo segurança e discrição às escolas.
                 </span>
               </div>
 
@@ -547,16 +489,16 @@ export default function OurServices() {
 
                 <span>
                   Atuamos em todos os tipos de posições relacionadas ao segmento educacional:<br /><br />
-                  <strong>Gestão:</strong> coordenadores e diretores.<br />
-                  <strong>Sastrongla de aula:</strong> professores, assistentes, berçaristas.<br />
-                  <strong>Apoio administrativo:</strong> secretaria, financeiro, editorial, etc.<br />
+                  <strong>Cargos de gestão educacional:</strong> coordenadores e diretores.<br />
+                  <strong>Posições que atuam diretamente nas salas de aula:</strong> professores, assistentes, berçaristas.<br />
+                  <strong>Equipe administrativa-educacional:</strong> secretaria, financeiro, editorial, etc.<br />
                 </span>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
-          {ativo === 'escolas' && selected === 'perfil' && (
-            <div className={styles.infoCard}>
+            {ativo === 'escolas' && selected === 'perfil' && (
+              <div className={styles.infoCard}>
               <h1 style={{
                 color: '#CE6C39'
               }}>
@@ -631,11 +573,11 @@ export default function OurServices() {
                   O material de avaliação utilizado, bem como os dados coletados são tratados com ética e confidencialidade desde a aplicação até a compilação dos mesmos e a preparação do laudo.
                 </span>
               </div>
-            </div>
-          )}
+              </div>
+            )}
 
-          {ativo === 'escolas' && selected === 'aporte' && (
-            <div className={styles.infoCard}>
+            {ativo === 'escolas' && selected === 'aporte' && (
+              <div className={styles.infoCard}>
               <h1 style={{
                 color: '#DFA242'
               }}>
@@ -751,8 +693,16 @@ export default function OurServices() {
                   <strong>IMPORTANTE:</strong> O processo de aconselhamento de carreira tem compromisso de confidencialidade entre o psicólogo e o profissional.
                 </span>
               </div>
+              </div>
+            )}
+
+            <div className={styles.sideBanner}>
+              <img alt='ícone maiêutica azul' src={maieuticaIconAzul} className={styles.sideBannerIcon} />
+              <h2>
+                {atual.text}
+              </h2>
             </div>
-          )}
+          </div>
         </div>
       </div>
 

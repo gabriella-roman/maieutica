@@ -1,0 +1,95 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name maieuticarh.com.br www.maieuticarh.com.br;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name maieuticarh.com.br www.maieuticarh.com.br;
+
+    root /usr/share/nginx/www/maieuticarh.com.br;
+    index index.html;
+
+    ssl_certificate /etc/letsencrypt/live/maieuticarh.com.br/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/maieuticarh.com.br/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    access_log /var/log/nginx/maieuticarh-access.log;
+    error_log /var/log/nginx/maieuticarh-error.log;
+
+    include /etc/nginx/snippets/security-headers.conf;
+
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_min_length 256;
+    gzip_types text/plain text/css application/javascript application/json application/xml image/svg+xml font/ttf font/otf application/vnd.ms-fontobject;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location = /index.html {
+        expires off;
+        add_header Cache-Control "no-store, no-cache, must-revalidate" always;
+        include /etc/nginx/snippets/security-headers.conf;
+    }
+
+    location ^~ /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable" always;
+        include /etc/nginx/snippets/security-headers.conf;
+        access_log off;
+    }
+
+    location ^~ /static/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable" always;
+        include /etc/nginx/snippets/security-headers.conf;
+        access_log off;
+    }
+
+    location ~* "\.(?:jpg|jpeg|png|gif|ico|svg|webp|woff|woff2|ttf|eot)$" {
+        expires 30d;
+        add_header Cache-Control "public" always;
+        include /etc/nginx/snippets/security-headers.conf;
+        access_log off;
+    }
+
+    location = /api/contact {
+        proxy_pass ${email_api_protocol}://127.0.0.1:9200/postmsg;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 10s;
+        proxy_read_timeout 30s;
+    }
+
+    location = /abler-api/v1/vacancies {
+        limit_except GET HEAD {
+            deny all;
+        }
+
+        proxy_pass https://api.abler.com.br/v1/vacancies;
+        proxy_http_version 1.1;
+        proxy_ssl_server_name on;
+        proxy_set_header Host api.abler.com.br;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        include /etc/nginx/snippets/abler-auth.conf;
+        proxy_connect_timeout 10s;
+        proxy_read_timeout 30s;
+    }
+
+    location ^~ /abler-api/ {
+        return 404;
+    }
+}

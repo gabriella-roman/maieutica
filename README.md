@@ -1,56 +1,164 @@
-# 🌟 Maieutica Project
+# Maieutica RH Website
 
-## 💼 O que fazemos
+Frontend React for maieuticarh.com.br.
 
-Bem-vindo ao **Maieutica Project**! Somos uma equipe especializada em desenvolvimento profissional e apoio ao setor educacional. Explore nossos serviços abaixo:
+This repository has two distinct flows:
 
-### 📌 **Serviços Oferecidos**
+- Default flow: existing EC2 deployment.
+- Optional flow: provision a new EC2 with Terraform (explicit confirmation required).
 
-#### 🏫 **Processos Seletivos para Escolas**
-🎯 Trabalho personalizado às características de cada escola.
-👩‍⚕️ Conduzido por psicólogos especializados em seleção de educadores.
+## Default production strategy
 
-#### 🧠 **Perfil Psicológico**
-🔍 Ferramenta essencial para avaliação na contratação de profissionais.
-📋 Suporte especializado para decisões assertivas.
+Use existing EC2 and replace only static frontend files.
 
-#### 🛠️ **Aconselhamento de Carreira**
-💡 Reflexão sobre seu momento profissional e metas futuras.
-📝 Reformulação de currículo e feedback personalizado sobre o mercado educacional.
+- Keep current domain and HTTPS (Certbot paths already in use).
+- Keep PM2 process `emailAPI` running.
+- Do not create new AWS resources in routine deployments.
+- Rotate any previously exposed Abler token before publishing.
 
-#### 🌱 **Apoio à Transição Profissional (Outplacement)**
-🤝 Acolhimento e orientação para profissionais em momentos difíceis, como desligamento ou aposentadoria.
+Main guide: `docs/deploy-existing-ec2.md`
+Validation checklist: `docs/pre-deploy-validation.md`
 
-#### 🌍 **Avaliação de Fluência do Idioma Inglês**
-🗣️ Avaliação personalizada da fluência e familiaridade com o idioma.
-✅ Resultados confiáveis para apoiar processos de seleção.
+## Local development
 
----
+```bash
+npm install
+npm run dev
+```
 
-## 🚀 Como usar este projeto
-Este projeto foi criado para apresentar nossos serviços de forma clara e acessível.
+## Production build
 
-### 🖱️ Para acessar os serviços:
-- Navegue pelo site e clique nos ícones correspondentes aos serviços desejados para mais informações.
+```bash
+bash scripts/check-secrets.sh
+npm ci
+npm run build
+CI=true npm run build
+```
 
----
+Build output is auto-detected by deploy script:
 
-## 🤝 Contribuição
-Contribuições são bem-vindas! Para colaborar, abra uma *issue* ou envie um *pull request* com suas sugestões e melhorias.
+- CRA -> `build`
+- Vite -> `dist`
 
----
+## Deploy to existing EC2
 
-## 📜 Licença
-Este projeto está protegido por direitos autorais. Para mais informações sobre uso ou distribuição, entre em contato.
+```bash
+chmod +x scripts/deploy-existing-ec2.sh
+export REMOTE_HOST=52.206.204.172
+export REMOTE_USER=ec2-user
+./scripts/deploy-existing-ec2.sh
+```
 
----
+## Nginx production config
 
-## 📞 Contato
-Se você tiver dúvidas ou precisar de mais informações, fale conosco:
-📧 **E-mail:** contato@maieuticarh.com.br
-🌐 **Site:** [www.maieuticarh.com.br](https://www.maieuticarh.com.br/)
-🔗 **LinkedIn:** [Maieutica RH Educacional](https://www.linkedin.com/company/maieuticarheducacional/)
+Reference files:
 
----
+- `nginx/existing-ec2/maieuticarh.conf.tftpl`
+- `nginx/existing-ec2/security-headers.conf`
+- `nginx/new-ec2/maieuticarh.conf.tftpl`
 
-✨ *Obrigado por confiar no Maieutica Project!*
+Server root expected in production:
+
+- `/usr/share/nginx/www/maieuticarh.com.br`
+
+## Contact API integration
+
+Frontend endpoint:
+
+- `/api/contact`
+
+Nginx proxies internally to:
+
+- `__EMAIL_API_PROTOCOL__://127.0.0.1:9200/postmsg`
+- `/abler-api/v1/vacancies` -> `https://api.abler.com.br/v1/vacancies`
+
+Do not assume protocol. Render config from template after protocol detection:
+
+```bash
+scripts/check-email-api-protocol.sh
+scripts/render-existing-nginx-config.sh
+```
+
+Install Nginx config manually (no automatic deploy):
+
+```bash
+sudo bash scripts/install-nginx-config.sh
+```
+
+Before installation, create `/etc/nginx/snippets/abler-auth.conf` manually with the rotated token.
+
+The Abler proxy is intentionally restricted to read-only vacancy queries used by the frontend.
+
+Temporary compatibility fallback is available by env variables:
+
+- `REACT_APP_ENABLE_LEGACY_EMAIL_FALLBACK`
+- `REACT_APP_LEGACY_EMAIL_API_URL`
+
+See `.env.example`.
+
+## Validation checklist
+
+Local:
+
+```bash
+npm ci
+npm run build
+test -f "${BUILD_DIR}/index.html"
+terraform fmt -check -recursive
+terraform validate
+```
+
+Server:
+
+```bash
+nginx -t
+systemctl status nginx --no-pager
+sudo env PM2_HOME=/root/.pm2 pm2 describe emailAPI
+ss -lntp | grep ':9200'
+curl -I https://maieuticarh.com.br
+curl -I https://www.maieuticarh.com.br
+```
+
+Frontend and API:
+
+- Home page opens with HTTPS.
+- Refresh in React Router routes does not return 404.
+- Assets load correctly.
+- `index.html` is not long cached.
+- Versioned assets are cached long.
+- CRA assets under `/static/` are cached long.
+- Contact form calls `/api/contact`.
+- Job board calls `/abler-api/v1` in production.
+- Real API failures show error (no false success).
+- Browser requests do not carry Abler Authorization directly.
+
+If the domain is configured directly in `/etc/nginx/nginx.conf` or appears in multiple Nginx files, stop and migrate manually before running the installer.
+
+## Rollback
+
+Quick rollback and AMI fallback:
+
+- `docs/rollback.md`
+
+Protected backup directory that must not be removed:
+
+- `/usr/share/nginx/www/maieuticarh.com.br-backup-20260806`
+
+## Terraform module (optional only)
+
+Terraform in `terraform/` is for optional isolated infrastructure creation.
+
+- Do not bind existing production EC2 automatically.
+- Do not run `terraform apply` without explicit human approval.
+- Never run `terraform destroy` in production workflows.
+- New EC2 creation is blocked by default with `confirm_create_new_infrastructure=false`.
+
+Always verify AWS account first:
+
+```bash
+aws sts get-caller-identity
+```
+
+Audit report:
+
+- `docs/terraform-audit.md`

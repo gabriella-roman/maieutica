@@ -1,13 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import styles from "./StatsSection.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronLeft, faChevronRight, faBook, faArrowRight } from "@fortawesome/free-solid-svg-icons"
+import { faArrowRight, faBoxOpen } from "@fortawesome/free-solid-svg-icons"
 import iconeClaro from "../../assets/images/iconec_bge.svg"
 import iconeEscuro from "../../assets/images/iconee_bgc.svg"
-import imgProfessora from "../../assets/images/img-professora.svg"
+import imgProfessora from "../../assets/images/imagem_stats.svg"
 import arrowRight from '../../assets/icons/arrow-right.svg';
 import arrowLeft from '../../assets/icons/arrow-left.svg';
-import stackBooks from "../../assets/icons/stack-of-books 1.svg"
 
 type StatItem = {
   value: string
@@ -62,6 +61,7 @@ function StatCard({ item, className }: { item: StatItem; className?: string }) {
   const animated = useCountUp(num, 2000, visible)
 
   useEffect(() => {
+    const node = ref.current
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -72,10 +72,10 @@ function StatCard({ item, className }: { item: StatItem; className?: string }) {
       { threshold: 0.3 }
     )
 
-    if (ref.current) observer.observe(ref.current)
+    if (node) observer.observe(node)
 
     return () => {
-      if (ref.current) observer.unobserve(ref.current)
+      if (node) observer.unobserve(node)
     }
   }, [])
 
@@ -106,7 +106,7 @@ export function StatsSection({ items }: Props) {
   const data: StatItem[] = useMemo(
     () =>
       items ?? [
-        { value: "+15 anos", captionTop: "de experiência no mercado", variant: "dark" },
+        { value: "+18 anos", captionTop: "de experiência no mercado", variant: "dark" },
         {
           value: "+20k",
           captionTop: "Candidatos",
@@ -130,40 +130,40 @@ export function StatsSection({ items }: Props) {
   const canPrev = index > 0
   const canNext = index < data.length - 1
 
-  const scrollToIndex = (i: number) => {
+  const scrollToIndex = useCallback((i: number) => {
     const track = trackRef.current
     if (!track) return
 
     const clamped = Math.max(0, Math.min(i, data.length - 1))
     setIndex(clamped)
 
-    const firstCard = track.querySelector<HTMLElement>(`.${styles.card}`)
+    const firstCard = track.firstElementChild as HTMLElement | null
     if (!firstCard) return
 
     const gap = parseFloat(getComputedStyle(track).getPropertyValue("--gap") || "18")
     const w = firstCard.getBoundingClientRect().width
     const x = clamped * (w + gap)
     track.scrollTo({ left: x, behavior: "smooth" })
-  }
+  }, [data.length])
 
   useEffect(() => {
     const onResize = () => scrollToIndex(index)
     window.addEventListener("resize", onResize)
     return () => window.removeEventListener("resize", onResize)
-  }, [index])
+  }, [index, scrollToIndex])
 
   const desktopAreas = [styles.areaK1, styles.areaK2, styles.areaK3, styles.areaK4]
 
   return (
     <section className={styles.section} aria-label="Sobre nós e nossos números">
       <div className={styles.aboutWrap}>
-        <div className={styles.badge}>
-          <img src={stackBooks} alt="" aria-hidden className={styles.badgeIcon} />
-          <span>NOSSA HISTÓRIA</span>
+        <div className={styles.aboutBadge}>
+          <span className={styles.aboutBadgeIcon} aria-hidden><FontAwesomeIcon icon={faBoxOpen} /></span>
+          <span>QUEM SOMOS</span>
         </div>
         <h2 className={styles.aboutTitle}>Sobre nós</h2>
         <p className={styles.aboutText}>
-          Há mais de 15 anos realizamos um trabalho especializado e personalizado às
+          Há mais de 18 anos realizamos um trabalho especializado e personalizado às
           características e demandas da escola, com ética na condução do processo
           seletivo e total respeito aos agentes envolvidos: escola e educadores.
         </p>
@@ -198,13 +198,13 @@ export function StatsSection({ items }: Props) {
 
       <div className={styles.desktopGrid}>
         <div className={`${styles.aboutGrid} ${styles.areaAbout}`}>
-          <div className={styles.badge}>
-            <img src={stackBooks} alt="" aria-hidden className={styles.badgeIcon} />
-            <span>NOSSA HISTÓRIA</span>
+          <div className={styles.aboutBadge}>
+            <span className={styles.aboutBadgeIcon} aria-hidden><FontAwesomeIcon icon={faBoxOpen} /></span>
+            <span>QUEM SOMOS</span>
           </div>
           <h2 className={styles.aboutTitle}>Sobre nós</h2>
           <p className={styles.aboutText}>
-            Há mais de 15 anos realizamos um trabalho especializado e personalizado às
+            Há mais de 18 anos realizamos um trabalho especializado e personalizado às
             características e demandas da escola, com ética na condução do processo
             seletivo e total respeito aos agentes envolvidos: escola e educadores.
           </p>
@@ -225,7 +225,7 @@ export function StatsSection({ items }: Props) {
           className={`${styles.imageCard} ${styles.areaImg}`}
           role="img"
           aria-label="Professora"
-          style={{ backgroundImage: `url(${imgProfessora})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+          style={{ backgroundImage: `url(${imgProfessora})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: '#C25450' }}
         />
       </div>
     </section>
